@@ -9,7 +9,8 @@
     "test": "test"
   },
   "scripts": {
-    "start": "webpack --mode=development --watch"
+    "start": "webpack --mode=development --watch",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,10 @@
     "redux-thunk": "^2.3.0",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0"
+  },
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
   },
   "homepage": "https://github.com/hankc97/robinhood#readme"
 }

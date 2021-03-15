@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+    # protect_from_forgery with: :exception
+    skip_forgery_protection # remember to remove later on!!!
     helper_method :current_user, :logged_in?
     
     private
