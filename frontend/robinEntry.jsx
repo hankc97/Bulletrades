@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/root'
 import configureStore from './store/store'
-import {signup} from './utils/user_session_util'
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -22,5 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ReactDOM.render(<Root store = {store}/>, document.getElementById("root"))
     
-    window.signup = signup
+
 })
