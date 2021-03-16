@@ -10,7 +10,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
       <Redirect to="/" />
     )
   )} />
-);
+)
 
 const Protected = ({ component: Component, path, loggedIn, exact }) => (
   <Route path={path} exact={exact} render={(props) => (
@@ -20,7 +20,7 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => (
       <Redirect to="/login" />
     )
   )} />
-);
+)
 
 const mapStateToProps = state => (
   {loggedIn: Boolean(state.session.id)}

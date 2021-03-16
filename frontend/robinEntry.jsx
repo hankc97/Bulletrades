@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/root'
 import configureStore from './store/store'
+import {signupUser} from './actions/user_session'
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let preloadedState = {
             session: { id : window.currentUser.id },
             entities : {
-                users: { [window.currentUser.id]: window.currentUser}
+                currentUser: { [window.currentUser.id]: window.currentUser}
             }
         }
 
@@ -20,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     ReactDOM.render(<Root store = {store}/>, document.getElementById("root"))
-    
 
+    window.getState = store.getState
+    window.dispatch = store.dispatch
+    window.signupUser = signupUser
 })

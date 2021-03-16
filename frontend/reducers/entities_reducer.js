@@ -1,6 +1,9 @@
-import {combineReducer} from 'redux'
-import userSessionReducer from 'user_session_reducer'
+import {combineReducers} from 'redux'
+import userReducer from './user_reducer'
 
-export default combineReducer({
-    userSession: userSessionReducer
+const entities = combineReducers({
+    currentUser: userReducer
 })
+
+
+export default entities
