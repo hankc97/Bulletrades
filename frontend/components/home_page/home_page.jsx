@@ -1,11 +1,15 @@
 import React from 'react'
 
 export const HomePageComponent = () => (
-    <div className = " ">
+    <div className = "home-page-main-div-1">
         <div className = "home-page-top-about">
-                Investing for Everyone
+            <h2>Investing for Everyone</h2>
+            <p>Commission-free investing, plus the tools you need to put
+                your money in motion. Sign up and get your first stock for
+                free. Certain limitations apply.
+            </p>
         </div>
-        <div className = 'home-page-container home-page-background' >
+        <div className = 'home-page-background' >
             <video controlsList="nodownload nofullscreen noremoteplayback"
                     autoPlay 
                     loop 
@@ -24,7 +28,7 @@ export const HomePageComponent = () => (
                     srcSet="https://cdn.robinhood.com/assets/robinhood/brand/_next/static/images/1x__36a396f664677ed80a2459d1dca75f00.png, https://cdn.robinhood.com/assets/robinhood/brand/_next/static/images/2x__c7dcadbbb72fc298e85e94844f68342c.png 2x, https://cdn.robinhood.com/assets/robinhood/brand/_next/static/images/3x__7c5da6ba049983f3558423906f16f0af.png 3x"
                     />
             </video>
-            <div className = "static-image-div-container">
+            <div className = "">
                 <img 
                     className="static-image-home-page" 
                     draggable="false" 
