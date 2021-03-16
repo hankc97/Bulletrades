@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ReactDOM.render(<Root store = {store}/>, document.getElementById("root"))
 
-    // window.getState = store.getState
+    window.getState = store.getState
     // window.dispatch = store.dispatch
     // window.signupUser = signupUser
     // window.logoutUser = logoutUser
