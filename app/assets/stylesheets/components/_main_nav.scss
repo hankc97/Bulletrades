@@ -1,5 +1,5 @@
 .nav-bar-main {
-    border: solid black 1px; 
+    // border: solid black 1px; 
     padding-right: 25px;
     background: white;
     height: 80px;
@@ -9,7 +9,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    box-shadow: 4px; 
+    box-shadow: 0 2px grey;
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;

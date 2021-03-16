@@ -12,13 +12,15 @@
     display: block;
     padding-top: 50px;
     padding-bottom: 50px;
-    padding-left: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
     background: #c3f53c;
 }
 
-
 .home-page-background {
     position: relative;
+    margin-left: 200px;
+    margin-right: 200px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -28,18 +30,15 @@
 }
 
 .home-page-video{
-    display: flex;
     width: 549px;
     height: 477px;
     position: absolute;
     right: 60px;
     top: 20px;
-
 }
 
 
 .static-image-home-page {
-    display: flex;
     width: 549px;
     height: 477px;
     position: absolute;
