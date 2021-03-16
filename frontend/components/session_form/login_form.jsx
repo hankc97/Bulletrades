@@ -1,19 +1,18 @@
 import React from 'react'
 
-class SignupFormContainer extends React.Component {
+class LoginFormUser extends React.Component {
     constructor(props) {
         super(props)
+
         this.state = {
-            first_name: "",
-            last_name: "",
-            email: "",
-            password: "",
+            email: '',
+            password: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleTextChange(type){
+    handleTextChange(type) {
         return e => this.setState({
             [type] : e.target.value
         })
@@ -22,7 +21,7 @@ class SignupFormContainer extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         const user = Object.assign({}, this.state)
-        this.props.signupUser(user)
+        this.props.loginUser(user)
     }
 
     renderErrors() {
@@ -38,43 +37,32 @@ class SignupFormContainer extends React.Component {
     }
 
     render() {
-        return (
-            <div className = "signup-page">
-                <div className = "signup-form-container">
-                    <form onSubmit = {this.handleSubmit} >
-                        <input 
-                            type="text"
-                            placeholder = "First Name"
-                            value = {this.state.first_name}
-                            onChange = {this.handleTextChange("first_name")}
-                        />
-                        <input 
-                            type="text"
-                            placeholder = "Last Name"
-                            value = {this.state.last_name}
-                            onChange = {this.handleTextChange("last_name")}
-                        />
+        return(
+            <div className = "login-page">
+                <div className = "login-form-container">
+                    <form onSubmit = {this.handleSubmit}>
                         <input 
                             type = "email"
                             placeholder = "Email"
                             value = {this.state.email}
-                            onChange= {this.handleTextChange("email")}
+                            onChange = {this.handleTextChange("email")}
                         />
-                        <input
+                        <input 
                             type = "password"
                             placeholder = "Password"
                             value = {this.state.password}
                             onChange = {this.handleTextChange("password")}
                         />
-
-                        <button>Continue</button>
+                        <button>Sign In</button>
                     </form>
                 </div>
                 {this.renderErrors()}
             </div>
         )
-    }   
+    }
+
+
 
 }
 
-export default SignupFormContainer
+export default LoginFormUser
