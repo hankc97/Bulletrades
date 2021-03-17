@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Robinhood</title>
+    <link rel = "icon" href = 'assets/images/bt_icon.ico' >
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,6 +13,7 @@
   <body>
     <script type="text/javascript">
         window.btLogo = "<%= image_url('bt_icon.ico') %>";
+        window.signup_img = "<%= image_url('clay-banks-NPlMmVsC40I-unsplash.jpg') %>"
     </script>
     <%= yield %>
   </body>

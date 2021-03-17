@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 class SignupFormContainer extends React.Component {
     constructor(props) {
@@ -40,35 +41,57 @@ class SignupFormContainer extends React.Component {
     render() {
         return (
             <div className = "signup-page">
+                
                 <div className = "signup-form-container">
-                    <form onSubmit = {this.handleSubmit} >
-                        <input 
-                            type="text"
-                            placeholder = "First Name"
-                            value = {this.state.first_name}
-                            onChange = {this.handleTextChange("first_name")}
-                        />
-                        <input 
-                            type="text"
-                            placeholder = "Last Name"
-                            value = {this.state.last_name}
-                            onChange = {this.handleTextChange("last_name")}
-                        />
-                        <input 
-                            type = "email"
-                            placeholder = "Email"
-                            value = {this.state.email}
-                            onChange= {this.handleTextChange("email")}
-                        />
-                        <input
-                            type = "password"
-                            placeholder = "Password"
-                            value = {this.state.password}
-                            onChange = {this.handleTextChange("password")}
-                        />
-
-                        <button>Continue</button>
+                    <div className = "signup-page-header-logo">
+                        <h2>BulleTrades</h2>
+                    </div>
+                    <div className = "signup-page-mid-nav">
+                        <h2 className = "signup-page-h2">Make Your Money Move</h2>
+                        <h3 className = "signup-page-h3">Robinhood lets you invest in companies you love, commision-free</h3>
+                    </div>
+                    <h4 className = "signup-page-h4">Please enter your full legal name. Your legal name should match any form of government ID</h4>
+                    <form onSubmit = {this.handleSubmit} className = "form-div-signup">
+                        <div className = "full-name-input">
+                            <input 
+                                type="text"
+                                placeholder = "First Name"
+                                value = {this.state.first_name}
+                                onChange = {this.handleTextChange("first_name")}
+                                className = "input-box-signup first-name-input"
+                            />
+                            <input 
+                                type="text"
+                                placeholder = "Last Name"
+                                value = {this.state.last_name}
+                                onChange = {this.handleTextChange("last_name")}
+                                className = "input-box-signup last-name-input"
+                            />
+                        </div>
+                        <div className = "email-password-button-signup">
+                            <input 
+                                type = "email"
+                                placeholder = "Email"
+                                value = {this.state.email}
+                                onChange= {this.handleTextChange("email")}
+                                className = "input-box-signup bottom-inputEP"
+                            />
+                            <input
+                                type = "password"
+                                placeholder = "Password"
+                                value = {this.state.password}
+                                onChange = {this.handleTextChange("password")}
+                                className = "input-box-signup bottom-inputEP"
+                            />
+                            <div className = "continue_login_buttons">
+                                <button className = "continue-button">Continue</button>
+                                <Link to = "/login" className = "login-button-signup" >Log in</Link>
+                            </div>
+                        </div>
                     </form>
+                </div>
+                <div className = "signup-page-img">
+                    <img src = {window.signup_img} />
                 </div>
                 {this.renderErrors()}
             </div>

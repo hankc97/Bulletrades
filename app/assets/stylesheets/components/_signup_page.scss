@@ -1,0 +1,126 @@
+.signup-page {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-around;
+}
+
+.signup-page-img {
+    width: 55%;
+
+    // margin-left: 100px;
+}
+
+.signup-page-header-logo {
+    // position: absolute;
+    font-size: 30px;
+    font-weight: bold;
+    top:40px;
+    padding-left: 4px;
+    padding-bottom: 250px;
+}
+
+.form-div-signup {
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+}
+.signup-form-container {
+    margin-top: 160px;
+    margin-left: 90px;
+   
+}
+
+.signup-page-h2 {
+    font-size: 25px;
+    padding-bottom: 4px;
+}
+
+
+.signup-page-h3 {
+    // font-size: 10px;
+    padding-bottom: 40px;
+    padding-right: 50px;
+}
+
+.signup-page-h4 {
+    font-size: 13px;
+    font-weight: 20;
+    padding-bottom: 5px;
+}
+
+.full-name-input {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.first-name-input {
+    margin-right: 30px;
+    width: 42%;
+    border-radius: 5px;
+}
+
+.last-name-input {
+    width: 42%;
+    border-radius: 5px;
+}
+
+.email-password-button-signup {
+    display: flex;
+    flex-direction: column;
+    width: 89%;
+}
+
+.bottom-inputEP {
+    margin-bottom: 20px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.input-box-signup {
+    background-color: rgb(243, 233, 233)
+}
+
+.continue-button {
+    color: inherit;
+    text-decoration: none;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    background-color: rgb(0, 200, 5);
+    margin-right: 30px;
+}
+
+.login-button-signup {
+    color: inherit;
+    text-decoration: none;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    position: static;
+    text-align: start;
+    white-space: normal;
+}
+
+.login-button-signup:hover {
+    color: lightgreen;
+}
