@@ -24,17 +24,17 @@ class LoginFormUser extends React.Component {
         this.props.loginUser(user)
     }
 
-    renderErrors() {
-        return (
-            <ul>
-                {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
-                        {error}
-                    </li>
-                ))}
-            </ul>
-        )
-    }
+    // renderErrors() {
+    //     return (
+    //         <ul>
+    //             {this.props.errors.map((error, i) => (
+    //                 <li key={`error-${i}`}>
+    //                     {error}
+    //                 </li>
+    //             ))}
+    //         </ul>
+    //     )
+    // }
 
     render() {
         return(
@@ -69,7 +69,7 @@ class LoginFormUser extends React.Component {
                         />
                         <button className = "login-sign-button">Sign In</button>
                     </form>
-                    {this.renderErrors()}
+                    {/* {this.renderErrors()} */}
                 </div>
             </div>
         )
