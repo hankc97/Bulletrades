@@ -45,7 +45,7 @@ class LoginFormUser extends React.Component {
                         sizes="(min-width: 768px) 1440px, 720px" 
                         src="https://cdn.robinhood.com/assets/generated_assets/1e23d6b90f0d905b425ea289de345ab1.jpg" 
                         srcSet="https://cdn.robinhood.com/assets/generated_assets/1e23d6b90f0d905b425ea289de345ab1.jpg 720w, https://cdn.robinhood.com/assets/generated_assets/632fcb3e7ed928b2a960f3e003d10b44.jpg 1440w" 
-                        class="css-1ox8jnp"/>
+                    />
                 </div>
                 
                 <div className = "login-form-container">
