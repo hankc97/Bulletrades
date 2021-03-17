@@ -39,24 +39,38 @@ class LoginFormUser extends React.Component {
     render() {
         return(
             <div className = "login-page">
+                <div className = "login-page-img">
+                    <img aria-hidden="true" 
+                        data-test-id="default-image" 
+                        sizes="(min-width: 768px) 1440px, 720px" 
+                        src="https://cdn.robinhood.com/assets/generated_assets/1e23d6b90f0d905b425ea289de345ab1.jpg" 
+                        srcSet="https://cdn.robinhood.com/assets/generated_assets/1e23d6b90f0d905b425ea289de345ab1.jpg 720w, https://cdn.robinhood.com/assets/generated_assets/632fcb3e7ed928b2a960f3e003d10b44.jpg 1440w" 
+                        class="css-1ox8jnp"/>
+                </div>
+                
                 <div className = "login-form-container">
-                    <form onSubmit = {this.handleSubmit}>
+                    <form className = "form-input" onSubmit = {this.handleSubmit}>
+                        <h1 className = "h1-login">Welcome to Bulletrades</h1>
+                        <p className = "emailoruser-login login-p">Email or Username</p>
                         <input 
                             type = "email"
                             placeholder = "Email"
                             value = {this.state.email}
                             onChange = {this.handleTextChange("email")}
+                            className = "EPinput"
                         />
+                        <p className = "password-login login-p">Password</p>
                         <input 
                             type = "password"
                             placeholder = "Password"
                             value = {this.state.password}
                             onChange = {this.handleTextChange("password")}
+                            className = "EPinput"
                         />
-                        <button>Sign In</button>
+                        <button className = "login-sign-button">Sign In</button>
                     </form>
+                    {this.renderErrors()}
                 </div>
-                {this.renderErrors()}
             </div>
         )
     }
