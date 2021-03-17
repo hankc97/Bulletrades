@@ -51,7 +51,7 @@ group :development do
     gem 'spring-watcher-listen', '~> 2.0.0'
     # gem 'pry-rails'
     # gem 'bcrypt'
-    gem 'pry-rails' # allow us to use pry as our repl, rather than the default repl irb
+    # gem 'pry-rails' # allow us to use pry as our repl, rather than the default repl irb
     gem 'annotate' # allow us to annotate our models so we can see the schema for a model in the model page
     gem 'better_errors'
     gem 'binding_of_caller'
