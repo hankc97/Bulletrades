@@ -11,20 +11,17 @@ import { BrowserRouter as Router} from "react-router-dom";
 const App = () => (
     <div>
         <ProtectedRoute exact path = "/portfolio" component = {PortfolioContainer} />
-        
-        <AuthRoute exact path = "/signup" component= {SignupFormContainer}/>
-        <AuthRoute exact path = "/login" component= {LoginFormContainer}/>
-        <Route exact path = "/" render = { () => 
-            <>
-                <NavBarContainer/>
-                <HomePageComponent/>
-            </>
-        } />
-       
-        <Route exact  path = "*" render = { () => (
+        <Switch>
+            <AuthRoute  path = "/signup" component= {SignupFormContainer}/>
+            <AuthRoute  path = "/login" component= {LoginFormContainer}/>
+            <Route exact path = "/" render = { () => 
+                <>
+                    <NavBarContainer/>
+                    <HomePageComponent/>
+                </>
+            } />
             <Redirect to = "/" />
-        )} />
-            
+        </Switch>
     </div>
 )
 
