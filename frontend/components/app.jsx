@@ -10,7 +10,6 @@ import { BrowserRouter as Router} from "react-router-dom";
 
 const App = () => (
     <div>
-        <ProtectedRoute exact path = "/portfolio" component = {PortfolioContainer} />
         <Switch>
             <AuthRoute  path = "/signup" component= {SignupFormContainer}/>
             <AuthRoute  path = "/login" component= {LoginFormContainer}/>
@@ -20,6 +19,7 @@ const App = () => (
                     <HomePageComponent/>
                 </>
             } />
+            <ProtectedRoute path = "/portfolio" component = {PortfolioContainer} />
             <Redirect to = "/" />
         </Switch>
     </div>
