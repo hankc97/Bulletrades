@@ -14,6 +14,7 @@ const App = () => (
         <ProtectedRoute exact path = "/portfolio" component = {PortfolioContainer} />
         <Route exact path = "/" component = {NavBarContainer} />
         <Route exact path = "/" component = {HomePageComponent} />
+        {/* <Route path = "*" component = {HomePageComponent} /> */}
     </div>
 )
 
