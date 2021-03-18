@@ -26,17 +26,17 @@ class SignupFormContainer extends React.Component {
         this.props.signupUser(user)
     }
 
-    // renderErrors() {
-    //     return (
-    //         <ul>
-    //             {this.props.errors.map((error, i) => (
-    //                 <li key={`error-${i}`}>
-    //                     {error}
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //     )
-    // }
+    renderErrors() {
+        return (
+            <ul>
+                {this.props.errors.map((error, i) => (
+                    <li key={`error-${i}`}>
+                        {error}
+                    </li>
+                ))}
+            </ul>
+        )
+    }
 
     render() {
         return (
@@ -93,7 +93,7 @@ class SignupFormContainer extends React.Component {
                 <div className = "signup-page-img">
                     <img src = {window.signup_img} />
                 </div>
-                {/* {this.renderErrors()} */}
+                {this.renderErrors()}
             </div>
         )
     }   
