@@ -14,8 +14,8 @@ csv.each do |row|
     if row['Company'].include?('Common Stock')
         t = Ticker.new
         t.ticker = row['Ticker']
-        t.company = row['Company'].gsub(/ Common Stock/, "")
+        # t.company = row['Company'].gsub(/ Common Stock/, "")
         t.save
-        puts "#{t.ticker}, #{t.company} saved"
+        puts "#{t.ticker} saved"
     end
 end 
