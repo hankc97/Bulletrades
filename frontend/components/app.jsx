@@ -6,7 +6,6 @@ import {HomePageComponent} from './home_page/home_page'
 import SignupFormContainer from './session_form/signup_form_container'
 import LoginFormContainer from './session_form/login_form_container'
 import PortfolioContainer from './portfolio/portfolio_container'
-import { BrowserRouter as Router} from "react-router-dom";
 
 const App = () => (
     <div>

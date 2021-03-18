@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, NavLink} from 'react-router-dom'
 
-const NavBar = ({currentUser, signupUser, loginUser}) => (
+const NavBarAuth = ({currentUser, signupUser, loginUser}) => (
     <div className = "nav-bar-main">
         <NavBarLeft />
         <NavBarRight login = {loginUser} signup = {signupUser}/>
@@ -33,6 +33,4 @@ class NavBarRight extends React.Component {
 }
 
 
-
-
-export default NavBar
+export default NavBarAuth
