@@ -6,6 +6,7 @@ import {HomePageComponent} from './home_page/home_page'
 import SignupFormContainer from './session_form/signup_form_container'
 import LoginFormContainer from './session_form/login_form_container'
 import PortfolioContainer from './portfolio/portfolio_container'
+import NavBarContainerProtected from './nav_bar_protected/nav_bar_protected_container'
 
 const App = () => (
     <div>
@@ -17,8 +18,8 @@ const App = () => (
                     <NavBarContainer/>
                     <HomePageComponent/>
                 </>
-            } />
-            <ProtectedRoute path = "/portfolio" component = {PortfolioContainer} />
+            }/>
+            <ProtectedRoute path = "/portfolio" component = {NavBarContainerProtected} />
             <Redirect to = "/" />
         </Switch>
     </div>

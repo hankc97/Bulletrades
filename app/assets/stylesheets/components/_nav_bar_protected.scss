@@ -1,0 +1,44 @@
+.nav-bar-protected-main {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px grey;
+
+    @media screen and (max-width: 960px) {
+        transition: 0.8s all ease;
+    }
+}
+
+.nav-bar-protected-logo {
+    justify-self: flex-start;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tickers-input {
+    padding-top: 10px;
+    padding-right: 300px;
+}
+
+.nav-bar-protected-right {
+    padding: 20px;
+}
+
+.protect-right {
+    font-weight: bold;
+    font-size: 14px;
+    padding-right: 21px;
+}
+
+.protect-right:hover {
+    color: lightgreen; 
+}
