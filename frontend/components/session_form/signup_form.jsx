@@ -28,9 +28,9 @@ class SignupFormContainer extends React.Component {
 
     renderErrors() {
         return (
-            <ul>
+            <ul className = "signup-errors-container">
                 {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
+                    <li className = "signup-errors" key={`error-${i}`}>
                         {error}
                     </li>
                 ))}
@@ -38,10 +38,13 @@ class SignupFormContainer extends React.Component {
         )
     }
 
+    componentDidMount() {
+        this.props.clearErrors()
+    }
+
     render() {
         return (
             <div className = "signup-page">
-                
                 <div className = "signup-form-container">
                     <div className = "signup-page-header-logo">
                         <h2>BulleTrades</h2>
@@ -89,11 +92,12 @@ class SignupFormContainer extends React.Component {
                             </div>
                         </div>
                     </form>
+                    {this.renderErrors()}
                 </div>
+                
                 <div className = "signup-page-img">
                     <img src = {window.signup_img} />
                 </div>
-                {this.renderErrors()}
             </div>
         )
     }   

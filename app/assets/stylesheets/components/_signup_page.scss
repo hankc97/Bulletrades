@@ -115,3 +115,13 @@
 .login-button-signup:hover {
     color: lightgreen;
 }
+
+li.signup-errors {
+    color: red;
+    display: list-item;
+    list-style-position: inside;
+    margin-top: 20px;
+    list-style-type: disc;
+    font-size: 17px;
+}
+
