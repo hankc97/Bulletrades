@@ -26,9 +26,9 @@ class LoginFormUser extends React.Component {
 
     renderErrors() {
         return (
-            <ul>
+            <ul className = "login-errors-container">
                 {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
+                    <li key={`error-${i}`} className = "login-errors">
                         {error}
                     </li>
                 ))}
@@ -49,27 +49,29 @@ class LoginFormUser extends React.Component {
                 </div>
                 
                 <div className = "login-form-container">
-                    <form className = "form-input" onSubmit = {this.handleSubmit}>
-                        <h1 className = "h1-login">Welcome to Bulletrades</h1>
-                        <p className = "emailoruser-login login-p">Email or Username</p>
-                        <input 
-                            type = "email"
-                            placeholder = "Email"
-                            value = {this.state.email}
-                            onChange = {this.handleTextChange("email")}
-                            className = "EPinput"
-                        />
-                        <p className = "password-login login-p">Password</p>
-                        <input 
-                            type = "password"
-                            placeholder = "Password"
-                            value = {this.state.password}
-                            onChange = {this.handleTextChange("password")}
-                            className = "EPinput"
-                        />
+                    <form  onSubmit = {this.handleSubmit}>
+                        <div className = "form-input">
+                            <h1 className = "h1-login">Welcome to Bulletrades</h1>
+                            <p className = "emailoruser-login login-p">Email or Username</p>
+                            <input 
+                                type = "email"
+                                placeholder = "Email"
+                                value = {this.state.email}
+                                onChange = {this.handleTextChange("email")}
+                                className = "EPinput"
+                            />
+                            <p className = "password-login login-p">Password</p>
+                            <input 
+                                type = "password"
+                                placeholder = "Password"
+                                value = {this.state.password}
+                                onChange = {this.handleTextChange("password")}
+                                className = "EPinput"
+                            />
+                        </div>
                         <button className = "login-sign-button">Sign In</button>
-                        {this.renderErrors()}
                     </form>
+                    {this.renderErrors()}
                 </div>
             </div>
         )

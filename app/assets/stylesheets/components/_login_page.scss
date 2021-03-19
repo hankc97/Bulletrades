@@ -1,5 +1,8 @@
 .h1-login {
     padding-bottom: 60px;
+    font-weight: bold;
+    font-size: 30px;
+    margin-right: -113px;
 }
 
 .login-page {
@@ -9,10 +12,9 @@
 
 .login-page-img {
     width: 50%;
-    // height: 300px;
 }
 
-.login-form-container {
+.form-input {
     display: flex;
     flex-direction: column;
     margin-left: 70px;
@@ -32,7 +34,7 @@
 .form-input {
     display:flex;
     flex-direction: column;
-    width: 150%;
+    width: 120%;
 }
 
 .login-sign-button {
@@ -49,11 +51,26 @@
     position: relative;
     text-align: center;
     white-space: nowrap;
-    padding: 0px 36px;
+    padding: 0px 50px;
     height: 48px;
-    min-width: 144px;
+    min-width: 100px;
     border-radius: 24px;
     background-color: rgb(0, 200, 5);
-    margin-right: 30px;
+    margin-left: 70px;
     margin-top: 50px;
+}
+
+.login-errors-container {
+
+}
+
+.login-errors {
+    color: red;
+    display: list-item;
+    list-style-position: inside;
+    margin-top: 20px;
+    list-style-type: disc;
+    font-size: 17px;
+    margin-left: 70px;
+    margin-right: -113px;
 }
