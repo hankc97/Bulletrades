@@ -36,6 +36,10 @@ class LoginFormUser extends React.Component {
         )
     }
 
+    componentDidMount() {
+        this.props.clearErrors()
+    }
+
     render() {
         return(
             <div className = "login-page">
