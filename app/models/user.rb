@@ -10,6 +10,7 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  buying_power    :float            default(25000.0), not null
 #
 class User < ApplicationRecord
 
@@ -67,6 +68,11 @@ class User < ApplicationRecord
           self.session_token = new_session_token
         end
         self.session_token
+    end
+
+    def self.update_buying_power(buying_power)
+        self.buying_power = buying_power
+        self.save!
     end
 
 end
