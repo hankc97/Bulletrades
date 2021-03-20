@@ -9,11 +9,10 @@
 #
 class Ticker < ApplicationRecord
 
+    validates :ticker, presence: true
+
     has_many :user_orders,
         foreign_key: :ticker_id,
         class_name: :UserOrder
-
-    
-
 
 end

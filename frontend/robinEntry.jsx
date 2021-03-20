@@ -4,6 +4,7 @@ import Root from './components/root'
 import configureStore from './store/store'
 import {logoutUser} from './actions/user_session'
 import {updateUserForm} from './actions/user_transaction'
+import {addTicker, removeTicker, fetchAllTickers} from './utils/user_order_util'
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
-    window.logoutUser = logoutUser
+    // window.logoutUser = logoutUser
+    // window.addTicker = addTicker
+    // window.removeTicker = removeTicker
+    // window.fetchAllTickers = fetchAllTickers
     // window.updateUserForm = updateUserForm
 })
