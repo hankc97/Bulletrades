@@ -1,0 +1,30 @@
+.portfolio-main-section-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1100px;
+    margin-top: 50px;
+    
+  
+}
+
+.portfolio-main-section-buyingpower {
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+    font-weight: bold;
+    height: 70px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.portfolio-main-section-buyingpower:hover {
+    background: rgb(201, 189, 189)
+}
+
+.prop-input-form {
+    margin-left: 130px;
+    margin-right: 130px;
+    font-size: 15px;
+    font-weight: bold;
+}

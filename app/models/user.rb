@@ -20,6 +20,7 @@ class User < ApplicationRecord
     validates :email, uniqueness: true
     validates :password, length: {minimum: 6}, allow_nil: true
     validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
+    validates :buying_power, :numericality => { :greater_than_or_equal_to => 0 }
 
     before_validation :ensure_session_token
 
@@ -70,9 +71,9 @@ class User < ApplicationRecord
         self.session_token
     end
 
-    def self.update_buying_power(buying_power)
-        self.buying_power = buying_power
-        self.save!
-    end
+    # def self.update_buying_power(buying_power)
+    #     self.buying_power = buying_power
+    #     self.save!
+    # end
 
 end

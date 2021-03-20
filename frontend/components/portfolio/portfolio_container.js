@@ -1,16 +1,16 @@
 import {connect} from 'react-redux'
-import {logoutUser} from '../../actions/user_session'
 import Portfolio from './portfolio'
+import {updateUserForm} from '../../actions/user_transaction'
 
 const mapStateToProps = (state) => ({
-
+    currentUser: state.entities.currentUser[state.session.id]
 })
 
 const mapDispatchToProps = dispatch => ({
-    logoutUser: () => dispatch(logoutUser())
+    updateUser: (userForm) => dispatch(updateUserForm(userForm))
 })
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Portfolio)

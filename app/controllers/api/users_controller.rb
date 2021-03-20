@@ -10,7 +10,17 @@ class Api::UsersController < ApplicationController
     end
 
     def update
-        User.update_buying_power(buying_power_params[:user][:buying_power])
+        @user = User.find_by(id: current_user.id)
+        if @user.update(user_params)
+            render "api/users/show"
+        else
+            render json: ["Insufficient Funds"], status: 404
+        end
+    end
+
+    def show
+        @user = User.find_by(id: params[:id])
+        render "api/users/show"
     end
 
     private
@@ -18,8 +28,8 @@ class Api::UsersController < ApplicationController
         params.require(:user).transform_keys(&:underscore).permit(:first_name, :last_name, :email, :password, :buying_power)
     end
 
-    def buying_power_params
-        params.require(:user).transform_keys(&:underscore).permit(:buying_power)
-    end
+    # def buying_power_params
+    #     params.require(:user).transform_keys(&:underscore).permit(:buying_power)
+    # end
 
 end
