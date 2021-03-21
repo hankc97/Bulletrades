@@ -43,7 +43,6 @@ class NavBarSearch extends React.Component {
 
     componentDidMount() {
         fetchAllTickers().then(data => this.allTickers = Object.keys(data))
-        
         this.registerListener()
     }
 
