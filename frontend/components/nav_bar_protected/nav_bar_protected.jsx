@@ -3,15 +3,17 @@ import {NavLink} from 'react-router-dom'
 import AsyncSelect, { Async } from 'react-select/async'
 import styled from 'styled-components'
 import {fetchAllTickers} from '../../utils/ticker_util'
+import ReactDOM from 'react-dom'
+import {withRouter} from 'react-router-dom'
 
 
-const NavBarProtected = ({logoutUser}) => (
+const NavBarProtected = withRouter(({logoutUser, history}) => (
     <div className = "nav-bar-protected-main">
         <div><img className = "nav-bar-protected-logo" src = {window.btLogo}/></div>
-        <NavBarSearch />
+        <NavBarSearch history={history}/>
         <NavBarRight logoutUser = {logoutUser}/>
     </div>
-)
+))
 
 class NavBarSearch extends React.Component {
     constructor() {
@@ -23,10 +25,26 @@ class NavBarSearch extends React.Component {
         this.loadOptions = this.loadOptions.bind(this)
         this.onChange = this.onChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.node;
+    }
+
+    registerListener() {
+        let that = this;
+        let domNode = ReactDOM.findDOMNode(this.node)
+        
+        domNode.addEventListener('click', function(e) {
+            if (domNode) {
+                if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
+                    that.handleSubmit(e, e.target.innerHTML)
+                }
+            }
+        })
     }
 
     componentDidMount() {
         fetchAllTickers().then(data => this.allTickers = Object.keys(data))
+        
+        this.registerListener()
     }
 
     onChange(selectedTickers){
@@ -45,13 +63,12 @@ class NavBarSearch extends React.Component {
         callback(arr.map(i => ({label: i, value: i})))
     }
 
-    handleSubmit(e) {
-        debugger
-        if (e.key === "Enter") {
-            e.preventDefault()
-            debugger
-            console.log(e)
-        }
+    handleSubmit(e, dropdownChildValue) {
+        e.preventDefault();
+        this.props.history.push({
+            pathname: "/stocks",
+            search: `${dropdownChildValue}`
+        })
     }
 
     render() {
@@ -68,15 +85,14 @@ class NavBarSearch extends React.Component {
         }
         
         return (
-            <Container className = "tickers-input" >
-                <form onSubmit = {this.handleSubmit} onKeyPress = {this.handleSubmit}>
+            <Container className = "tickers-input" ref = {node => this.node = node}>
+                <form onSubmit = {this.handleSubmit} >
                     <AsyncSelect 
                         value = {this.state.selectedTickers}
                         onChange = {this.onChange}
                         placeholder = {'Search Ticker Symbol...'}
                         loadOptions = {this.loadOptions}
                         styles = {styles}
-                        
                     />
                 </form>
             </Container>
@@ -103,13 +119,4 @@ class NavBarRight extends React.Component {
 }
 
 
-
-
-
-
-
-
-
-
-
-export default NavBarProtected
+export default (NavBarProtected)

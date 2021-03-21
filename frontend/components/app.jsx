@@ -7,6 +7,7 @@ import SignupFormContainer from './session_form/signup_form_container'
 import LoginFormContainer from './session_form/login_form_container'
 import PortfolioContainer from './portfolio/portfolio_container'
 import NavBarContainerProtected from './nav_bar_protected/nav_bar_protected_container'
+import Ticker from './stocks/ticker'
 
 const Portfolio = () => (
     <>
@@ -26,8 +27,8 @@ const App = () => (
                     <HomePageComponent/>
                 </>
             }/>
-            
             <ProtectedRoute path = "/portfolio" component = {Portfolio} />
+            <ProtectedRoute path = "/stocks" component = {Ticker} />
             <Redirect to = "/" />
         </Switch>
     </div>
@@ -35,9 +36,3 @@ const App = () => (
 
 export default App
 
-// {/* <ProtectedRoute path = "/portfolio" render = { () =>
-//                 <>
-//                     <NavBarContainerProtected />
-//                     {/* <PortfolioContainer /> */}
-//                 </>
-//             }/>  */}
