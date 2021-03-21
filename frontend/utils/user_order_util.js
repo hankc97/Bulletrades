@@ -13,7 +13,7 @@ export const removeTicker = (userOrderId) => {
     })
 }
 
-export const fetchAllTickers = () => {
+export const fetchAllCurrentUserTickers = () => {
     return $.ajax({
         method: "GET",
         url: 'api/user_orders'

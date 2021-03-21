@@ -1,7 +1,9 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import AsyncSelect, { Async } from 'react-select/async'
-import styled from 'styled-components';
+import styled from 'styled-components'
+import {fetchAllTickers} from '../../utils/ticker_util'
+
 
 const NavBarProtected = ({logoutUser}) => (
     <div className = "nav-bar-protected-main">
@@ -17,21 +19,29 @@ class NavBarSearch extends React.Component {
         this.state = {
             selectedTickers: []
         }
+        this.allTickers = []
+        this.loadOptions = this.loadOptions.bind(this)
+        this.onChange = this.onChange.bind(this)
+    }
+
+    componentDidMount() {
+        fetchAllTickers().then(data => this.allTickers = Object.keys(data))
     }
 
     onChange(selectedTickers){
-        // this.setState({
-        //     selectedTickers: selectedTickers || []
-        // })
+        this.setState({
+            selectedTickers: selectedTickers || []
+        })
     }
 
     loadOptions(inputText, callback) {
-        // const response = await fetch()
-        // const json = await response.json()
+        const arr = [];
+        for (let i = 0; i < this.allTickers.length; i++) {
+            if (arr.length === 7) break;
+            if (this.allTickers[i].startsWith(inputText.toUpperCase())) arr.push(this.allTickers[i]);
+        }
 
-        // callback(json.map(value => ({
-        //     value: value.ticker
-        // })))
+        callback(arr.map(i => ({label: i, value: i})))
     }
 
     render() {
