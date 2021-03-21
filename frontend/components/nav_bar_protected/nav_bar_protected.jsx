@@ -63,11 +63,22 @@ class NavBarSearch extends React.Component {
     }
 
     handleSubmit(e, dropdownChildValue) {
-        e.preventDefault();
-        this.props.history.push({
-            pathname: "/stocks",
-            search: `${dropdownChildValue}`
-        })
+        if ( e.key === 'Enter' ) {
+            e.preventDefault()
+            const enterInnerHTMLValue = e.currentTarget.textContent.replace('  Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu, press Tab to select the option and exit the menu.', '').replace('No options', '')             
+            this.props.history.push({
+                pathname: "/stocks",
+                search: `${enterInnerHTMLValue}`
+            })
+        }
+
+        if (dropdownChildValue) {
+            e.preventDefault();
+            this.props.history.push({
+                pathname: "/stocks",
+                search: `${dropdownChildValue}`
+            })
+        }
     }
 
     render() {
@@ -85,7 +96,7 @@ class NavBarSearch extends React.Component {
         
         return (
             <Container className = "tickers-input" ref = {node => this.node = node}>
-                <form onSubmit = {this.handleSubmit} >
+                <form onKeyPress = {this.handleSubmit} >
                     <AsyncSelect 
                         value = {this.state.selectedTickers}
                         onChange = {this.onChange}
