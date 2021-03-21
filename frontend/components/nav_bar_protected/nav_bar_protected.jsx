@@ -22,6 +22,7 @@ class NavBarSearch extends React.Component {
         this.allTickers = []
         this.loadOptions = this.loadOptions.bind(this)
         this.onChange = this.onChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
@@ -44,6 +45,15 @@ class NavBarSearch extends React.Component {
         callback(arr.map(i => ({label: i, value: i})))
     }
 
+    handleSubmit(e) {
+        debugger
+        if (e.key === "Enter") {
+            e.preventDefault()
+            debugger
+            console.log(e)
+        }
+    }
+
     render() {
         const Container = styled('div')`
             width: 30%;
@@ -59,14 +69,16 @@ class NavBarSearch extends React.Component {
         
         return (
             <Container className = "tickers-input" >
-                <AsyncSelect 
-                    isMulti
-                    value = {this.state.selectedTickers}
-                    onChange = {this.onChange}
-                    placeholder = {'Search Ticker Symbol...'}
-                    loadOptions = {this.loadOptions}
-                    styles = {styles}
-                />
+                <form onSubmit = {this.handleSubmit} onKeyPress = {this.handleSubmit}>
+                    <AsyncSelect 
+                        value = {this.state.selectedTickers}
+                        onChange = {this.onChange}
+                        placeholder = {'Search Ticker Symbol...'}
+                        loadOptions = {this.loadOptions}
+                        styles = {styles}
+                        
+                    />
+                </form>
             </Container>
         )
     }
