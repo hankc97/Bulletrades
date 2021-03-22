@@ -34,6 +34,7 @@ class NavBarSearch extends React.Component {
         domNode.addEventListener('click', function(e) {
             if (domNode) {
                 if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
+                    console.log(e.target.innerHTML)
                     that.handleSubmit(e, e.target.innerHTML)
                 }
             }
@@ -62,6 +63,8 @@ class NavBarSearch extends React.Component {
     }
 
     handleSubmit(e, dropdownChildValue) {
+        console.log(dropdownChildValue)
+
         if ( e.key === 'Enter' ) {
             e.preventDefault()
             const enterInnerHTMLValue = e.currentTarget.textContent.replace('  Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu, press Tab to select the option and exit the menu.', '').replace('No options', '')             
@@ -73,6 +76,7 @@ class NavBarSearch extends React.Component {
 
         if (dropdownChildValue) {
             e.preventDefault();
+            console.log(dropdownChildValue)
             this.props.history.push({
                 pathname: "/stocks",
                 search: `${dropdownChildValue}`
