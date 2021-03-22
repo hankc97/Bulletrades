@@ -26,18 +26,22 @@ class NavBarSearch extends React.Component {
         this.onChange = this.onChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.node;
+        this.myRef = React.createRef()
     }
 
     registerListener() {
+
+        // debugger
         let that = this;
-        let domNode = ReactDOM.findDOMNode(this.node)
+        // let domNode = ReactDOM.findDOMNode(this.node)
+        let domNode = this.myRef.current
         
         domNode.addEventListener('click', function(e) {
             if (domNode) {
                 if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
                     console.log(domNode)
                     console.log(that.node)
-                    debugger
+                    // debugger
                     that.handleSubmit(e, e.target.innerText)
                 }
             }
@@ -101,7 +105,7 @@ class NavBarSearch extends React.Component {
         }
         
         return (
-            <Container className = "tickers-input" ref = {node => this.node = node}>
+            <Container className = "tickers-input" ref = {this.myRef}>
                 <form onKeyPress = {this.handleSubmit} >
                     <AsyncSelect 
                         value = {this.state.selectedTickers}
