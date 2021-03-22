@@ -4,3 +4,4 @@ export const fetchAllTickers = () => {
         url: 'api/tickers'
     })
 }
+

@@ -6,6 +6,7 @@ import {logoutUser} from './actions/user_session'
 import {updateUserForm} from './actions/user_transaction'
 import {addTicker, removeTicker, fetchAllCurrentUserTickers} from './utils/user_order_util'
 import {fetchAllTickers} from './utils/ticker_util'
+import {fetchSingleTickerQuote} from './utils/api_util'
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -27,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
-    window.fetchAllTickers = fetchAllTickers
+    // window.fetchAllTickers = fetchAllTickers
+    window.fetchSingleTickerQuote = fetchSingleTickerQuote
     // window.logoutUser = logoutUser
     // window.addTicker = addTicker
     // window.removeTicker = removeTicker

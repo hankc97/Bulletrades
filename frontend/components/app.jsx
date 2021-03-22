@@ -7,7 +7,7 @@ import SignupFormContainer from './session_form/signup_form_container'
 import LoginFormContainer from './session_form/login_form_container'
 import PortfolioContainer from './portfolio/portfolio_container'
 import NavBarContainerProtected from './nav_bar_protected/nav_bar_protected_container'
-import Ticker from './stocks/ticker'
+import TickerContainer from './stocks/ticker_container'
 
 const HomePageContainer = () => (
     <>
@@ -23,10 +23,10 @@ const Portfolio = () => (
     </>
 )
 
-const TickerContainer = ({location}) => (
+const TickerPage = ({location}) => (
     <>
-    <NavBarContainerProtected />
-    <Ticker location = {location} />
+        <NavBarContainerProtected />
+        <TickerContainer location = {location} />
     </>
 )
 
@@ -37,7 +37,7 @@ const App = () => (
             <AuthRoute  path = "/login" component= {LoginFormContainer}/>
             <AuthRoute exact path = "/" component = {HomePageContainer} />
             <ProtectedRoute path = "/portfolio" component = {Portfolio} />
-            <ProtectedRoute path = "/stocks" component = {TickerContainer} />
+            <ProtectedRoute path = "/stocks" component = {TickerPage} />
             <Redirect to = "/" />
         </Switch>
     </div>
