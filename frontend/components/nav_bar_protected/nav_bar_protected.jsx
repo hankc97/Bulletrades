@@ -18,7 +18,8 @@ class NavBarSearch extends React.Component {
     constructor() {
         super();
         this.state = {
-            selectedTickers: []
+            selectedTickers: [],
+            ticker: ''
         }
         this.allTickers = []
         this.loadOptions = this.loadOptions.bind(this)
@@ -34,8 +35,9 @@ class NavBarSearch extends React.Component {
         domNode.addEventListener('click', function(e) {
             if (domNode) {
                 if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
-                    console.log(e.target.innerHTML)
-                    that.handleSubmit(e, e.target.innerHTML)
+                    console.log(e.target.innerText)
+                    // debugger
+                    that.handleSubmit(e, e.target.innerText)
                 }
             }
         })
