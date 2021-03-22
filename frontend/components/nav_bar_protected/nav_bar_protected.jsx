@@ -6,7 +6,6 @@ import {fetchAllTickers} from '../../utils/ticker_util'
 import ReactDOM from 'react-dom'
 import {withRouter} from 'react-router-dom'
 
-
 const NavBarProtected = withRouter(({logoutUser, history}) => (
     <div className = "nav-bar-protected-main">
         <div><img className = "nav-bar-protected-logo" src = {window.btLogo}/></div>

@@ -9,6 +9,13 @@ import PortfolioContainer from './portfolio/portfolio_container'
 import NavBarContainerProtected from './nav_bar_protected/nav_bar_protected_container'
 import Ticker from './stocks/ticker'
 
+const HomePageContainer = () => (
+    <>
+        <NavBarContainer/>
+        <HomePageComponent/>
+    </>
+)
+
 const Portfolio = () => (
     <>
         <NavBarContainerProtected />
@@ -16,26 +23,19 @@ const Portfolio = () => (
     </>
 )
 
-class TickerContainer extends React.Component  {
-    render(){
-        return <>
-        <NavBarContainerProtected />
-        <Ticker props = {this.props} />
-        </>
-    }
-}
+const TickerContainer = ({location}) => (
+    <>
+    <NavBarContainerProtected />
+    <Ticker location = {location} />
+    </>
+)
 
 const App = () => (
     <div>
         <Switch>
             <AuthRoute  path = "/signup" component= {SignupFormContainer}/>
             <AuthRoute  path = "/login" component= {LoginFormContainer}/>
-            <Route exact path = "/" render = { () => 
-                <>
-                    <NavBarContainer/>
-                    <HomePageComponent/>
-                </>
-            }/>
+            <AuthRoute exact path = "/" component = {HomePageContainer} />
             <ProtectedRoute path = "/portfolio" component = {Portfolio} />
             <ProtectedRoute path = "/stocks" component = {TickerContainer} />
             <Redirect to = "/" />

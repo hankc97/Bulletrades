@@ -8,7 +8,6 @@ class LoginFormUser extends React.Component {
             email: '',
             password: ''
         }
-
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -18,9 +17,14 @@ class LoginFormUser extends React.Component {
         })
     }
 
-    handleSubmit(e) {
+    handleSubmit(e, demoUser) {
         e.preventDefault()
-        const user = Object.assign({}, this.state)
+        let user;
+        if (demoUser) {
+            user = demoUser
+        } else {
+            user = Object.assign({}, this.state)
+        }
         this.props.loginUser(user)
     }
 
@@ -51,7 +55,6 @@ class LoginFormUser extends React.Component {
                         srcSet="https://cdn.robinhood.com/assets/generated_assets/1e23d6b90f0d905b425ea289de345ab1.jpg 720w, https://cdn.robinhood.com/assets/generated_assets/632fcb3e7ed928b2a960f3e003d10b44.jpg 1440w" 
                     />
                 </div>
-                
                 <div className = "login-form-container">
                     <form  onSubmit = {this.handleSubmit}>
                         <div className = "form-input">
@@ -74,15 +77,15 @@ class LoginFormUser extends React.Component {
                             />
                         </div>
                         <button className = "login-sign-button">Sign In</button>
+                        <button className = "DEMO-login-button" 
+                                onClick = {(e) => this.handleSubmit(e, {email: 'demo@yahoo.com', password : "password"})}
+                        >Demo</button>
                     </form>
                     {this.renderErrors()}
                 </div>
             </div>
         )
     }
-
-
-
 }
 
 export default LoginFormUser
