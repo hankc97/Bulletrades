@@ -64,7 +64,7 @@ class NavBarSearch extends React.Component {
         const arr = [];
         for (let i = 0; i < this.allTickers.length; i++) {
             if (arr.length === 7) break;
-            if (this.allTickers[i].startsWith(inputText.toUpperCase())) arr.push( <li onClick = {(e) => this.handleClick(e)}>{this.allTickers[i]}</li>);
+            if (this.allTickers[i].startsWith(inputText.toUpperCase())) arr.push( <li className = "dropdown-menu-li-children" onClick = {(e) => this.handleClick(e)}>{this.allTickers[i]}</li>);
             
         }
 
