@@ -35,7 +35,7 @@ class NavBarSearch extends React.Component {
         domNode.addEventListener('click', function(e) {
             if (domNode) {
                 if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
-                    console.log(e.target)
+                    console.log(domNode)
                     // debugger
                     that.handleSubmit(e, e.target.innerText)
                 }
