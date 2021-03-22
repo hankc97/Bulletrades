@@ -16,6 +16,15 @@ const Portfolio = () => (
     </>
 )
 
+class TickerContainer extends React.Component  {
+    render(){
+        return <>
+        <NavBarContainerProtected />
+        <Ticker props = {this.props} />
+        </>
+    }
+}
+
 const App = () => (
     <div>
         <Switch>
@@ -28,7 +37,7 @@ const App = () => (
                 </>
             }/>
             <ProtectedRoute path = "/portfolio" component = {Portfolio} />
-            <ProtectedRoute path = "/stocks" component = {Ticker} />
+            <ProtectedRoute path = "/stocks" component = {TickerContainer} />
             <Redirect to = "/" />
         </Switch>
     </div>
