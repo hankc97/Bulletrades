@@ -27,6 +27,7 @@ class NavBarSearch extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.node;
         this.myRef = React.createRef()
+        this.handleClick = this.handleClick.bind(this)
     }
 
     registerListener() {
@@ -39,8 +40,8 @@ class NavBarSearch extends React.Component {
         domNode.addEventListener('click', function(e) {
             if (domNode) {
                 if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
-                    console.log(domNode)
-                    console.log(that.node)
+                    // console.log(domNode)
+                    // console.log(that.myRef.current)
                     // debugger
                     that.handleSubmit(e, e.target.innerText)
                 }
@@ -63,14 +64,15 @@ class NavBarSearch extends React.Component {
         const arr = [];
         for (let i = 0; i < this.allTickers.length; i++) {
             if (arr.length === 7) break;
-            if (this.allTickers[i].startsWith(inputText.toUpperCase())) arr.push(this.allTickers[i]);
+            if (this.allTickers[i].startsWith(inputText.toUpperCase())) arr.push( <li onClick = {(e) => this.handleClick(e)}>{this.allTickers[i]}</li>);
+            
         }
 
-        callback(arr.map(i => ({label: i, value: i})))
+        callback(arr.map(i => ({label: i,value: i})))
     }
 
     handleSubmit(e, dropdownChildValue) {
-        console.log(dropdownChildValue)
+        // console.log(dropdownChildValue)
 
         if ( e.key === 'Enter' ) {
             e.preventDefault()
@@ -83,12 +85,22 @@ class NavBarSearch extends React.Component {
 
         if (dropdownChildValue) {
             e.preventDefault();
-            console.log(dropdownChildValue)
+            // console.log(dropdownChildValue)
             this.props.history.push({
                 pathname: "/stocks",
                 search: `${dropdownChildValue}`
             })
         }
+    }
+
+    handleClick(e) {
+        e.preventDefault()
+        const currentTargetValue = e.currentTarget.innerText 
+
+        this.props.history.push({
+            pathname: "/stocks",
+            search: `${currentTargetValue}`
+        })
     }
 
     render() {
@@ -113,6 +125,7 @@ class NavBarSearch extends React.Component {
                         placeholder = {'Search Ticker Symbol...'}
                         loadOptions = {this.loadOptions}
                         styles = {styles}
+                        innerProps = {this.handleClick}
                     />
                 </form>
             </Container>
