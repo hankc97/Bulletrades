@@ -27,7 +27,6 @@
     padding-bottom: 4px;
 }
 
-
 .signup-page-h3 {
     padding-bottom: 40px;
     padding-right: 50px;
@@ -49,13 +48,37 @@
 
 .first-name-input {
     margin-right: 30px;
-    width: 42%;
+    width: 37.9%;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid grey 1px;
     border-radius: 5px;
 }
 
+.first-name-input:hover {
+    background-color: white;
+}
+
+.first-name-input:focus {
+    border: 1px solid limegreen;
+}
+
 .last-name-input {
-    width: 42%;
+    width: 37.9%;
     border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid grey 1px;
+    border-radius: 5px;
+}
+
+.last-name-input:hover {
+    background-color: white;
+}
+
+.last-name-input:focus {
+    border: 1px solid limegreen;
 }
 
 .email-password-button-signup {
@@ -68,6 +91,18 @@
     margin-bottom: 20px;
     height: 30px;
     border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid grey 1px;
+    border-radius: 5px;
+}
+
+.bottom-inputEP:hover {
+    background-color: white;
+}
+
+.bottom-inputEP:focus {
+    border: 1px solid limegreen;
 }
 
 .input-box-signup {
@@ -94,6 +129,10 @@
     border-radius: 24px;
     background-color: rgb(0, 200, 5);
     margin-right: 30px;
+}
+
+.continue-button:hover {
+    background-color: rgb(0, 180, 5);
 }
 
 .login-button-signup {

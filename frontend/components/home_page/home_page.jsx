@@ -3,7 +3,10 @@ import React from 'react'
 export const HomePageComponent = () => (
     <div className = "home-page-main-div-1">
         <div className = "home-page-top-about">
-            <h2 className = "top-about1" >Investing for Everyone</h2>
+            <h2 className = "top-about1" >
+                                        Investing for 
+                                        <br/>
+                                        Everyone</h2>
             <p className = "top-about2">Commission-free investing, plus the tools you need to put
                 your money in motion. Sign up and get your first stock for
                 free. Certain limitations apply.

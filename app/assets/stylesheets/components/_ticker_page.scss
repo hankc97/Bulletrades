@@ -1,4 +1,23 @@
-.ticker_page {
+.ticker-chart-container {
     font-weight: bold;
     font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 36px;
+    width: 1100px;
+    margin: 0 auto;
+    font-family: "Capsule Sans Text", sans-serif;
+    
+}
+
+.chart-top {
+    padding-bottom: 10px;
+}
+
+.chart-ticker-mark-price {
+    font-size: 23px;
+} 
+
+.chart-ticker-change-percentage {
+    font-size: 15px;
 }
