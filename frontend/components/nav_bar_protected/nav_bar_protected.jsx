@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom'
 
 const NavBarProtected = withRouter(({logoutUser, history}) => (
     <div className = "nav-bar-protected-main">
-        <div><img className = "nav-bar-protected-logo" src = {window.btLogo}/></div>
+        <NavLink to = "/portfolio" ><img className = "nav-bar-protected-logo" src = {window.btLogo}/></NavLink>
         <NavBarSearch history={history}/>
         <NavBarRight logoutUser = {logoutUser}/>
     </div>
@@ -31,18 +31,13 @@ class NavBarSearch extends React.Component {
     }
 
     registerListener() {
-
-        // debugger
         let that = this;
-        // let domNode = ReactDOM.findDOMNode(this.node)
         let domNode = this.myRef.current
         
         domNode.addEventListener('click', function(e) {
             if (domNode) {
                 if ((e.target.parentElement.className.match('MenuList') !== null) && e.target.parentElement.className.match('MenuList')[0] === 'MenuList'){
-                    // console.log(domNode)
-                    // console.log(that.myRef.current)
-                    // debugger
+         
                     that.handleSubmit(e, e.target.innerText)
                 }
             }
@@ -71,7 +66,6 @@ class NavBarSearch extends React.Component {
     }
 
     handleSubmit(e, dropdownChildValue) {
-        // console.log(dropdownChildValue)
 
         if ( e.key === 'Enter' ) {
             e.preventDefault()
@@ -84,7 +78,6 @@ class NavBarSearch extends React.Component {
 
         if (dropdownChildValue) {
             e.preventDefault();
-            // console.log(dropdownChildValue)
             this.props.history.push({
                 pathname: "/stocks",
                 search: `${dropdownChildValue}`
@@ -125,6 +118,7 @@ class NavBarSearch extends React.Component {
                         loadOptions = {this.loadOptions}
                         styles = {styles}
                         innerProps = {this.handleClick}
+                        isClearable = {true}
                     />
                 </form>
             </Container>
