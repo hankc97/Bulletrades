@@ -2,12 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/root'
 import configureStore from './store/store'
-import {logoutUser} from './actions/user_session'
-import {updateUserForm} from './actions/user_transaction'
-import {addTicker, removeTicker, fetchAllCurrentUserTickers} from './utils/user_order_util'
-import {fetchAllTickers} from './utils/ticker_util'
-import {fetchSingleTickerQuote, fetchSingleTickerKeyStat} from './utils/api_util'
-import {requestSingleTickerQuote} from './actions/ticker_api'
+// import {createUserOrder, updateUserOrder, deleteUserOrder} from './utils/user_transaction_util'
+// import {receiveNewOrderForm, updateUserOrderForm} from './actions/user_transaction'
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -29,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
+    // window.receiveNewOrderForm = receiveNewOrderForm
+    // window.updateUserOrderForm = updateUserOrderForm
+    // window.createUserOrder = createUserOrder
+    // window.updateUserOrder = updateUserOrder
+    // window.deleteUserOrder = deleteUserOrder
     // window.fetchSingleTickerKeyStat = fetchSingleTickerKeyStat
     // window.requestSingleTickerQuote = requestSingleTickerQuote
     // window.fetchAllTickers = fetchAllTickers

@@ -1,4 +1,5 @@
 import React from 'react'
+import SideBarTicker from './sidebar/sidebar_ticker'
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceArea} from 'recharts';
 
 class Ticker extends React.Component {
@@ -9,12 +10,17 @@ class Ticker extends React.Component {
     render() {
         return (
             <div className = "main-ticker-page-container">
-                <TickerChart 
+                <TickerChartAbout 
                     requestSingleTickerQuote = {this.props.requestSingleTickerQuote} 
                     requestSingleTickerKeyStat = {this.props.requestSingleTickerKeyStat}
                     requestSingleTickerCompany = {this.props.requestSingleTickerCompany}
                     tickerName = {this.props.tickerName} 
                     quote = {this.props.quote}
+                />
+                <SideBarTicker 
+                    currentUser = {this.props.currentUser}
+                    markPrice = {this.props.quote.markPrice}
+                    
                 />
             </div>
         )
@@ -22,7 +28,7 @@ class Ticker extends React.Component {
 }
 
 
-class TickerChart extends React.Component {
+class TickerChartAbout extends React.Component {
     constructor(props) {
         super(props)
 

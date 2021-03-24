@@ -5,3 +5,26 @@ export const updateUser = user => {
         data: {user}
     })
 } 
+
+export const createUserOrder = user_orders => {
+    return $.ajax({
+        url: `/api/user_orders`,
+        method: "POST",
+        data: {user_orders}
+    })
+}
+
+export const updateUserOrder = (user_orders, user_buying_power) => {
+    return $.ajax({
+        url: `api/user_orders/${user_orders.user_id}`,
+        method: "PATCH",
+        data: {user_orders, user_buying_power}
+    })
+}
+
+export const deleteUserOrder = (tickerId) => {
+    return $.ajax({
+        url: `api/user_orders/${tickerId}`,
+        method: "DELETE",
+    })
+}
