@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Ticker from './ticker'
-import {requestSingleTickerQuote} from '../../actions/ticker_api'
-import {formatOneDayTickerData} from '../../reducers/selectors'
+import {requestSingleTickerQuote, requestSingleTickerKeyStat, requestSingleTickerCompany} from '../../actions/ticker_api'
+// import {formatOneDayTickerData} from '../../reducers/selectors'
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -13,9 +13,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    requestSingleTickerQuote: (tickerName) => dispatch(requestSingleTickerQuote(tickerName))
+    requestSingleTickerQuote: (tickerName) => dispatch(requestSingleTickerQuote(tickerName)),
+    requestSingleTickerKeyStat: (tickerName) => dispatch(requestSingleTickerKeyStat(tickerName)),
+    requestSingleTickerCompany: (tickerName) => dispatch(requestSingleTickerCompany(tickerName))
 })
-
 
 export default connect(
     mapStateToProps,

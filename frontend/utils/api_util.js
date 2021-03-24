@@ -15,5 +15,19 @@ export const fetchSingleTickerQuote = (ticker) => {
     return $.ajax({
         method: "GET",
         url: `https://sandbox.iexapis.com/stable/stock/${ticker}/batch?types=quote,intraday-prices&token=${apiKey}`
-    });
-};
+    })
+}
+
+export const fetchSingleTickerKeyStat = ticker => {
+    return $.ajax({
+        method: "GET",
+        url: `https://sandbox.iexapis.com/stable/stock/${ticker}/stats?token=${apiKey}`
+    })
+}
+
+export const fetchSingleTickerCompany = ticker => {
+    return $.ajax({
+        method: "GET",
+        url: `https://sandbox.iexapis.com/stable//stock/${ticker}/company?token=${apiKey}`
+    })
+}

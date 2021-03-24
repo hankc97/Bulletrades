@@ -1,12 +1,18 @@
+.main-ticker-page-container{
+    display: flex;
+    flex-direction: row;
+    width: 1125px;
+    margin: 0 auto;
+    padding-top: 36px;
+}
+
 .ticker-chart-container {
     font-weight: bold;
     font-size: 30px;
     display: flex;
     flex-direction: column;
-    padding-top: 36px;
-    width: 1125px;
-    margin: 0 auto;
     font-family: "Capsule Sans Text", sans-serif;
+    margin-right: 350px;
 }
 
 .chart-top-about {
@@ -24,6 +30,33 @@
 .linechart-container {
     margin-top: 40px;
     margin-left: -5px;
+}
+
+.ticker-about-word {
+    font-size: 24px;
+    font-family: "Capsule Sans Text", sans-serif;
+    padding: 50px 0px 16px;
+    border-bottom: 1px solid black;
+}
+
+.ticker-about-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticker-about-upperdiv {
+    display: flex;
+    flex-direction: row;
+    font-family: "Capsule Sans Text", sans-serif;
+    font-size: 13px;
+    padding-top: 40px;
+    
+}
+
+.inner-upperdiv {
+    padding-right: 40px;
+    line-height: 25px;
+
 }
 
 

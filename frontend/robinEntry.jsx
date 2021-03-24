@@ -6,7 +6,7 @@ import {logoutUser} from './actions/user_session'
 import {updateUserForm} from './actions/user_transaction'
 import {addTicker, removeTicker, fetchAllCurrentUserTickers} from './utils/user_order_util'
 import {fetchAllTickers} from './utils/ticker_util'
-import {fetchSingleTickerQuote} from './utils/api_util'
+import {fetchSingleTickerQuote, fetchSingleTickerKeyStat} from './utils/api_util'
 import {requestSingleTickerQuote} from './actions/ticker_api'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
+    // window.fetchSingleTickerKeyStat = fetchSingleTickerKeyStat
     // window.requestSingleTickerQuote = requestSingleTickerQuote
     // window.fetchAllTickers = fetchAllTickers
     // window.fetchSingleTickerQuote = fetchSingleTickerQuote
