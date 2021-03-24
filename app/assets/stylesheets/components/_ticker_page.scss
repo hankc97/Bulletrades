@@ -56,7 +56,18 @@
 .inner-upperdiv {
     padding-right: 40px;
     line-height: 25px;
-
 }
 
+.ticker-about-lowerdiv {
+    display: flex;
+    flex-direction: row;
+    font-family: "Capsule Sans Text", sans-serif;
+    font-size: 13px;
+    padding-top: 40px;
+}
+
+.inner-lowerdiv {
+    padding-right: 75px;
+    line-height: 25px;
+}
 

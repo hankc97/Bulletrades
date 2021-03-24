@@ -97,11 +97,11 @@ class TickerChart extends React.Component {
                         <span className = "inner-upperdiv">Exchange<br/>{this.props.quote.exchange}</span>
                         <span className = "inner-upperdiv">Phone<br/>{this.props.quote.phone}</span>
                     </div>
-                    <div>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div className = "ticker-about-lowerdiv">
+                        <span className = "inner-lowerdiv">Market Cap<br/>{this.props.quote.marketcap}</span>
+                        <span className = "inner-lowerdiv">Next Earnings Date<br/>{this.props.quote.nextEarningDate}</span>
+                        <span className = "inner-lowerdiv">30-Day Volume<br/>{this.props.quote.monthlyVolume}</span>
+                        <span className = "inner-lowerdiv">Shares Outstanding<br/>{this.props.quote.sharesOutstanding}</span>
                     </div>
                 </div>
             </div>
