@@ -48,7 +48,11 @@ class TickerChart extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.tickerName !== this.props.tickerName) {
-            this.props.requestSingleTickerQuote(this.props.tickerName)
+            this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
+                this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
+                    this.props.requestSingleTickerCompany(this.props.tickerName)
+                )
+            )
         }
     }
 
