@@ -20,13 +20,12 @@ class Ticker extends React.Component {
                 <SideBarTicker 
                     currentUser = {this.props.currentUser}
                     markPrice = {this.props.quote.markPrice}
-                    
+                    tickerName = {this.props.tickerName}
                 />
             </div>
         )
     }
 }
-
 
 class TickerChartAbout extends React.Component {
     constructor(props) {
@@ -114,9 +113,5 @@ class TickerChartAbout extends React.Component {
         )
     }
 }
-
-// class TickerAbout extends React.Component {
-
-// }
 
 export default Ticker
