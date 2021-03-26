@@ -18,7 +18,7 @@ class TickerIndexItem extends React.Component {
                 
                 <LineChart width={75} height={30} data={(this.props.data)}
                     className = "smaller-chart"
-                    margin={{top: 5, right: 5, bottom: 5, left: 5}} className='line-chart'>
+                    margin={{top: 5, right: 5, bottom: 5, left: 5}} >
                     <XAxis hide={true} dataKey = "time"/>
                     <YAxis hide={true} type='number' domain={['auto', 'auto']}/>
                     <Line type="linear" dataKey="price" stroke='#32cd32' dot={false}

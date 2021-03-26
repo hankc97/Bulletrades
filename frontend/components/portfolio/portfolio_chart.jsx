@@ -8,7 +8,7 @@ class PortfolioChart extends React.Component {
     
     render() {
         return(
-            <LineChart width={750} height={300} data={(this.props.data)}
+            <LineChart width={700} height={300} data={(this.props.data)}
                 className = "chart-port"
                 margin={{top: 5, right: 5, bottom: 5, left: 5}} className='line-chart'>
                 <XAxis hide={true} dataKey = "time"/>

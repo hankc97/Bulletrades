@@ -84,9 +84,14 @@ class PortfolioMainSection extends React.Component {
     constructor(props) {
         super(props)
 
+        // this.state = {
+        //     active: false
+        // }
+
         this.state = this.props.currentUser
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     handleChange(e) {
@@ -100,21 +105,32 @@ class PortfolioMainSection extends React.Component {
         this.props.updateUser(this.state)
     }
 
+    handleClick() {
+        return;
+        const currentState = this.state.active
+        this.setState({active: !currentState})
+    }
+
     render() {
         const {currentUser} = this.props
 
         return(
             <div className = "portfolio-main-section-buyingpower">
-                <span className = 'buying-power-in'>Buying Power</span>
-                <form onSubmit = {this.handleSubmit} className = "prop-input-form">
-                    <input 
-                        type = "text"
-                        placeholder = {'Enter Buying Power Here...'}
-                        onChange = {this.handleChange}
-                    />
-                    <button>Submit Buying Power</button>
-                </form>
-                <span>${currentUser.buyingPower.toFixed(2)}</span>  
+                <div className = "active-buyingpower">
+                    <span className = 'buying-power-in'>Buying Power</span>
+                    <span className = "">${currentUser.buyingPower.toFixed(2)}</span>  
+                </div>
+                <div 
+                        onClick = {this.handleClick}>
+                    <form onSubmit = {this.handleSubmit} className = "prop-input-form-inactive form-toggle-aa" >
+                        <input 
+                            type = "text"
+                            placeholder = {'Add Funds...'}
+                            onChange = {this.handleChange}
+                        />
+                        <button className = "deposit-funds-button">Deposit Funds</button>
+                    </form>
+                </div>
             </div>
         )
 
