@@ -4,7 +4,7 @@ BulleTrading
 
 Table of Contents
 ------
-* [Background](## Background)
+* [Background](##Background)
 * [Technologies](Technologies)
 
 ## Background
