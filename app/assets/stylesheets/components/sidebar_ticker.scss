@@ -1,0 +1,161 @@
+.main-sidebar-container {
+    height: 100vh;
+    width: 280;
+    position: relative;
+    left:-230px;
+}
+
+.main-inner-sidebar-container {
+    // background-color: rgb(31, 31, 31);
+    position: fixed;
+    height: fit-content;
+    width: 280px;
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    border-radius: 5px;
+    margin-top: 25px;
+    box-sizing: border-box;
+    display: block;
+}
+
+.sidebar-top-section {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.514);
+    height: 55px;
+}
+
+.sidebar-buy-button-solo {
+    font-weight: 600;
+    font-size: 17px;
+    max-height: 60px;
+}
+
+.sidebar-buyorsell-option {
+    display: flex;
+}
+
+.sidebar-buy-button-option {
+    font-size: 17px;
+    font-weight: 600;
+    max-height: 60px;
+    z-index: 5;
+}
+
+.sidebar-sell-button-option {
+    font-size: 17px;
+    font-weight: 600;
+    max-height: 60px;
+    z-index: 5;
+}
+
+.sidebar-form-inner-container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 25px 0 25px;
+    min-height: 95px;
+    height: 100%;
+    position: relative; 
+    top: -55px;
+    font-size: 15px;
+}
+
+.invest-in-select-sharesordollars-inputform {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 59px;
+}
+
+.invest-in-input-label {
+    height: 38px;
+    line-height: 38px;
+}
+
+.invest-in-input-select {
+    outline: none;
+    height: 38px;
+    width: 130px;
+    padding: 1px 4px;
+    background-color: rgb(31, 31, 31);
+    border: 1px solid rgba(128, 128, 128, 0.514);
+    border-radius: 5px;
+    color: white;
+    transition: box-shadow 0.5s ease-out;
+}
+
+.invest-in-input-select:hover {
+    box-shadow: 0px 2px 25px 0px #C7E8B0;
+    transition: box-shadow 0.2s ease-in;
+    cursor: pointer;
+}
+
+.invest-in-options {
+    color: white;
+}
+
+.shares-form-inner {
+    width: 100%;
+    height: 241px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 68px
+}
+
+.share-label-input, .share-market-price, .share-estimated-cost {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    line-height: 48px;
+}
+
+.share-market-price {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.514);
+}
+
+.shares-input-box {
+    width: 80px;
+    height: 28px;
+    padding: 16px 10px;
+    background-color: rgba(211, 211, 211, 0.151);
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid rgba(211, 211, 211, 0.151);
+    text-align: right;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.shares-input-box:hover {
+    background-color: rgba(211, 211, 211, 0);
+}
+
+.share-button-inner {
+    width: 100%;
+    height: 45px;
+    padding: 15px;
+    color: black;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    bottom: 20px;
+    margin-top: 36px;
+    line-height: 15px;
+}
+
+.sidebar-form-bottom-availability {
+    text-align: center;
+    border-top: 1px solid rgba(128, 128, 128, 0.514);
+    padding: 10px;
+    position: relative;
+    bottom: -52px;
+    left: -25px;
+    width: 122%;
+    font-size: 14px;
+}

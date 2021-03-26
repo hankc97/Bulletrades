@@ -1,7 +1,8 @@
 import {updateUser} from '../utils/user_transaction_util'
 import {receiveCurrentUser} from './user_session'
-import {createUserOrder, updateUserOrder, deleteUserOrder} from '../utils/user_transaction_util'
+import {fetchCurrentUserOrders, createUserOrder, updateUserOrder, deleteUserOrder} from '../utils/user_transaction_util'
 
+export const RECEIVE_ALL_CURRENT_USER_ORDERS = "RECEIVE_ALL_CURRENT_USER_ORDERS" 
 export const RECEIVE_USER_UPDATE_ERRORS = 'RECEIVE_USER_UPDATE_ERRORS'
 export const RECEIVE_NEW_USER_ORDER = "RECEIVE_NEW_USER_ORDER"
 export const RECEIVE_UPDATED_USER_ORDER = "RECEIVE_UPDATED_USER_ORDER"
@@ -13,9 +14,14 @@ const receiveUserUpdateErrors = errors => ({
     errors
 })
 
-const receiveNewUserOrder = userOrder => ({
+const receiveAllUserOrders = userOrders => ({
+    type: RECEIVE_ALL_CURRENT_USER_ORDERS,
+    userOrders
+})
+
+const receiveNewUserOrder = payload => ({
     type: RECEIVE_NEW_USER_ORDER,
-    userOrder
+    payload
 })
 
 const receiveUpdatedUserOrder = payload => ({
@@ -42,8 +48,16 @@ export const updateUserForm = formUser => dispatch => (
     )
 )
 
-export const receiveNewOrderForm = newUserOrderForm => dispatch => (
-    createUserOrder(newUserOrderForm).then(userOrder => dispatch(receiveNewUserOrder(userOrder)),
+export const receiveAllCurrentUserOrders = () => dispatch => (
+    fetchCurrentUserOrders().then(userOrders => dispatch(receiveAllUserOrders(userOrders)),
+        err => (
+            dispatch(receiveUserUpdateErrors(err.responseJSON))
+        )
+    )
+)
+
+export const receiveNewOrderForm = (newUserOrderForm, user_buying_power) => dispatch => (
+    createUserOrder(newUserOrderForm, user_buying_power).then(userOrder => dispatch(receiveNewUserOrder(userOrder)),
         err => (
             dispatch(receiveUserUpdateErrors(err.responseJSON))
         )

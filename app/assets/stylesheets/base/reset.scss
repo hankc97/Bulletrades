@@ -16,7 +16,10 @@ span, article, footer, time, small {
   box-sizing: inherit;
   background: transparent;
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 ul {
   list-style: none;
 }

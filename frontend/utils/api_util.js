@@ -31,3 +31,10 @@ export const fetchSingleTickerCompany = ticker => {
         url: `https://sandbox.iexapis.com/stable//stock/${ticker}/company?token=${apiKey}`
     })
 }
+
+export const fetchTickerQuotes = arrTickers => {
+    return $.ajax({
+        method: "GET",
+        url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${arrTickers}&types=quote,intraday-prices&token=${apiKey}`
+    })
+}

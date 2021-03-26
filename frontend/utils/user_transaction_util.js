@@ -6,11 +6,18 @@ export const updateUser = user => {
     })
 } 
 
-export const createUserOrder = user_orders => {
+export const fetchCurrentUserOrders = () => {
+    return $.ajax({
+        url: '/api/user_orders',
+        method: "GET",
+    })
+}
+
+export const createUserOrder = (user_orders, user_buying_power) => {
     return $.ajax({
         url: `/api/user_orders`,
         method: "POST",
-        data: {user_orders}
+        data: {user_orders, user_buying_power}
     })
 }
 

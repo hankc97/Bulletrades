@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/root'
 import configureStore from './store/store'
-// import {createUserOrder, updateUserOrder, deleteUserOrder} from './utils/user_transaction_util'
-// import {receiveNewOrderForm, updateUserOrderForm} from './actions/user_transaction'
+import {requestMultiTickerQuote} from './actions/ticker_api'
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -25,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
+    // window.requestMultiTickerQuote = requestMultiTickerQuote
     // window.receiveNewOrderForm = receiveNewOrderForm
     // window.updateUserOrderForm = updateUserOrderForm
     // window.createUserOrder = createUserOrder

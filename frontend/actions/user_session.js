@@ -1,4 +1,4 @@
-import {signup, login, logout} from '../utils/user_session_util'
+import {signup, login, logout, fetchUser} from '../utils/user_session_util'
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER"
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER"
@@ -22,6 +22,10 @@ const receiveErrors = errors => ({
 export const clearErrors = () => ({
     type: CLEAR_ERRORS
 })
+
+export const fetchCurrentUser = userId => dispatch => (
+    fetchUser(userId).then(user => dispatch(receiveCurrentUser(user)))
+)
 
 export const signupUser = formUser => dispatch => (
     signup(formUser).then(user => dispatch(receiveCurrentUser(user)), 

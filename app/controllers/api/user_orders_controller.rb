@@ -11,13 +11,14 @@ class Api::UserOrdersController < ApplicationController
 
     def create
         tickerId = Ticker.find_by(ticker: user_order_params[:ticker]).id
+        current_user.buying_power = buying_power_params[:buying_power]
 
         @user_order = UserOrder.create(
             user_id: user_order_params[:user_id],
             ticker_id: tickerId,
             quantity: user_order_params[:quantity],
-            avg_ticker_price: user_order_params[:avg_ticker_price])
-        if @user_order.save
+            avg_ticker_price: user_order_params[:avg_ticker_price]) 
+        if @user_order.save && current_user.save
             render 'api/user_orders/show'
         else
             render json: @user_order.full_messages, status: 401
@@ -28,12 +29,18 @@ class Api::UserOrdersController < ApplicationController
         tickerId = Ticker.find_by(ticker: user_order_params[:ticker]).id
         @user_order = current_user.ticker_orders.find_by(ticker_id: tickerId)
         current_user.buying_power = buying_power_params[:buying_power]
-        
+
         if @user_order.update_attributes(
             user_id: user_order_params[:user_id],
             ticker_id: tickerId,
             quantity: user_order_params[:quantity],
             avg_ticker_price: user_order_params[:avg_ticker_price]) && current_user.save
+            if Integer(user_order_params[:quantity]) == 0
+                @delete_user_order = current_user.ticker_orders.where(ticker_id: tickerId)
+                if @delete_user_order
+                    @delete_user_order.destroy_all
+                end
+            end
             render 'api/user_orders/update'
         else
             render json: @user_order.full_messages, status: 401
@@ -41,7 +48,8 @@ class Api::UserOrdersController < ApplicationController
     end
 
     def destroy
-        @user_order = current_user.ticker_orders.where(ticker_id: params[:id])
+        tickerId = Ticker.find_by(ticker: user_order_params[:ticker]).id
+        @user_order = current_user.ticker_orders.where(ticker_id: tickerId)
         if @user_order
             @user_order.destroy_all
         else

@@ -21,6 +21,11 @@ class Ticker extends React.Component {
                     currentUser = {this.props.currentUser}
                     markPrice = {this.props.quote.markPrice}
                     tickerName = {this.props.tickerName}
+                    addOrder = {this.props.addOrder}
+                    updateOrder = {this.props.updateOrder}
+                    deleteOrder = {this.props.deleteOrder}
+                    userOrders = {this.props.userOrders}
+                    fetchAllOrders = {this.props.fetchAllOrders}
                 />
             </div>
         )
@@ -33,9 +38,6 @@ class TickerChartAbout extends React.Component {
 
         this.state = {
             loading: true,
-            // tickerName: this.props.tickerName,
-            // tickerPrice: this.props.quote[0],
-            // tickerMarkPercentChangeToday: 0,
         }
 
         this.formatOneDayTickerData = this.formatOneDayTickerData.bind(this)
