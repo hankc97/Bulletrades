@@ -6,9 +6,11 @@ class LoginFormUser extends React.Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            passwordActive: true,
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleActiveClick = this.handleActiveClick.bind(this)
     }
 
     handleTextChange(type) {
@@ -26,6 +28,17 @@ class LoginFormUser extends React.Component {
             user = Object.assign({}, this.state)
         }
         this.props.loginUser(user)
+    }
+
+    handleActiveClick(e) {
+        e.preventDefault()
+        if (this.state.passwordActive === true) {
+            this.passwordType = ""
+            this.setState({passwordActive: false}) 
+        } else {
+            this.passwordType = "password"
+            this.setState({passwordActive: true})
+        }
     }
 
     renderErrors() {
@@ -47,8 +60,10 @@ class LoginFormUser extends React.Component {
     render() {
         return(
             <div className = "login-page">
-                <div className = "login-page-img">
-                    <img aria-hidden="true" 
+                <div >
+                    <img
+                        className = "login-page-img" 
+                        aria-hidden="true" 
                         data-test-id="default-image" 
                         sizes="(min-width: 768px) 1440px, 720px" 
                         src="https://cdn.robinhood.com/assets/generated_assets/1e23d6b90f0d905b425ea289de345ab1.jpg" 
@@ -56,21 +71,24 @@ class LoginFormUser extends React.Component {
                     />
                 </div>
                 <div className = "login-form-container">
-                    <form  onSubmit = {this.handleSubmit}>
+                    <form className = "form-container" onSubmit = {this.handleSubmit}>
                         <div className = "form-input">
                             <h1 className = "h1-login">Welcome to Bulletrades</h1>
                             <p className = "emailoruser-login login-p">Email or Username</p>
                             <input 
                                 type = "email"
-                                placeholder = "Email"
                                 value = {this.state.email}
                                 onChange = {this.handleTextChange("email")}
                                 className = "EPinput"
                             />
+                            <button 
+                                onClick = {this.handleActiveClick}
+                                className = "icon-eye-button">
+                                {(this.state.passwordActive) ? <i class='fas fa-eye'></i> : <i class='fas fa-eye-slash'></i>}
+                            </button>
                             <p className = "password-login login-p">Password</p>
-                            <input 
-                                type = "password"
-                                placeholder = "Password"
+                            <input
+                                type = {this.passwordType}
                                 value = {this.state.password}
                                 onChange = {this.handleTextChange("password")}
                                 className = "EPinput"

@@ -1,7 +1,8 @@
 .home-page-main-div-1 {
     width: 100%;
-    box-shadow: 0 3px 4px 3px grey;
-    height: 500px;
+    box-shadow: 0 1px black;
+    height: 600px;
+    max-height: 600px;
     background-color: #c3f53c;
     position: relative;
     z-index: 1;
@@ -10,34 +11,44 @@
 }
 
 .home-page-top-about{
+    margin-left: 320px;
     display: block;
-    padding-top: 100px;
-    padding-bottom: 50px;
-    padding-right: 30px;
-    padding-left: 170px;
+    padding-top: 80px;
     background: #c3f53c;
-
 }
 
 .top-about1 {
     font-weight: 500;
     font-style: normal;
-    font-size: 52px;
+    font-size: 48px;
     padding-bottom: 30px;
-    line-height: 65px;
+    line-height: 58px;
 }
 
 .top-about2 {
-    font-size: 25px;
+    font-size: 24px;
     line-height: 42px;
     font-style: normal;
     font-weight: 500;
+    line-height: 36px;
+    padding-bottom: 50px;
+}
+
+.home-page-signup-button {
+    font-weight: bold;
+    color: white;
+    padding: 15px 36px;
+    height: 48px;
+    min-width: 144px;
+    border-radius: 24px;
+    background: black;
+    text-align: center;
 }
 
 .home-page-background {
     position: relative;
-    margin-left: 5px;
-    margin-right: 100px;
+    margin-right: 300px;
+    padding-left: 50px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -63,3 +74,135 @@
     top: 20px;
 }
 
+.fee-schedule {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px black;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+}
+
+.fee-underline {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.home-page-fractional-shares {
+    width: 100%;
+    font-family: 'Nunito Sans', sans-serif;
+    margin-left: 320px;
+    margin-top: 50px;
+    padding-bottom: 110px;
+    display: flex;
+    flex-direction: row;
+}
+
+.fract-left > h1 {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.fract-left > h4 {
+    font-size: 18px;
+    color: rgb(111,120,126);
+}
+
+.fract-3-middle {
+    display: flex;
+    flex-direction: row;
+}
+
+.fract-3-middle > div {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    padding-right: 35px;
+}
+
+.fract-3-middle > div > h2 {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.fract-3-middle > div > p {
+    font-size: 18px;
+
+}
+
+.fract-right-img {
+    background-repeat: no-repeat;
+    width: 100%;
+    max-width: 350px;
+    height: 400px;
+    position: absolute;
+    background-position: center center;
+}
+
+.fract-disclosure {
+    width: 260px;
+    margin-top: 60px;
+    font-size: 18px;
+    color: rgb(111,120,126);
+}
+
+.fract-disclosure:hover {
+    color: rgb(0, 180, 5);
+    cursor: pointer;
+}
+
+.fract-disclosure > i {
+    padding-right: 10px;
+    font-size: 25px;
+}
+
+.home-page-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    background: black;
+    height: 400px;
+    font-size: 18px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 70px;
+    font-size: 30px;
+}
+
+.footer-icons > i {
+    cursor: pointer;
+}
+
+.home-page-footer > span {
+    margin-top: 10px;
+}
+
+.resume-link {
+    padding-bottom: 20px;
+    padding-left: 300px; 
+    padding-right: 300px;
+    border-bottom: 2px solid white;
+}
+
+.back-to-top-wrapper {
+    color: white;
+    top: 100vh;
+    right: 0.25rem;
+    bottom: -5em;
+    pointer-events: none;
+    margin-top: 50px;
+}
+
+.back-to-top-link {
+
+    pointer-events: all;
+    top: calc(100vh - 5rem);
+  }

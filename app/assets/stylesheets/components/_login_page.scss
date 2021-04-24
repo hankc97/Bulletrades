@@ -1,34 +1,52 @@
-.h1-login {
-    padding-bottom: 60px;
-    font-weight: bold;
-    font-size: 30px;
-    margin-right: -113px;
-}
 
 .login-page {
+    font-family: 'Nunito Sans', sans-serif;
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
 }
 
 .login-page-img {
-    width: 50%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.login-form-container {
+    margin-top: 110px;
+    object-fit: cover;
+}
+
+.form-container {
+    padding-right: 390px;
+    width: 430px;
+    margin-left: 50px;
 }
 
 .form-input {
     display: flex;
     flex-direction: column;
-    margin-left: 70px;
-    margin-top: 100px;
+}
+
+
+.h1-login {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 21px;
 }
 
 .login-p {
     padding-bottom: 20px;
     padding-top: 10px;
+    font-size: 13px;
 }
 
 .EPinput {
     height: 30px;
-    background-color: rgb(243, 233, 233);
+    background-color: #E8F0FE;
     padding-left: 10px;
     padding-right: 10px;
     border: solid grey 1px;
@@ -37,37 +55,37 @@
 
 .EPinput:hover {
     border: solid black 1px;
-    // border:
+}
+
+.EPinput:focus {
+    border: solid rgb(0, 180, 5) 1px;
 }
 
 .form-input {
     display:flex;
     flex-direction: column;
-    width: 100%;
 }
 
 .login-sign-button {
-    color: inherit;
+    color: white;
     text-decoration: none;
-    -webkit-box-align: center;
     align-items: center;
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
-    -webkit-box-pack: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
     text-align: center;
     white-space: nowrap;
-    padding: 0px 50px;
+    padding: 0px 40px;
     height: 48px;
-    min-width: 100px;
-    border-radius: 24px;
+    border-radius: 5px;
     background-color: rgb(0, 200, 5);
-    margin-left: 70px;
-    margin-top: 50px;
+    margin-top: 100px;
     font-family: "Capsule Sans Text", sans-serif;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .login-sign-button:hover {
@@ -86,15 +104,25 @@
 }
 
 .DEMO-login-button {
-    padding: 0 55px;
+    color: white;
+    padding: 0 45px;
     height: 48px;
-    border-radius: 24px;
+    border-radius: 5px;
     background-color: rgb(0, 200, 5);
     margin-left: 30px;
     margin-top: 50px;
     font-family: "Capsule Sans Text", sans-serif;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .DEMO-login-button:hover {
     background-color: rgb(0, 180, 5);
+}
+
+.icon-eye-button {
+    cursor: pointer;
+    position: absolute;
+    margin-left: 400px;
+    margin-top: 170px;
 }
