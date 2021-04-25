@@ -3,7 +3,7 @@ import NavBarProtected from './nav_bar_protected'
 import {logoutUser} from '../../actions/user_session'
 
 const mapDispatchToProps = dispatch => ({
-    logoutUser: () => dispatch(logoutUser())
+    logoutUser: () => dispatch(logoutUser()),
 })
 
 export default connect(

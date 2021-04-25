@@ -1,5 +1,5 @@
 // import {apiKey, accessToken} from './secret'
-const apiKey = "Tpk_0f8b8964750d4e3bb1dd782eef66d578"
+const apiKey = "Tpk_762ae0e58c2447c3b0b13730886c4b6a"
 
 // export const fetchSingleTickerQuote = ticker => (
 //     $.ajax({

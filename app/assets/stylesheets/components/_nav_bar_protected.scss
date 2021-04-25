@@ -1,11 +1,13 @@
 .nav-bar-protected-main {
-    background: white;
+    font-family: "Capsule Sans Text", sans-serif;
+    color: white;
+    background: black;
     display: flex;
     justify-content: space-between;
-    font-size: 1rem;
+    align-items: center;
     position: sticky;
     top: 0;
-    z-index: 10;
+    padding: 13px;
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
@@ -13,45 +15,76 @@
 }
 
 .nav-bar-protected-logo {
-    justify-self: flex-start;
-    cursor: pointer;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    margin-left: 24px;
-    font-weight: bold;
-    text-decoration: none;
+    height: 30px;
+    width: 40px;
+    margin-left: 33px;
 }
 
-.tickers-input {
-    padding-top: 10px;
-    padding-right: 300px;
+.search-bar {
+    border: solid rgba(80,88,92,1) 1px;
+    border-radius: 4px;
+    height: 30px;
+    width: 410px;
+    margin-left: -153px;
+    padding-left: 44px;
 }
 
-.css-yk16xz-control:hover {
-    cursor: pointer;
-    background-color: #FFFFFF;	position: relative;	box-shadow: 1px 1px 32px 8px #C7E8B0;
+.search-bar:hover {
+    background-color: rgb(37, 34, 34);
 }
 
-.css-1pahdxg-control:hover {
-    cursor: pointer;
-    background-color: #FFFFFF;	position: relative;	box-shadow: 1px 1px 32px 8px #C7E8B0;
+.search-bar::placeholder {
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+}
+
+// search icon 
+.fa-search {
+    color: rgb(121,133,139);
+    position: absolute;
+    top: 22px;
+    left: 424px;
+    font-weight: 100;
 }
 
 .nav-bar-protected-right {
-    padding: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    padding-right: 7px;
 }
 
 .protect-right {
-    font-weight: bold;
-    font-size: 14px;
-    padding-right: 21px;
+    padding-right: 27px;
 }
 
 .protect-right:hover {
-    color: lightgreen; 
+    color: rgb(0, 200, 5);
 }
 
-.dropdown-menu-li-children{
-    list-style-type: none;
-}
+
+
+
+
+
+
+
+
+
+// .dropdown-menu-li-children{
+//     list-style-type: none;
+// }
+
+// .tickers-input {
+//     padding-top: 10px;
+//     padding-right: 300px;
+// }
+
+// .css-yk16xz-control:hover {
+//     cursor: pointer;
+//     background-color: #FFFFFF;	position: relative;	box-shadow: 1px 1px 32px 8px #C7E8B0;
+// }
+
+// .css-1pahdxg-control:hover {
+//     cursor: pointer;
+//     background-color: #FFFFFF;	position: relative;	box-shadow: 1px 1px 32px 8px #C7E8B0;
+// }

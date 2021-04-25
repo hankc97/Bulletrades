@@ -46,14 +46,14 @@ class SignupFormContainer extends React.Component {
         return (
             <div className = "signup-page">
                 <div className = "signup-form-container">
-                    <div className = "signup-page-header-logo">
-                        <h2>BulleTrades</h2>
+                    <div className = "signup-page-header">
+                        <h2>BulleTrades</h2><img className = "signup-page-logo" src = {window.btLogo}/>
                     </div>
                     <div className = "signup-page-mid-nav">
                         <h2 className = "signup-page-h2">Make Your Money Move</h2>
                         <h3 className = "signup-page-h3">Robinhood lets you invest in companies you love, commision-free</h3>
                     </div>
-                    <h4 className = "signup-page-h4">Please enter your full legal name. Your legal name should match any form of government ID</h4>
+                    <h4 className = "signup-page-h4">Please enter your full legal name. Your legal name should match any form of government ID.</h4>
                     <form onSubmit = {this.handleSubmit} className = "form-div-signup">
                         <div className = "full-name-input">
                             <input 
@@ -81,22 +81,27 @@ class SignupFormContainer extends React.Component {
                             />
                             <input
                                 type = "password"
-                                placeholder = "Password"
+                                placeholder = "Password (min. 10 characters)"
                                 value = {this.state.password}
                                 onChange = {this.handleTextChange("password")}
                                 className = "input-box-signup bottom-inputEP"
                             />
-                            <div className = "continue_login_buttons">
+                            <div className = "continue-login-buttons">
                                 <button className = "continue-button">Continue</button>
-                                <Link to = "/login" className = "login-button-signup" >Log in</Link>
+                                <div className = "sign-up-login-link">
+                                    <span className = "already-started">Already started?</span>
+                                    <Link to = "/login" className = "login-button-signup" >Log in to complete your application</Link>
+                                </div>
                             </div>
                         </div>
                     </form>
                     {this.renderErrors()}
                 </div>
-                
-                <div className = "signup-page-img">
-                    <img src = {window.signup_img} />
+                <div >
+                    <img 
+                        src = {window.signup_img}
+                        className = "signup-page-img"
+                    />
                 </div>
             </div>
         )

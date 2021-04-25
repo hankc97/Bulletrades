@@ -5,7 +5,6 @@
     <link rel = "icon" href = 'assets/images/bt_icon.ico' >
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,6 +16,7 @@
   <body>
     <script type="text/javascript">
         window.btLogo = "<%= image_url('bt_icon.ico') %>";
+        window.btLogoDark = "<%= image_url('bt_icon_dark.ico') %>";
         window.signup_img = "<%= image_url('clay-banks-NPlMmVsC40I-unsplash.jpg') %>"
     </script>
     <%= yield %>

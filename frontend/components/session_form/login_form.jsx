@@ -9,8 +9,9 @@ class LoginFormUser extends React.Component {
             password: '',
             passwordActive: true,
         }
+        this.passwordType = 'password'
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleActiveClick = this.handleActiveClick.bind(this)
+        this.handlePasswordVisibilityToggle = this.handlePasswordVisibilityToggle.bind(this)
     }
 
     handleTextChange(type) {
@@ -30,7 +31,7 @@ class LoginFormUser extends React.Component {
         this.props.loginUser(user)
     }
 
-    handleActiveClick(e) {
+    handlePasswordVisibilityToggle(e) {
         e.preventDefault()
         if (this.state.passwordActive === true) {
             this.passwordType = ""
@@ -82,7 +83,7 @@ class LoginFormUser extends React.Component {
                                 className = "EPinput"
                             />
                             <button 
-                                onClick = {this.handleActiveClick}
+                                onClick = {this.handlePasswordVisibilityToggle}
                                 className = "icon-eye-button">
                                 {(this.state.passwordActive) ? <i class='fas fa-eye'></i> : <i class='fas fa-eye-slash'></i>}
                             </button>
