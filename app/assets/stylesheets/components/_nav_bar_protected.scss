@@ -7,7 +7,7 @@
     align-items: center;
     position: sticky;
     top: 0;
-    padding: 13px;
+    // padding: 3px;
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
@@ -20,6 +20,14 @@
     margin-left: 33px;
 }
 
+.search-bar-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
 .search-bar {
     border: solid rgba(80,88,92,1) 1px;
     border-radius: 4px;
@@ -27,9 +35,15 @@
     width: 410px;
     margin-left: -153px;
     padding-left: 44px;
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
 .search-bar:hover {
+    background-color: rgb(37, 34, 34);
+}
+
+.search-bar:focus {
     background-color: rgb(37, 34, 34);
 }
 
@@ -41,10 +55,81 @@
 // search icon 
 .fa-search {
     color: rgb(121,133,139);
-    position: absolute;
-    top: 22px;
-    left: 424px;
+    position: relative;
+    top: 24px;
+    right: 275px;
     font-weight: 100;
+}
+
+.search-bar-tickers-container {
+    font-size: 12px;
+    position: absolute;
+    width: 412px;
+    top: 42px;
+    right: 0;
+    height: auto;
+    color: white;
+    z-index: 5;
+    background-color:  rgb(37, 34, 34);
+    transition: all 0.1s;
+    border-right: 1px solid rgba(80,88,92,1);
+    border-bottom: 1px solid rgba(80,88,92,1);
+    border-left: 1px solid rgba(80,88,92,1);
+    border-radius: 0 0 5px 5px;
+    padding-left: 21px;
+    padding-bottom: 21px;
+    padding-right: 21px;
+    padding-top: 5px;
+}
+
+.search-bar-ticker-name-list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticker-name-result {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.colored-name-result0 {
+    color: rgb(0, 200, 5);
+}
+
+.ticker-name-result:hover {
+    background-color: rgba(211, 211, 211, 0.151);
+}
+
+.name-result0 {
+    margin-right: 30px;
+}
+
+.search-bar-ticker-description-list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticker-description-result {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.colored-name-result1 {
+    color: rgb(0, 200, 5);
+}
+
+.ticker-description-result:hover {
+    background-color: rgba(211, 211, 211, 0.151);
+}
+
+.description-result0 {
+    margin-right: 30px;
 }
 
 .nav-bar-protected-right {
@@ -68,23 +153,3 @@
 
 
 
-
-
-// .dropdown-menu-li-children{
-//     list-style-type: none;
-// }
-
-// .tickers-input {
-//     padding-top: 10px;
-//     padding-right: 300px;
-// }
-
-// .css-yk16xz-control:hover {
-//     cursor: pointer;
-//     background-color: #FFFFFF;	position: relative;	box-shadow: 1px 1px 32px 8px #C7E8B0;
-// }
-
-// .css-1pahdxg-control:hover {
-//     cursor: pointer;
-//     background-color: #FFFFFF;	position: relative;	box-shadow: 1px 1px 32px 8px #C7E8B0;
-// }

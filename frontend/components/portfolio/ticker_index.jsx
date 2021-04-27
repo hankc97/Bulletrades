@@ -4,8 +4,6 @@ import TickerIndexItem from './ticker_index_item'
 class TickerIndex extends React.Component {
     constructor(props) {
         super(props);
-
-
     }
 
     render() {

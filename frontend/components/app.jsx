@@ -8,6 +8,7 @@ import LoginFormContainer from './session_form/login_form_container'
 import PortfolioContainer from './portfolio/portfolio_container'
 import NavBarContainerProtected from './nav_bar_protected/nav_bar_protected_container'
 import TickerContainer from './stocks/ticker_container'
+import { render } from "react-dom";
 
 const HomePageContainer = () => (
     <>
@@ -19,17 +20,16 @@ const HomePageContainer = () => (
 const Portfolio = () => (
     <>
         <NavBarContainerProtected />
-        <PortfolioContainer />
+        {/* <PortfolioContainer /> */}
     </>
 )
 
-const TickerPage = ({location}) => (
+const TickerPage = ({match}) =>(
     <>
         <NavBarContainerProtected />
-        <TickerContainer location = {location} />
+        <TickerContainer tickerName = {match.params.tickerName}/>
     </>
 )
-
 const App = () => (
     <div>
         <Switch>
@@ -37,7 +37,7 @@ const App = () => (
             <AuthRoute  path = "/login" component= {LoginFormContainer}/>
             <AuthRoute exact path = "/" component = {HomePageContainer} />
             <ProtectedRoute path = "/portfolio" component = {Portfolio} />
-            <ProtectedRoute path = "/stocks" component = {TickerPage} />
+            <ProtectedRoute path = "/stocks/:tickerName" component = {TickerPage} />
             <Redirect to = "/" />
         </Switch>
     </div>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import Ticker from './ticker'
 import {updateUserForm, receiveNewOrderForm, updateUserOrderForm, deleteUserOrderForm, receiveAllCurrentUserOrders} from '../../actions/user_transaction'
@@ -6,7 +5,7 @@ import {requestSingleTickerQuote, requestSingleTickerKeyStat, requestSingleTicke
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        tickerName: ownProps.location.search.slice(1),
+        tickerName: ownProps.tickerName,
         quote: state.entities.tickerQuotes,
         currentUser: state.entities.currentUser[state.session.id],
         userOrders: state.entities.userOrders

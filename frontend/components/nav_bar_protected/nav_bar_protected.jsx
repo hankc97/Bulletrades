@@ -1,18 +1,13 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
-import { ThemeConsumer } from 'styled-components'
 import {fetchAllTickers} from '../../utils/ticker_util'
-
-
-// import AsyncSelect, { Async } from 'react-select/async'
-// import styled from 'styled-components'
-// import ReactDOM from 'react-dom'
+import SearchBoxResult from './search_dropdown_box.jsx'
 
 const NavBarProtected = withRouter(({logoutUser,  history}) => (
     <div className = "nav-bar-protected-main">
         <NavLink to = "/portfolio" ><img className = "nav-bar-protected-logo" src = {window.btLogoDark}/></NavLink>
-        <NavBarSearch  history={history}/>
+        <NavBarSearch  history={history} SearchBoxResult = {SearchBoxResult}/>
         <NavBarRight logoutUser = {logoutUser}/>
     </div>
 ))
@@ -21,115 +16,108 @@ class NavBarSearch extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedTickers: [],
+            loaded: false,
+            allTickers: [],
+            queryString: '',
+            searchIsActive: false,
         }
-        this.allTickers = [];
-        this.allDescriptions = [];
-        // this.onChange = this.onChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleClick = this.handleClick.bind(this)
+        this.queriedResultsByTickerName = []
+        this.queriedResultsByDescriptionName = []
         this.handleInputChange = this.handleInputChange.bind(this)
+        this.querySearchInput = this.querySearchInput.bind(this)
+        this.handleInputFocus = this.handleInputFocus.bind(this)
+        this.globalClickListener = this.globalClickListener.bind(this)
     }
 
     componentDidMount() {
-        fetchAllTickers().then(data => {
-            // pass data up as [ticker, description]
-            // this.allTickers = Object.keys(data);
-            // this.allDescriptions = Object.values(data);
-        })
+        fetchAllTickers().then(data => this.state.allTickers = data)
         // loader finished loading here -->
     }
 
-    onChange(selectedTickers){
+    componentWillUnmount() {
+        window.removeEventListener('click', this.globalClickListener);
+    }
+    
+    handleInputChange(e) {
+        e.preventDefault()
+        this.queriedResultsByTickerName = []
+        this.queriedResultsByDescriptionName = []
+        if (e.target.value === "") {
+            return this.setState({searchIsActive: false})
+        };
+        this.querySearchInput(e.target.value.toLowerCase())
         this.setState({
-            selectedTickers: selectedTickers || []
+            queryString: e.target.value,
+            searchIsActive: true})
+    }
+
+    querySearchInput(queryString) {
+        for(let i = 0; i < this.state.allTickers.length; i++) {
+            if (this.queriedResultsByTickerName.length >= 4 ) break;
+            if (this.state.allTickers[i][0].toLowerCase().startsWith(queryString)) {
+                this.queriedResultsByTickerName.push(this.state.allTickers[i])
+            }
+        }
+        const queriedResultsByTickerName = this.queriedResultsByTickerName
+        for(let i = 0; i < this.state.allTickers.length; i++) {
+            let flag;
+            let currentTicker = this.state.allTickers[i][0].toUpperCase()
+            if (this.queriedResultsByDescriptionName.length >= 3) break;
+            queriedResultsByTickerName.find(results => {if (results[0] === currentTicker) {flag = true}})
+            if (flag) continue;
+            if (this.state.allTickers[i][1].toLowerCase().startsWith(queryString)) {
+                this.queriedResultsByDescriptionName.push(this.state.allTickers[i])
+            }
+        }
+    }
+
+    handleBodyClick(syntheticEvent) {
+        syntheticEvent.stopPropagation();
+    }
+
+    handleInputFocus(syntheticEvent) {
+        syntheticEvent.stopPropagation()
+        if (syntheticEvent.target.tagName.toLowerCase() === "a") return;
+        this.setState(prevState => ({ searchIsActive: !prevState.searchIsActive }), () => {
+            if (this.state.searchIsActive) {
+                window.addEventListener('click', this.globalClickListener)
+            }
         })
     }
 
-    handleInputChange(e) {
-        e.preventDefault()
-    }
-
-    // loadOptions(inputText, callback) {
-    //     const arr = [];
-    //     for (let i = 0; i < this.allTickers.length; i++) {
-    //         if (arr.length === 7) break;
-    //         if (this.allTickers[i].startsWith(inputText.toUpperCase())) arr.push( <li className = "dropdown-menu-li-children" onClick = {(e) => this.handleClick(e)}>{this.allTickers[i]}</li>);
-    //     }
-
-    //     callback(arr.map(i => ({label: i,value: i})))
-    // }
-
-    handleSubmit(e, dropdownChildValue) {
-
-
-        // if ( e.key === 'Enter' ) {
-        //     e.preventDefault()
-        //     const enterInnerHTMLValue = e.currentTarget.textContent.replace('  Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu, press Tab to select the option and exit the menu.', '').replace('No options', '')             
-        //     this.props.history.push({
-        //         pathname: "/stocks",
-        //         search: `${enterInnerHTMLValue}`
-        //     })
-        // }
-
-        // if (dropdownChildValue) {
-        //     e.preventDefault();
-        //     this.props.history.push({
-        //         pathname: "/stocks",
-        //         search: `${dropdownChildValue}`
-        //     })
-        // }
-    }
-
-    handleClick(e) {
-        e.preventDefault()
-        const currentTargetValue = e.currentTarget.innerText 
-        this.props.history.push({
-            pathname: "/stocks",
-            search: `${currentTargetValue}`
+    globalClickListener() {
+        this.setState({searchIsActive: false}, () => {
+            window.removeEventListener('click', this.globalClickListener)
         })
     }
 
     render() {
-        // const Container = styled('div')`
-        //     width: 30%;
-        // `;
-
-        // const styles = {
-        //     Container: base => ({
-        //         ...base,
-        //         flex:1,
-        //         justifyContent: spaceBetween,
-        //     })
-        // }
-        
+        let SearchBoxResults;
+        if ((this.queriedResultsByTickerName.length >= 1) || (this.queriedResultsByDescriptionName.length >= 1)) {
+            const SearchBoxResult = this.props.SearchBoxResult
+            SearchBoxResults = 
+                            <SearchBoxResult
+                                queriedResultsByTickerName = {this.queriedResultsByTickerName} 
+                                queriedResultsByDescriptionName = {this.queriedResultsByDescriptionName}
+                                queryString = {this.state.queryString}
+                            />
+        }
         return (
-            <div className = "search-bar-container">
-                <i class="fa fa-search"></i>
+            <div
+                onFocus = {this.handleInputFocus}
+                onClick = {this.handleBodyClick}
+                className = "search-bar-container">
+                <i className ="fa fa-search"></i>
                 <form onSubmit = {this.handleSubmit}>
-                    <input 
+                    <input
                         className = "search-bar"
                         type = "text"
-                        onChange = {this.handleChange}
-                        // value = {}
+                        onChange = {this.handleInputChange}
                         placeholder = "Search"
                     />
                 </form>
+                {(this.state.searchIsActive) ? SearchBoxResults : undefined}
             </div>
-
-            // <Container className = "tickers-input" ref = {this.myRef}>
-            //     <form onKeyPress = {this.handleSubmit} >
-            //         <AsyncSelect 
-            //             value = {this.state.selectedTickers}
-            //             onChange = {this.onChange}
-            //             placeholder = {'Search Ticker Symbol...'}
-            //             loadOptions = {this.loadOptions}
-            //             styles = {styles}
-            //             innerProps = {this.handleClick}
-            //             isClearable = {true}
-            //         />
-            //     </form>
-            // </Container>
         )
     }
 }
@@ -154,3 +142,13 @@ class NavBarRight extends React.Component {
 
 
 export default (NavBarProtected)
+
+
+// handleClick(e) {
+//     e.preventDefault()
+//     const currentTargetValue = e.currentTarget.innerText 
+//     this.props.history.push({
+//         pathname: "/stocks",
+//         search: `${currentTargetValue}`
+//     })
+// }
