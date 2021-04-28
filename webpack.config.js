@@ -21,6 +21,26 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ["*", ".js", ".jsx"]
+    extensions: ["*", ".js", ".jsx"],
+    fallback: {
+        // util: require.resolve("util/"),
+        "path": false ,
+        "crypto": false,
+        "buffer": false,
+        "url": false,
+        "vm": false,
+        "querystring": false,
+        "os": false,
+        "fs": false,
+        "tls": false,
+        "net": false,
+        "path": false,
+        "zlib": false,
+        "http": false,
+        "https": false,
+        "stream": false,
+        "assert": false,
+        "constants": false
+    },
   }
 };

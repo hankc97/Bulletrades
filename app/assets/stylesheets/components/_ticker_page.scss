@@ -1,40 +1,93 @@
+
+.ticker-page {
+    background: black;
+    color: white;
+}
+
 .main-ticker-page-container{
     display: flex;
     flex-direction: row;
-    width: 1125px;
+    width: 920px;
     margin: 0 auto;
-    padding-top: 36px;
+    padding-top: 75px;
+}
+
+.ticker-chart-and-about-container {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    margin-right: 270px;
 }
 
 .ticker-chart-container {
-    font-weight: bold;
-    font-size: 30px;
+    border-bottom: 1px solid rgb(121,133,139);
     display: flex;
     flex-direction: column;
-    font-family: "Capsule Sans Text", sans-serif;
-    margin-right: 350px;
 }
 
-.chart-top-about {
-    padding-bottom: 10px;
+.chart-ticker-name {
+    font-size: 32px;
+}
+
+.hideDOMRef {
+    display: none;
 }
 
 .chart-ticker-mark-price {
-    font-size: 23px;
+    font-size: 32px;
 } 
 
 .chart-ticker-change-percentage {
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.chart-ticker-change-percentage > span {
+    color: rgb(121,133,139);
+    font-weight: normal;
 }
 
 .linechart-container {
-    margin-top: 40px;
     margin-left: -5px;
+}
+
+.recharts-line {
+    width: 99%;
+}
+
+.text-container {
+    position: absolute;
+    text-align: center;
+    top: 355px;
+}
+
+.dotted-line-recharts {
+    border-top: 0.2px dashed rgb(121,133,139);
+    width: 650px;
+    z-index: -2;
+}
+
+.ticker-page-date-buttons{
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+}
+
+li > button {
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+li > button:hover {
+    color: rgb(0, 180, 5);
+    cursor: pointer;
 }
 
 .ticker-about-word {
     font-size: 24px;
-    font-family: "Capsule Sans Text", sans-serif;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     padding: 50px 0px 16px;
     border-bottom: 1px solid black;
 }
@@ -47,7 +100,7 @@
 .ticker-about-upperdiv {
     display: flex;
     flex-direction: row;
-    font-family: "Capsule Sans Text", sans-serif;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     font-size: 13px;
     padding-top: 40px;
     
@@ -61,7 +114,7 @@
 .ticker-about-lowerdiv {
     display: flex;
     flex-direction: row;
-    font-family: "Capsule Sans Text", sans-serif;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     font-size: 13px;
     padding-top: 40px;
 }

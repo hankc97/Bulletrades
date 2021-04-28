@@ -1,5 +1,5 @@
 .nav-bar-protected-main {
-    font-family: "Capsule Sans Text", sans-serif;
+    font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
     color: white;
     background: black;
     display: flex;
@@ -7,7 +7,7 @@
     align-items: center;
     position: sticky;
     top: 0;
-    // padding: 3px;
+    z-index: 2;
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
@@ -69,7 +69,7 @@
     right: 0;
     height: auto;
     color: white;
-    z-index: 5;
+    // z-index: 5;
     background-color:  rgb(37, 34, 34);
     transition: all 0.1s;
     border-right: 1px solid rgba(80,88,92,1);

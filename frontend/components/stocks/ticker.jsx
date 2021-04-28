@@ -1,6 +1,7 @@
 import React from 'react'
 import SideBarTicker from './sidebar/sidebar_ticker'
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceArea} from 'recharts';
+import StockList from '../stock_lists/stockLists'
+import {LineChart, Line, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 
 class Ticker extends React.Component {
     constructor(props) {
@@ -9,24 +10,27 @@ class Ticker extends React.Component {
 
     render() {
         return (
-            <div className = "main-ticker-page-container">
-                <TickerChartAbout 
-                    requestSingleTickerQuote = {this.props.requestSingleTickerQuote} 
-                    requestSingleTickerKeyStat = {this.props.requestSingleTickerKeyStat}
-                    requestSingleTickerCompany = {this.props.requestSingleTickerCompany}
-                    tickerName = {this.props.tickerName} 
-                    quote = {this.props.quote}
-                />
-                <SideBarTicker 
-                    currentUser = {this.props.currentUser}
-                    markPrice = {this.props.quote.markPrice}
-                    tickerName = {this.props.tickerName}
-                    addOrder = {this.props.addOrder}
-                    updateOrder = {this.props.updateOrder}
-                    deleteOrder = {this.props.deleteOrder}
-                    userOrders = {this.props.userOrders}
-                    fetchAllOrders = {this.props.fetchAllOrders}
-                />
+            <div className = "ticker-page">
+                <div className = "main-ticker-page-container">
+                    {/* <StockList /> Add at the end */}
+                    <TickerChartAbout 
+                        requestSingleTickerQuote = {this.props.requestSingleTickerQuote} 
+                        requestSingleTickerKeyStat = {this.props.requestSingleTickerKeyStat}
+                        requestSingleTickerCompany = {this.props.requestSingleTickerCompany}
+                        tickerName = {this.props.tickerName} 
+                        quote = {this.props.quote}
+                    />
+                    <SideBarTicker 
+                        currentUser = {this.props.currentUser}
+                        markPrice = {this.props.quote.markPrice}
+                        tickerName = {this.props.tickerName}
+                        addOrder = {this.props.addOrder}
+                        updateOrder = {this.props.updateOrder}
+                        deleteOrder = {this.props.deleteOrder}
+                        userOrders = {this.props.userOrders}
+                        fetchAllOrders = {this.props.fetchAllOrders}
+                    />
+                </div>
             </div>
         )
     }
@@ -38,9 +42,43 @@ class TickerChartAbout extends React.Component {
 
         this.state = {
             loading: true,
+            oneDay: true,
+            oneWeek: false,
+            oneMonth: false,
+            threeMonth: false,
+            oneYear: false,
+            fiveYear: false,
         }
 
+        this.currentMarkPriceDOMRef = React.createRef()
+        this.hoverChartPriceDOMRef = React.createRef()
+        this.currentTodayChangePriceDOMRef = React.createRef()
+        this.hoverChartChangePriceDOMRef = React.createRef()
         this.formatOneDayTickerData = this.formatOneDayTickerData.bind(this)
+
+        this.displayToolTip = this.displayToolTip.bind(this)
+    }
+
+    displayToolTip(toolTipData) {
+        if (this.currentMarkPriceDOMRef.current) {
+            if (toolTipData.payload.length > 0) {
+                let hoveredChartPrice = toolTipData.payload[0].payload['price']
+                let percentChartChangeToday =  ( ( hoveredChartPrice / this.props.quote["intradayPrices"][0].open ) - 1 ) * 100
+                let priceChangeToday = hoveredChartPrice - this.props.quote["intradayPrices"][0].open
+                let sign = (hoveredChartPrice > this.props.quote["intradayPrices"][0].open) ? "+" : ""
+
+                this.currentMarkPriceDOMRef.current.classList.add('hideDOMRef')
+                this.currentTodayChangePriceDOMRef.current.classList.add('hideDOMRef')
+                this.hoverChartPriceDOMRef.current.innerText = `$${hoveredChartPrice.toFixed(2)}`
+                this.hoverChartChangePriceDOMRef.current.innerText = `${sign}$${priceChangeToday.toFixed(2)} (${sign}${percentChartChangeToday.toFixed(2)}%)`
+            } else {
+                this.currentMarkPriceDOMRef.current.classList.remove('hideDOMRef')
+                this.currentTodayChangePriceDOMRef.current.classList.remove('hideDOMRef')
+                this.hoverChartPriceDOMRef.current.innerText = ''
+                this.hoverChartChangePriceDOMRef.current.innerText = ''
+            }
+        }
+        return null;
     }
 
     componentDidMount() {
@@ -49,11 +87,10 @@ class TickerChartAbout extends React.Component {
                 this.props.requestSingleTickerCompany(this.props.tickerName)
             )
         )
-
         this.state.loading = false
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
@@ -61,6 +98,7 @@ class TickerChartAbout extends React.Component {
                 )
             )
         }
+        this.state.loading = false
     }
 
     formatOneDayTickerData(intradayPricesArray) {
@@ -75,26 +113,60 @@ class TickerChartAbout extends React.Component {
 
     render() {
         return(
-            <div className = "ticker-chart-container">
-                <span className = "chart-ticker-name chart-top-about">{this.props.tickerName}</span>
-                <span className = "chart-ticker-mark-price chart-top-about">${this.props.quote.markPrice}</span>
-                <span className = "chart-ticker-change-percentage chart-top-about">{this.props.quote.changePercentage}% Today</span>
-                <LineChart className = "linechart-container" width = {750} height = {300} data = {this.formatOneDayTickerData(this.props.quote['intradayPrices'])} >
-                    <XAxis  dataKey = "time" 
-                            hide = {true}/>
-
-                    <YAxis  type =  "number" 
+            <div className = "ticker-chart-and-about-container">
+                <div className = "ticker-chart-container">
+                    <span className = "chart-ticker-name chart-top-about">{this.props.tickerName}</span>
+                    <div >
+                        <span ref = {this.currentMarkPriceDOMRef} className = "chart-ticker-mark-price chart-top-about">${(this.props.quote.markPrice) ? this.props.quote.markPrice.toFixed(2) : undefined}</span>
+                        <span ref = {this.hoverChartPriceDOMRef} className = "chart-ticker-mark-price chart-top-about"></span>
+                    </div>
+                    <div>
+                        <span ref = {this.currentTodayChangePriceDOMRef} className = "chart-ticker-change-percentage chart-top-about">{this.props.quote.changePercentage}% <span>Today</span></span>
+                        <span ref = {this.hoverChartChangePriceDOMRef} className = "chart-ticker-change-percentage chart-top-about"></span>
+                    </div>
+                    <LineChart className = "linechart-container" width = {650} height = {200} data = {this.formatOneDayTickerData(this.props.quote['intradayPrices'])} >
+                        <XAxis  
+                            dataKey = "time"
+                            hide = {true}
+                            domain={['auto', 'auto']}
+                        />
+                        <YAxis  
+                            type =  "number" 
                             hide = {true} 
-                            domain={['auto', 'auto']}/>
-
-                    <Line   type = "linear"
+                            domain={['auto', 'auto']}
+                        />
+                        <Tooltip 
+                            isAnimationActive = {false}
+                            content = {this.displayToolTip}
+                            cursor = {{stroke: null}}
+                            position={{ y: 50 }}
+                            offset = {35}
+                            // viewBox={{ x: 0, y: 0, width: 650, height: 200 }}
+                        />
+                        <Line   
+                            className = "recharts-line"
+                            type = "monotone"
                             dataKey = "price"
-                            stroke = "#32cd32"
+                            stroke = {"rgb(0, 200, 5)"}
                             dot = {false}
                             strokeWidth = {1}
-                    />
-                    <Tooltip />
-                </LineChart>
+                            activeDot = {{r: 2, stroke: 'rgb(0, 200, 5)', fill: 'rgb(0, 200, 5)'}}
+                            type = "linear"/>
+                    </LineChart>
+                    <div className = "text-container">
+                        <div className = "dotted-line-recharts"></div>
+                    </div>
+                    <div className = "">
+                        <ul className = "ticker-page-date-buttons">
+                            <li><button>1D</button></li>
+                            <li><button>1W</button></li>
+                            <li><button>1M</button></li>
+                            <li><button>3M</button></li>
+                            <li><button>1Y</button></li>
+                            <li><button>5Y</button></li>
+                        </ul>
+                    </div>
+                </div>
                 <div className = "ticker-about-container">
                     <div className = "ticker-about-word">About</div>
                     {/* <p>{this.props.tickerName} specializes in ABOUT DESCRIPTION</p> */}
