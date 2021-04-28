@@ -6,8 +6,6 @@ class SearchBoxResult extends React.Component {
         super(props)
     }
 
-
-
     render() {
         const queryString = this.props.queryString
         return(

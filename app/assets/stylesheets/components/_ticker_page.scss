@@ -74,13 +74,13 @@
     flex-direction: row;
 }
 
-li > button {
+.ticker-page-date-buttons > button {
     padding-right: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
 
-li > button:hover {
+.ticker-page-date-buttons > button:hover {
     color: rgb(0, 180, 5);
     cursor: pointer;
 }

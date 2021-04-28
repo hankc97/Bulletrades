@@ -1,4 +1,10 @@
-import {RECEIVE_SINGLE_TICKER_QUOTE, RECEIVE_SINGLE_TICKER_KEYSTAT, RECEIVE_SINGLE_TICKER_COMPANY, CLEAR_QUOTES, RECEIVE_MULTI_TICKER_QUOTE} from '../actions/ticker_api'
+import {
+    RECEIVE_SINGLE_TICKER_QUOTE, 
+    RECEIVE_SINGLE_TICKER_KEYSTAT, 
+    RECEIVE_SINGLE_TICKER_COMPANY, 
+    CLEAR_QUOTES, 
+    RECEIVE_MULTI_TICKER_QUOTE, 
+    RECEIVE_SINGLE_TICKER_HISTORICAL_QUOTE} from '../actions/ticker_api'
 
 // function nextIdGenerator(quote) {
 //     if (quote.id === null) return 0
@@ -21,6 +27,11 @@ const tickersReducer = (state = _nullQuote, action) => {
                 companyName: action.quote.quote.companyName,
                 intradayPrices: action.quote["intraday-prices"]
             }
+        case RECEIVE_SINGLE_TICKER_HISTORICAL_QUOTE: 
+            const singleHistoricalQuote = {
+                singleHistoricalQuote: action.quote
+            }
+            return Object.assign({}, newState, singleHistoricalQuote)
         case RECEIVE_MULTI_TICKER_QUOTE: 
             return action.quotes
         case RECEIVE_SINGLE_TICKER_KEYSTAT:

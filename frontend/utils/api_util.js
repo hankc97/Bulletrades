@@ -38,3 +38,10 @@ export const fetchTickerQuotes = arrTickers => {
         url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${arrTickers}&types=quote,intraday-prices&token=${apiKey}`
     })
 }
+
+export const fetchHistoricalTickerQuote = (ticker, date) => {
+    return $.ajax({
+        method: "GET",
+        url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${ticker}&types=chart&range=${date}&token=${apiKey}`
+    })
+}

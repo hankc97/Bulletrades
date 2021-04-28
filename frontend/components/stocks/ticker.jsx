@@ -1,7 +1,7 @@
 import React from 'react'
 import SideBarTicker from './sidebar/sidebar_ticker'
 import StockList from '../stock_lists/stockLists'
-import {LineChart, Line, XAxis, YAxis, Tooltip, Legend} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
 
 class Ticker extends React.Component {
     constructor(props) {
@@ -17,8 +17,10 @@ class Ticker extends React.Component {
                         requestSingleTickerQuote = {this.props.requestSingleTickerQuote} 
                         requestSingleTickerKeyStat = {this.props.requestSingleTickerKeyStat}
                         requestSingleTickerCompany = {this.props.requestSingleTickerCompany}
+                        requestSingleTickerHistoricalQuote = {this.props.requestSingleTickerHistoricalQuote}
                         tickerName = {this.props.tickerName} 
                         quote = {this.props.quote}
+                        historicalQuote = {this.props.historicalQuote}
                     />
                     <SideBarTicker 
                         currentUser = {this.props.currentUser}
@@ -42,12 +44,7 @@ class TickerChartAbout extends React.Component {
 
         this.state = {
             loading: true,
-            oneDay: true,
-            oneWeek: false,
-            oneMonth: false,
-            threeMonth: false,
-            oneYear: false,
-            fiveYear: false,
+            chartDate: "1D",
         }
 
         this.currentMarkPriceDOMRef = React.createRef()
@@ -55,6 +52,7 @@ class TickerChartAbout extends React.Component {
         this.currentTodayChangePriceDOMRef = React.createRef()
         this.hoverChartChangePriceDOMRef = React.createRef()
         this.formatOneDayTickerData = this.formatOneDayTickerData.bind(this)
+        this.formatSingleHistoricalTickerData = this.formatSingleHistoricalTickerData.bind(this)
 
         this.displayToolTip = this.displayToolTip.bind(this)
     }
@@ -90,28 +88,49 @@ class TickerChartAbout extends React.Component {
         this.state.loading = false
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                     this.props.requestSingleTickerCompany(this.props.tickerName)
                 )
             )
+            this.setState({chartDate: "1D"})
         }
-        this.state.loading = false
+        else if (prevState.chartDate !== this.state.chartDate && this.state.chartDate !== "1D") {
+            this.props.requestSingleTickerHistoricalQuote(this.props.tickerName, this.state.chartDate)
+            // this.state.loading = false
+        }
     }
 
     formatOneDayTickerData(intradayPricesArray) {
         if (intradayPricesArray) {
             const formatPriceArray = []; 
-            for ( let i = 0; i < intradayPricesArray.length; i += 5) {
+            for ( let i = 0; i < intradayPricesArray.length; i++) {
                 formatPriceArray.push({time: intradayPricesArray[i].minute, price: intradayPricesArray[i].average})
             }
             return formatPriceArray
         }
     }
 
+    formatSingleHistoricalTickerData(pricesArray) {
+        const formatHistoricalPriceArray = [];
+        for (let i = 0; i < pricesArray.length; i++) {
+            formatHistoricalPriceArray.push({time: pricesArray[i].date, price: pricesArray[i].open})
+        }
+        return formatHistoricalPriceArray
+    }
+
     render() {
+        let chartData;
+        if ( this.state.chartDate === "1D" ) {
+            chartData = this.formatOneDayTickerData(this.props.quote['intradayPrices']) 
+        } 
+        if ( this.state.chartDate !== "1D" && ( this.props.historicalQuote !== undefined) ) {
+            if (this.props.historicalQuote[this.props.tickerName] !== undefined) {
+                chartData = this.formatSingleHistoricalTickerData(this.props.historicalQuote[this.props.tickerName].chart)
+            }
+        }
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
@@ -124,7 +143,7 @@ class TickerChartAbout extends React.Component {
                         <span ref = {this.currentTodayChangePriceDOMRef} className = "chart-ticker-change-percentage chart-top-about">{this.props.quote.changePercentage}% <span>Today</span></span>
                         <span ref = {this.hoverChartChangePriceDOMRef} className = "chart-ticker-change-percentage chart-top-about"></span>
                     </div>
-                    <LineChart className = "linechart-container" width = {650} height = {200} data = {this.formatOneDayTickerData(this.props.quote['intradayPrices'])} >
+                    <LineChart className = "linechart-container" width = {650} height = {200} data = {chartData} >
                         <XAxis  
                             dataKey = "time"
                             hide = {true}
@@ -158,12 +177,13 @@ class TickerChartAbout extends React.Component {
                     </div>
                     <div className = "">
                         <ul className = "ticker-page-date-buttons">
-                            <li><button>1D</button></li>
-                            <li><button>1W</button></li>
-                            <li><button>1M</button></li>
-                            <li><button>3M</button></li>
-                            <li><button>1Y</button></li>
-                            <li><button>5Y</button></li>
+                            {
+                                ["1D", "1W", "1M", "3M", "1Y", "5Y"].map((date) => (
+                                    <button 
+                                        key = {date} 
+                                        onClick = {() => this.setState({chartDate: date})}>{date}</button>
+                                ))
+                            }
                         </ul>
                     </div>
                 </div>
