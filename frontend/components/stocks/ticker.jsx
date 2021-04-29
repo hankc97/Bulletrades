@@ -18,8 +18,10 @@ class Ticker extends React.Component {
                         requestSingleTickerKeyStat = {this.props.requestSingleTickerKeyStat}
                         requestSingleTickerCompany = {this.props.requestSingleTickerCompany}
                         requestSingleTickerHistoricalQuote = {this.props.requestSingleTickerHistoricalQuote}
+                        requestSingleTickerNews = {this.props.requestSingleTickerNews}
                         tickerName = {this.props.tickerName} 
                         quote = {this.props.quote}
+                        news = {this.props.news}
                         historicalQuote = {this.props.historicalQuote}
                     />
                     <SideBarTicker 
@@ -82,9 +84,13 @@ class TickerChartAbout extends React.Component {
     componentDidMount() {
         this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
             this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                this.props.requestSingleTickerCompany(this.props.tickerName)
+                this.props.requestSingleTickerCompany(this.props.tickerName).then((res) => {
+                        this.props.requestSingleTickerNews(res.company.companyName)
+                    }
+                )
             )
         )
+        
         this.state.loading = false
     }
 
@@ -92,7 +98,10 @@ class TickerChartAbout extends React.Component {
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                    this.props.requestSingleTickerCompany(this.props.tickerName)
+                    this.props.requestSingleTickerCompany(this.props.tickerName).then((res) => {
+                        this.props.requestSingleTickerNews(res.company.companyName)
+                        }
+                    )
                 )
             )
             this.setState({chartDate: "1D"})
@@ -106,7 +115,7 @@ class TickerChartAbout extends React.Component {
     formatOneDayTickerData(intradayPricesArray) {
         if (intradayPricesArray) {
             const formatPriceArray = []; 
-            for ( let i = 0; i < intradayPricesArray.length; i++) {
+            for ( let i = 0; i < intradayPricesArray.length; i+=5) {
                 formatPriceArray.push({time: intradayPricesArray[i].minute, price: intradayPricesArray[i].average})
             }
             return formatPriceArray
@@ -123,6 +132,7 @@ class TickerChartAbout extends React.Component {
 
     render() {
         let chartData;
+        let news;
         if ( this.state.chartDate === "1D" ) {
             chartData = this.formatOneDayTickerData(this.props.quote['intradayPrices']) 
         } 
@@ -131,10 +141,31 @@ class TickerChartAbout extends React.Component {
                 chartData = this.formatSingleHistoricalTickerData(this.props.historicalQuote[this.props.tickerName].chart)
             }
         }
+        if (this.props.news) {
+            news = this.props.news.map(singleNews => {
+                return (
+                    <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
+                        <div className = "single-news-about">
+                            <div>
+                                <span>{singleNews.source.name}</span>
+                                <p>{singleNews.publishedAt}</p>
+                            </div>
+                            <span>{singleNews.title}</span>
+                            <p>{singleNews.description}</p>
+                        </div>
+                        <img 
+                            draggable="false" 
+                            role="presentation" 
+                            srcSet = {singleNews.urlToImage}
+                            className = "news-img"
+                        />
+                    </a>
+                )
+        })}
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
-                    <span className = "chart-ticker-name chart-top-about">{this.props.tickerName}</span>
+                    <span className = "chart-ticker-name chart-top-about">{this.props.quote.companyName}</span>
                     <div >
                         <span ref = {this.currentMarkPriceDOMRef} className = "chart-ticker-mark-price chart-top-about">${(this.props.quote.markPrice) ? this.props.quote.markPrice.toFixed(2) : undefined}</span>
                         <span ref = {this.hoverChartPriceDOMRef} className = "chart-ticker-mark-price chart-top-about"></span>
@@ -187,21 +218,54 @@ class TickerChartAbout extends React.Component {
                         </ul>
                     </div>
                 </div>
+                {/* <p>{this.props.tickerName} specializes in ABOUT DESCRIPTION</p> */}
                 <div className = "ticker-about-container">
-                    <div className = "ticker-about-word">About</div>
-                    {/* <p>{this.props.tickerName} specializes in ABOUT DESCRIPTION</p> */}
-                    <div className = "ticker-about-upperdiv">
-                        <span className = "inner-upperdiv">Company Name<br/>{this.props.quote.companyName}</span>
-                        <span className = "inner-upperdiv">Employees<br/>{this.props.quote.employees}</span>
-                        <span className = "inner-upperdiv">Exchange<br/>{this.props.quote.exchange}</span>
-                        <span className = "inner-upperdiv">Phone<br/>{this.props.quote.phone}</span>
+                    <div className = "ticker-about-text">About</div>
+                    <div className = "about-index">
+                        <div>
+                            <span>Company Name</span>
+                            <p>{this.props.quote.companyName}</p>
+                        </div>
+                        <div>
+                            <span>Employees</span>
+                            <p>{this.props.quote.employees}</p>
+                        </div>
+                        <div>
+                            <span>Exchange</span>
+                            <p>{this.props.quote.exchange}</p>
+                        </div>
+                        <div>
+                            <span>Phone</span>
+                            <p>{this.props.quote.phone}</p>
+                        </div>
                     </div>
-                    <div className = "ticker-about-lowerdiv">
-                        <span className = "inner-lowerdiv">Market Cap<br/>{this.props.quote.marketcap}</span>
-                        <span className = "inner-lowerdiv">Next Earnings Date<br/>{this.props.quote.nextEarningDate}</span>
-                        <span className = "inner-lowerdiv">30-Day Volume<br/>{this.props.quote.monthlyVolume}</span>
-                        <span className = "inner-lowerdiv">Shares Outstanding<br/>{this.props.quote.sharesOutstanding}</span>
+                </div>
+                <div className = "ticker-keystats-container">
+                    <div className = "ticker-keystats-text">Key Statistics</div>
+                    <div className = "keystats-index">
+                        <div>
+                            <span>Market Cap</span>
+                            <p>{this.props.quote.marketcap}</p>
+                        </div>
+                        <div>
+                            <span>peRatio</span>
+                            <p>{this.props.quote.peRatio}</p>
+                        </div>
+                        <div>
+                            <span>30-Day Volume</span>
+                            <p>{this.props.quote.monthlyVolume}</p>
+                        </div>
+                        <div>
+                            <span>Shares Outstanding</span>
+                            <p>{this.props.quote.sharesOutstanding}</p>
+                        </div>
                     </div>
+                </div>
+                <div className = "ticker-news-container">
+                    <div className = "ticker-news-text">News</div>
+                    <ul className = "">
+                       {news}
+                    </ul>
                 </div>
             </div>
         )

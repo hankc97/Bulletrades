@@ -6,11 +6,10 @@ import {
     RECEIVE_MULTI_TICKER_QUOTE, 
     RECEIVE_SINGLE_TICKER_HISTORICAL_QUOTE} from '../actions/ticker_api'
 
-// function nextIdGenerator(quote) {
-//     if (quote.id === null) return 0
-//     const maxId = quote.reduce((maxId, quote) => Math.max(quote.id, maxId), -1)
-//     return maxId + 1
-// }
+import {
+    RECEIVE_SINGLE_TICKER_NEWS
+} from '../actions/news_api'
+
 
 const _nullQuote = Object.freeze({
     
@@ -36,9 +35,9 @@ const tickersReducer = (state = _nullQuote, action) => {
             return action.quotes
         case RECEIVE_SINGLE_TICKER_KEYSTAT:
             const data = {
-                marketcap: action.keyStat.marketCap,
+                marketcap: action.keyStat.marketcap,
                 employees: action.keyStat.employees,
-                nextEarningDate: action.keyStat.nextEarningDate,
+                peRatio: action.keyStat.peRatio,
                 monthlyVolume: action.keyStat.avg30Volume,
                 sharesOutstanding: action.keyStat.sharesOutstanding,
             }
@@ -50,6 +49,11 @@ const tickersReducer = (state = _nullQuote, action) => {
                 phone: action.company.phone,
             }
             return Object.assign({}, newState, companyData)
+        case RECEIVE_SINGLE_TICKER_NEWS:
+            const news = {
+                news: action.news.articles
+            }
+            return Object.assign({}, newState, news)
         case CLEAR_QUOTES:
             return _nullQuote
         default:
