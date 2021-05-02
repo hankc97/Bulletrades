@@ -121,7 +121,7 @@ class PortfolioMainSection extends React.Component {
                     <span className = "">${currentUser.buyingPower.toFixed(2)}</span>  
                 </div>
                 <div 
-                        onClick = {this.handleClick}>
+                    onClick = {this.handleClick}>
                     <form onSubmit = {this.handleSubmit} className = "prop-input-form-inactive form-toggle-aa" >
                         <input 
                             type = "text"

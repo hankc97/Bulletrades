@@ -1,5 +1,5 @@
 import React from 'react'
-import SideBarTicker from './sidebar/sidebar_ticker'
+import SideBarTicker from './sidebar/sidebar_container'
 import StockList from '../stock_lists/stockLists'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
 
@@ -84,13 +84,13 @@ class TickerChartAbout extends React.Component {
     componentDidMount() {
         this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
             this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                this.props.requestSingleTickerCompany(this.props.tickerName).then((res) => {
-                        this.props.requestSingleTickerNews(res.company.companyName)
-                    }
-                )
+                this.props.requestSingleTickerCompany(this.props.tickerName)
+                // .then((res) => {
+                //         this.props.requestSingleTickerNews(res.company.companyName)
+                //     }
             )
         )
-        
+
         this.state.loading = false
     }
 
@@ -98,12 +98,13 @@ class TickerChartAbout extends React.Component {
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                    this.props.requestSingleTickerCompany(this.props.tickerName).then((res) => {
-                        this.props.requestSingleTickerNews(res.company.companyName)
-                        }
-                    )
+                    this.props.requestSingleTickerCompany(this.props.tickerName)
+                    // .then((res) => {
+                    //     this.props.requestSingleTickerNews(res.company.companyName)
+                    //     }
                 )
             )
+            
             this.setState({chartDate: "1D"})
         }
         else if (prevState.chartDate !== this.state.chartDate && this.state.chartDate !== "1D") {
@@ -141,27 +142,27 @@ class TickerChartAbout extends React.Component {
                 chartData = this.formatSingleHistoricalTickerData(this.props.historicalQuote[this.props.tickerName].chart)
             }
         }
-        if (this.props.news) {
-            news = this.props.news.map(singleNews => {
-                return (
-                    <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
-                        <div className = "single-news-about">
-                            <div>
-                                <span>{singleNews.source.name}</span>
-                                <p>{singleNews.publishedAt}</p>
-                            </div>
-                            <span>{singleNews.title}</span>
-                            <p>{singleNews.description}</p>
-                        </div>
-                        <img 
-                            draggable="false" 
-                            role="presentation" 
-                            srcSet = {singleNews.urlToImage}
-                            className = "news-img"
-                        />
-                    </a>
-                )
-        })}
+        // if (this.props.news) {
+        //     this.props.news.map(singleNews => {
+        //         return (
+        //             <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
+        //                 <div className = "single-news-about">
+        //                     <div>
+        //                         <span>{singleNews.source.name}</span>
+        //                         <p>{singleNews.publishedAt}</p>
+        //                     </div>
+        //                     <span>{singleNews.title}</span>
+        //                     <p>{singleNews.description}</p>
+        //                 </div>
+        //                 <img 
+        //                     draggable="false" 
+        //                     role="presentation" 
+        //                     srcSet = {singleNews.urlToImage}
+        //                     className = "news-img"
+        //                 />
+        //             </a>
+        //         )
+        // })}
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
@@ -218,6 +219,14 @@ class TickerChartAbout extends React.Component {
                         </ul>
                     </div>
                 </div>
+                <div className = "ticker-owned-position-container">
+                    <div>
+                        
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
                 {/* <p>{this.props.tickerName} specializes in ABOUT DESCRIPTION</p> */}
                 <div className = "ticker-about-container">
                     <div className = "ticker-about-text">About</div>
@@ -264,7 +273,30 @@ class TickerChartAbout extends React.Component {
                 <div className = "ticker-news-container">
                     <div className = "ticker-news-text">News</div>
                     <ul className = "">
-                       {news}
+                       {/* {
+                           this.props.news ? (
+                                this.props.news.map(singleNews => {
+                                    return (
+                                        <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
+                                            <div className = "single-news-about">
+                                                <div>
+                                                    <span>{singleNews.source.name}</span>
+                                                    <p>{singleNews.publishedAt}</p>
+                                                </div>
+                                                <span>{singleNews.title}</span>
+                                                <p>{singleNews.description}</p>
+                                            </div>
+                                            <img 
+                                                draggable="false" 
+                                                role="presentation" 
+                                                srcSet = {singleNews.urlToImage}
+                                                className = "news-img"
+                                            />
+                                        </a>
+                                    )
+                                })
+                            ) : ( "" )
+                        } */}
                     </ul>
                 </div>
             </div>
