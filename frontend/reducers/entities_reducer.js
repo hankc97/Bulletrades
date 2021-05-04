@@ -5,8 +5,8 @@ import userOrdersReducer from './user_orders_reducer'
 
 const entities = combineReducers({
     currentUser: userReducer,
-    tickerQuotes: tickersReducer,
-    userOrders: userOrdersReducer,
+    currentTickerPageQuote: tickersReducer,
+    currentUserOrders: userOrdersReducer,
 })
 
 

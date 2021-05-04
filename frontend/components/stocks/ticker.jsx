@@ -23,16 +23,18 @@ class Ticker extends React.Component {
                         quote = {this.props.quote}
                         news = {this.props.news}
                         historicalQuote = {this.props.historicalQuote}
+                        receiveSingleCurrentUserOrders = {this.props.receiveSingleCurrentUserOrders}
                     />
                     <SideBarTicker 
                         currentUser = {this.props.currentUser}
                         markPrice = {this.props.quote.markPrice}
                         tickerName = {this.props.tickerName}
-                        addOrder = {this.props.addOrder}
+                        createOrder = {this.props.createOrder}
                         updateOrder = {this.props.updateOrder}
                         deleteOrder = {this.props.deleteOrder}
                         userOrders = {this.props.userOrders}
-                        fetchAllOrders = {this.props.fetchAllOrders}
+                        currentUserOrder = {this.props.currentUserOrder}
+                        updateOrder = {this.props.updateOrder}
                     />
                 </div>
             </div>
@@ -84,13 +86,11 @@ class TickerChartAbout extends React.Component {
     componentDidMount() {
         this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
             this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                this.props.requestSingleTickerCompany(this.props.tickerName)
+                this.props.requestSingleTickerCompany(this.props.tickerName)))
+                    .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
                 // .then((res) => {
                 //         this.props.requestSingleTickerNews(res.company.companyName)
                 //     }
-            )
-        )
-
         this.state.loading = false
     }
 
@@ -98,13 +98,11 @@ class TickerChartAbout extends React.Component {
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                    this.props.requestSingleTickerCompany(this.props.tickerName)
+                    this.props.requestSingleTickerCompany(this.props.tickerName)))
+                        .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
                     // .then((res) => {
                     //     this.props.requestSingleTickerNews(res.company.companyName)
                     //     }
-                )
-            )
-            
             this.setState({chartDate: "1D"})
         }
         else if (prevState.chartDate !== this.state.chartDate && this.state.chartDate !== "1D") {

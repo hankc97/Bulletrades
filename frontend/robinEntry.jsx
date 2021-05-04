@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/root'
 import configureStore from './store/store'
+import {createUserOrder} from './utils/user_transaction_util'
+import {login} from './utils/user_session_util'
+import {fetchSingleCurrentUserTicker} from './utils/user_order_util'
 // import {fetchNewsByTickerName} from "./utils/news_api_util"
 // import {fetchSingleTickerKeyStat, fetchSingleTickerCompany} from './utils/api_util'
 
@@ -25,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
+    // window.createUserOrder = createUserOrder
+    // window.login = login
+    // window.fetchSingleCurrentUserTicker = fetchSingleCurrentUserTicker
     // window.fetchNewsByTickerName = fetchNewsByTickerName
     // window.fetchSingleTickerKeyStat = fetchSingleTickerKeyStat
     // window.fetchSingleTickerCompany = fetchSingleTickerCompany

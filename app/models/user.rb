@@ -53,8 +53,6 @@ class User < ApplicationRecord
         self.session_token
     end
 
-    private
-
     def ensure_session_token
         generate_unique_session_token unless self.session_token
     end
@@ -71,9 +69,10 @@ class User < ApplicationRecord
         self.session_token
     end
 
-    # def self.update_buying_power(buying_power)
-    #     self.buying_power = buying_power
-    #     self.save!
-    # end
-
+    def get_updated_buying_power(buying_power, quantity, avg_ticker_price, sale_type)
+        if sale_type == "Buy" 
+            new_buying_power = buying_power - ( avg_ticker_price * quantity )
+            return new_buying_power
+        end
+    end
 end

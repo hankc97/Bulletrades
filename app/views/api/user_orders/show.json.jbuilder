@@ -1,5 +1,7 @@
 json.userOrder do    
-    json.partial! 'api/user_orders/user_order', user_order: @user_order
+    @current_user_single_order.each do |order|
+        json.array! [[order.avg_ticker_price, order.quantity]]
+    end 
 end
 
 json.currentUser do 

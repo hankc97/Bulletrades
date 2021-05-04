@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_24_215922) do
+ActiveRecord::Schema.define(version: 2021_05_03_134236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2021_04_24_215922) do
   create_table "user_orders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "ticker_id", null: false
-    t.float "quantity", default: 0.0, null: false
+    t.decimal "quantity", precision: 25, scale: 7, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "avg_ticker_price", default: 0.0, null: false
+    t.decimal "avg_ticker_price", precision: 25, scale: 7, default: "0.0", null: false
     t.index ["ticker_id"], name: "index_user_orders_on_ticker_id"
     t.index ["user_id"], name: "index_user_orders_on_user_id"
   end
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_04_24_215922) do
     t.string "session_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "buying_power", default: 25000.0, null: false
+    t.decimal "buying_power", precision: 25, scale: 5, default: "25000.0", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end

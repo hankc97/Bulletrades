@@ -1,162 +1,189 @@
 import React from 'react'
 
-class BuySharesFormInner extends React.Component {
+class Shares extends React.Component {
     constructor(props) {
         super(props)
         
         this.state = {
-            estimatedTotalCost: 0,
-            shareNumber: 0,
-            prevShareNumber: 0,
-            hasTicker: this.props.hasTicker
+            numberOfShares: 0,
+            estimatedTotalPrice: 0,
+            errorsText: "",
+            transactionReviewSuccessText: "",
         }
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleBuySubmit = this.handleBuySubmit.bind(this)
-        this.handleSellSubmit = this.handleSellSubmit.bind(this)
-        this.handleErrors = this.handleErrors.bind(this)
+        this.dismissButton = React.createRef()
+        this.reviewOrderButton = React.createRef()
+        this.depositFunds = React.createRef()
+        this.executeSaleButton = React.createRef()
+        this.backButton = React.createRef()
+
+        this.handleShareInputChange = this.handleShareInputChange.bind(this)
+        this.handleReviewOrder = this.handleReviewOrder.bind(this)
+        this.resetButtons = this.resetButtons.bind(this)
+        this.clearError = this.clearError.bind(this)
+        this.executeOrderToBackEnd = this.executeOrderToBackEnd.bind(this)
     }
 
-    componentDidUpdate(prevProps) {
-        let markPrice;
-        (!this.props.markPrice) ? markPrice = 0 : markPrice = this.props.markPrice;
-        if (prevProps.tickerName !== this.props.tickerName || prevProps.buyingPower !== (this.props.buyingPower - (this.state.prevShareNumber * markPrice))) {
-            if ((this.props.tickerName.charAt(0).toLowerCase() + this.props.tickerName.slice(1) in this.props.userOrders) || (this.props.tickerName in this.props.userOrders)) {
-                this.setState({hasTicker: true, prevShareNumber: 0})
-            } else {
-                this.setState({hasTicker: false, prevShareNumber: 0})
+    componentDidMount() {
+        this.setState({saleType: this.props.saleType})
+    }
+
+    componentDidUpdate(prevState) {
+        if (prevState.saleType !== this.props.saleType) {
+            this.resetButtons()
+            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0,})
+        }
+    }
+
+    executeOrderToBackEnd() {
+        const currentUser = this.props.currentUser
+
+        if (this.props.saleType === "Buy") {
+            if (this.props.hasTicker === false) {
+                const user_buying_power = {
+                    buying_power: parseFloat(currentUser.buyingPower)}
+                const newUserOrderForm = {
+                    user_id: currentUser.id,
+                    ticker: this.props.tickerName,
+                    quantity: parseFloat(this.state.numberOfShares),
+                    avg_ticker_price: this.state.estimatedTotalPrice / this.state.numberOfShares,
+                    sale_type: this.props.saleType
+                }
+                this.props.createOrder(newUserOrderForm, user_buying_power)
+            }
+
+            if (this.props.hasTicker === true) {
+                
             }
         }
     }
 
-    handleBuySubmit(e) {
+    resetButtons() {
+        this.reviewOrderButton.current.classList.add('review-order-button')
+        this.reviewOrderButton.current.classList.remove('hide-button')
+
+        this.executeSaleButton.current.classList.add('hide-button')
+        this.executeSaleButton.current.classList.remove('reveal-execute-sale-button')
+
+        this.backButton.current.classList.add('hide-button')
+        this.backButton.current.classList.remove('reveal-back-button')
+    }
+
+    clearError() {
+        this.dismissButton.current.classList.add('hide-button')
+        this.dismissButton.current.classList.remove('reveal-dismiss-button')
+
+        this.reviewOrderButton.current.classList.add('review-order-button')
+        this.reviewOrderButton.current.classList.remove('hide-button')
+
+        this.depositFunds.current.classList.add('hide-button')
+        this.depositFunds.current.classList.remove('reveal-deposit-funds')
+    }
+
+    handleShareInputChange(e) {
         e.preventDefault()
-        if (this.props.buyingPower < this.state.estimatedTotalCost) return this.handleErrors()
-        if (this.props.buyingPower >= this.state.estimatedTotalCost) {
-            const totalQuantity = this.state.shareNumber + this.props.quantity 
-            const user_buying_power = {
-                buying_power: (this.props.buyingPower - (this.state.shareNumber * this.props.markPrice))}
-            if (!this.state.hasTicker) {
-                const new_user_orders = {
-                    user_id: this.props.id,
-                    ticker: this.props.tickerName,
-                    quantity: this.state.shareNumber,
-                    avg_ticker_price: this.props.markPrice
-                }
-                this.props.addOrder(new_user_orders, user_buying_power)
-            }
-
-            if (this.state.hasTicker){
-                const updated_user_orders = {
-                    user_id: this.props.id,
-                    ticker: this.props.tickerName,
-                    quantity: this.props.quantity + this.state.shareNumber,
-                    avg_ticker_price: (this.props.markPrice + this.props.avgTickerPrice) / 2
-                }
-                this.props.updateOrder(updated_user_orders, user_buying_power)
-            }
-            this.setState({shareNumber: 0, prevShareNumber: totalQuantity})
-        }
+        this.setState({numberOfShares: e.target.value})
     }
 
-    handleSellSubmit(e) {
+    handleReviewOrder(e) {
         e.preventDefault()
-        if (this.props.buyingPower < 0) return this.handleErrors()
-        if (this.props.buyingPower) {
-            const totalQuantity = this.props.quantity - this.state.shareNumber 
-            const user_buying_power = {
-                buying_power: (this.props.buyingPower + (this.state.shareNumber * this.props.markPrice))}
-
-            // if (this.props.quantity - this.state.shareNumber === 0) {
-            //     const formattedTickerName = this.props.tickerName.charAt(0).toLowerCase() + this.props.tickerName.slice(1)
-            //     this.props.deleteOrder(formattedTickerName, this.props.userOrders.tickerId)
-            //     this.setState({hasTicker: false})
-            // }
-
-            if (this.props.quantity - this.state.shareNumber >= 0) {
-                const updated_user_orders = {
-                    user_id: this.props.id,
-                    ticker: this.props.tickerName,
-                    quantity: this.props.quantity - this.state.shareNumber,
-                    avg_ticker_price: (this.props.markPrice + this.props.avgTickerPrice) / 2
-                }
-                this.props.updateOrder(updated_user_orders, user_buying_power)
-            }
-            this.setState({shareNumber: 0, prevShareNumber: totalQuantity})
-        }
-
-    }
-
-    handleChange(e) {
+        const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML.slice(1))
         
-        if (e.currentTarget.value === "") return this.setState({shareNumber: 0})
+        if (parseInt(this.state.numberOfShares) === 0) return this.setState({errorsText: "Please enter a valid number of shares"})
+        if (this.props.currentUser.buyingPower < totalPrice) return this.displayError()
+        if (this.props.currentUser.buyingPower >= totalPrice) return this.displaySuccessfulOrderReview(totalPrice)
+    }
+
+    displaySuccessfulOrderReview(totalPrice) {
+        this.reviewOrderButton.current.classList.remove('review-order-button')
+        this.reviewOrderButton.current.classList.add('hide-button')
+
+        this.executeSaleButton.current.classList.remove('hide-button')
+        this.executeSaleButton.current.classList.add('reveal-execute-sale-button')
+
+        this.backButton.current.classList.remove('hide-button')
+        this.backButton.current.classList.add('reveal-back-button')
+        
         this.setState({
-            shareNumber: parseFloat(e.currentTarget.value),
-            estimatedTotalCost: (this.state.shareNumber),
+            estimatedTotalPrice: totalPrice,
+            transactionReviewSuccessText: "Successful Order Review. Please Execute Order Or Click Back To Continue Editing Order",
+            errorsText: "",
         })
     }
 
-    handleErrors() {
+    displayError() {
+        this.dismissButton.current.classList.remove('hide-button')
+        this.dismissButton.current.classList.add('reveal-dismiss-button')
 
+        this.reviewOrderButton.current.classList.remove('review-order-button')
+        this.reviewOrderButton.current.classList.add('hide-button')
+
+        this.depositFunds.current.classList.remove('hide-button')
+        this.depositFunds.current.classList.add('reveal-deposit-funds')
+
+        this.setState({estimatedTotalPrice: 0, errorsText: "Not Enough Buying Power. Please Deposit Funds Below"})
     }
 
     render() {
+        const {errorsText, transactionReviewSuccessText, numberOfShares}  = this.state
+        const {saleType} = this.props
+        const markPrice = this.props.markPrice || 0 
+        const estimatedTextType = (saleType === "Buy") ? "Estimated Cost" : "Estimated Credit"
+        const totalOrderCost = numberOfShares * markPrice 
+
         return(
-            <div>
-                {this.props.buyButton ? (
-                    <form onSubmit = {this.handleBuySubmit} className = "shares-form-inner">
-                        <div className = "share-label-input">
-                            <label>Shares</label>
-                            <input
-                                className = "shares-input-box"
-                                type = "number"
-                                placeholder = '0'
-                                onChange = {this.handleChange}
-                                value = {this.state.shareNumber}
-                            />
-                        </div>
-                        <div className = "share-market-price">
-                            <span>Market Price</span>
-                            <span>${this.props.markPrice}</span>
-                        </div>
-                        <div className = "share-estimated-cost">
-                            <span>Estimated Cost</span>
-                            <span>${(this.state.shareNumber * this.props.markPrice).toFixed(2)}</span>
-                        </div>
-                        <button className = "share-button-inner" >Buy Shares</button>
-                    </form>
-                ) : (
-                    <form onSubmit = {this.handleSellSubmit} 
-                            className = "shares-form-inner">
-                        <div className = "share-label-input">
-                            <label>Shares</label>
-                            <input 
-                                className = "shares-input-box"
-                                type = "number"
-                                placeholder = "0"
-                                onChange = {this.handleChange}
-                                value = {this.state.shareNumber}
-                            />
-                        </div>
-                        <div className = "share-market-price">
-                            <span>Market Price</span>
-                            <span>${this.props.markPrice}</span>
-                        </div>
-                        <div className = "share-estimated-cost">
-                            <span>Estimated Credit</span>
-                            <span>${(this.state.shareNumber * this.props.markPrice).toFixed(2)}</span>
-                        </div>
-                        <button className = "share-button-inner">Sell Shares</button>
-                    </form> 
-                )}
+            <div className = "outer-bottom-div-container">
+                <div className = "shares-input-container">
+                    <label>Shares</label>
+                    <input
+                        type = "number"
+                        placeholder = "0"
+                        value = {this.state.numberOfShares}
+                        onChange = {this.handleShareInputChange}
+                    />
+                </div>
+                <div className = "mark-price-container">
+                    <label>Market Price</label>
+                    <span>${markPrice.toFixed(2)}</span>
+                </div>
+                <form onSubmit = {this.handleReviewOrder}>
+                    <div className = "total-cost-price-container">
+                        <label>{estimatedTextType}</label>
+                        <span>${totalOrderCost.toFixed(2)}</span>
+                    </div>
+                    <p className = "errors-text">{errorsText}</p>
+                    <p>{transactionReviewSuccessText}</p>
+                    <button ref = {this.reviewOrderButton} className = "review-order-button">Review Order</button>
+                </form>
+
+                <>
+                    <button ref = {this.executeSaleButton} 
+                            onClick = {this.executeOrderToBackEnd}
+                            className = "hide-button">Execute {saleType}</button>
+                    <button ref = {this.backButton} 
+                            onClick = {() => {
+                                this.resetButtons()
+                                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: ""})
+                            }}
+                            className = "hide-button">Back</button>
+                </>
+
+                <>
+                    <button ref = {this.depositFunds} className = "hide-button">Deposit Funds</button>
+                    <button 
+                        onClick = {() => {
+                            this.clearError()
+                            this.setState({estimatedTotalPrice: 0, errorsText: ""})
+                        }} 
+                        ref = {this.dismissButton} 
+                        className = "hide-button">Dismiss</button>
+                </>
+
+               
             </div>
         )
     }
 }
 
-// class SellSharesFormInner extends React.Component {
 
-
-// }
-
-export default BuySharesFormInner
+export default Shares

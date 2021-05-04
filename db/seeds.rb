@@ -8,6 +8,9 @@
 
 require 'csv'
 
+UserOrder.delete_all
+User.delete_all
+
 demo_user = User.create({email: 'demo@yahoo.com', first_name: 'Demo', last_name: 'User', password: 'password'});
 
 Ticker.delete_all
