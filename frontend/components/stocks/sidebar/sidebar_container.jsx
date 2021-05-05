@@ -12,6 +12,8 @@ class SideBarContainer extends React.Component {
 
         this.buyButton = React.createRef()
         this.sellButton = React.createRef()
+        this.buyingPowerSpan = React.createRef()
+        this.shareAvailableSpan = React.createRef()
 
         this.handleSelectChange = this.handleSelectChange.bind(this)
     }
@@ -37,15 +39,21 @@ class SideBarContainer extends React.Component {
     saleType() {
         let buyButton = this.buyButton.current
         let sellButton = this.sellButton.current
+        let buyingPowerSpan = this.buyingPowerSpan.current
+        let shareAvailableSpan = this.shareAvailableSpan.current
 
         if (this.state.saleType === "Buy") {
             buyButton.classList.add('greenHighlight')
             sellButton.classList.remove('greenHighlight')
+            shareAvailableSpan.classList.add('hide')
+            buyingPowerSpan.classList.remove('hide')
         }
 
         if (this.state.saleType === "Sell") {
             sellButton.classList.add('greenHighlight')
             buyButton.classList.remove('greenHighlight')
+            buyingPowerSpan.classList.add('hide')
+            shareAvailableSpan.classList.remove('hide')
         }
 
     }
@@ -79,6 +87,9 @@ class SideBarContainer extends React.Component {
         if (this.state.selectedShareOrDollar === "Dollars") {
             ShareOrDollarContainer = ""
         }
+        let buyingPower = parseFloat(this.props.currentUser.buyingPower).toFixed(2)
+        let sharesAvailable
+        if (this.props.currentUserOrder) sharesAvailable = this.props.currentUserOrder[1].toFixed(7)
 
         return(
             <div className = "sidebar-ticker-container">
@@ -104,7 +115,8 @@ class SideBarContainer extends React.Component {
                     </div>
                     {ShareOrDollarContainer}
                     <div className = "buying-power-text-container">
-                        <span>${this.props.currentUser.buyingPower} Buying Power Available</span>
+                        <span ref = {this.buyingPowerSpan}>${buyingPower} Buying Power Available</span>
+                        <span ref = {this.shareAvailableSpan}>{sharesAvailable} Shares Available</span>
                     </div>
                 </div>
             </div>

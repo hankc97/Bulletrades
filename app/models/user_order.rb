@@ -21,4 +21,87 @@ class UserOrder < ApplicationRecord
         foreign_key: :ticker_id,
         class_name: :Ticker
     
+    def self.sell_user_order_by_closest_price(buying_power, quantity, avg_ticker_price, all_orders_for_current_ticker)
+        lowidx, highidx = self.use_binary_search_to_find_closest_index(all_orders_for_current_ticker, avg_ticker_price)
+        increment_var = (lowidx - 0).abs > (highidx - all_orders_for_current_ticker.length()).abs ? lowidx : highidx
+        alt_counter = (increment_var == lowidx) ? highidx : lowidx
+        loop_conditional_statement = (increment_var == highidx) ? increment_var...all_orders_for_current_ticker.length() : increment_var.downto(0)
+
+        for main_counter in loop_conditional_statement do 
+            if all_orders_for_current_ticker[main_counter].quantity <= quantity
+                buying_power += ( avg_ticker_price * all_orders_for_current_ticker[main_counter].quantity )
+                quantity -= all_orders_for_current_ticker[main_counter].quantity
+                all_orders_for_current_ticker[main_counter].delete
+
+            elsif all_orders_for_current_ticker[main_counter].quantity > quantity
+                all_orders_for_current_ticker[main_counter].quantity -= quantity
+                buying_power += ( avg_ticker_price * quantity )
+                quantity = 0
+                all_orders_for_current_ticker[main_counter].save
+                break
+            end
+
+            if ( (alt_counter >= 0) && (alt_counter != all_orders_for_current_ticker.length()) )
+                if all_orders_for_current_ticker[alt_counter].quantity <= quantity
+                    buying_power += ( avg_ticker_price * all_orders_for_current_ticker[alt_counter].quantity )
+                    quantity -= all_orders_for_current_ticker[alt_counter].quantity
+                    all_orders_for_current_ticker[alt_counter].delete
+                    if alt_counter == highidx
+                        alt_counter += 1
+                    else 
+                        alt_counter -= 1
+                    end 
+                elsif all_orders_for_current_ticker[alt_counter].quantity > quantity
+                    all_orders_for_current_ticker[alt_counter].quantity -= quantity
+                    buying_power += ( avg_ticker_price * quantity )
+                    quantity = 0
+                    all_orders_for_current_ticker[alt_counter].save
+                    break
+                end
+            end
+        end
+        return buying_power
+    end
+
+    def self.use_binary_search_to_find_closest_index(array_of_objects, avg_ticker_price)
+        if array_of_objects.length() < 5 
+            return [low = 0, high = 1]
+        end
+        if (avg_ticker_price < array_of_objects[0].avg_ticker_price)
+            return [low = 0, high = 1]
+        end
+        if (avg_ticker_price > array_of_objects[array_of_objects.length() - 1].avg_ticker_price)
+            return [low = array_of_objects.length() - 2, high = array_of_objects.length() - 1]
+        end
+
+        low = 0
+        high = array_of_objects.length() - 1
+        while (low <= high) 
+            midpoint = (high + low) / 2
+            if (avg_ticker_price < array_of_objects[midpoint].avg_ticker_price)
+                high = midpoint - 1
+            elsif (avg_ticker_price > array_of_objects[midpoint].avg_ticker_price)
+                low = midpoint + 1
+            else
+                return [low, high]
+            end
+        end
+        return [low, high]
+    end
+
 end
+
+# function binarySearch(array, target) {
+#     if (array.length === 0) return -1;
+    
+#     const midpoint = Math.floor(array.length / 2);
+#     if (array[midpoint] > target) {
+#       return binarySearch(array.slice(0, midpoint), target);
+#     } else if (array[midpoint] < target) {
+#       const subResult = binarySearch(array.slice(midpoint + 1), target);
+#       return subResult === -1 ? -1 : subResult + midpoint + 1;
+#     } else {
+#       return midpoint;
+#     }
+#   }
+  

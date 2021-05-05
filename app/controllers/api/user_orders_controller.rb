@@ -43,30 +43,17 @@ class Api::UserOrdersController < ApplicationController
     end
 
     def update
+        convert_params_to_bigdecimal_from_string
         tickerId = Ticker.find_by(ticker: user_order_params[:ticker]).id
-        @user_order = current_user.ticker_orders.find_by(ticker_id: tickerId)
+        @all_orders_for_current_ticker = current_user.ticker_orders.where(ticker_id: tickerId).order(:avg_ticker_price)
+        updated_buying_power = UserOrder.sell_user_order_by_closest_price(@buying_power, @quantity, @avg_ticker_price, @all_orders_for_current_ticker)
+        current_user.buying_power = updated_buying_power
 
-        new_buying_power = current_user.get_updated_buying_power(
-                            buying_power_params[:buying_power], 
-                            user_order_params[:quantity], 
-                            user_order_params[:avg_ticker_price])
-
-        current_user.buying_power = new_buying_power
-
-        if @user_order.update_attributes(
-            user_id: user_order_params[:user_id],
-            ticker_id: tickerId,
-            quantity: user_order_params[:quantity],
-            avg_ticker_price: user_order_params[:avg_ticker_price]) && current_user.save
-            if Integer(user_order_params[:quantity]) == 0
-                @delete_user_order = current_user.ticker_orders.where(ticker_id: tickerId)
-                if @delete_user_order
-                    @delete_user_order.destroy_all
-                end
-            end
-            render 'api/user_orders/update'
+        if current_user.save
+            @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
+            render 'api/user_orders/show'
         else
-            render json: @user_order.full_messages, status: 401
+            render json: ["Not Enough Buying Power"], status: 401
         end
     end
 

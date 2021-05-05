@@ -31,7 +31,8 @@ class Shares extends React.Component {
     componentDidUpdate(prevState) {
         if (prevState.saleType !== this.props.saleType) {
             this.resetButtons()
-            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0,})
+            this.clearError()
+            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
         }
     }
 
@@ -39,23 +40,43 @@ class Shares extends React.Component {
         const currentUser = this.props.currentUser
 
         if (this.props.saleType === "Buy") {
-            if (this.props.hasTicker === false) {
+            const user_buying_power = {
+                buying_power: currentUser.buyingPower}
+            const newUserOrderForm = {
+                user_id: currentUser.id,
+                ticker: this.props.tickerName,
+                quantity: this.state.numberOfShares,
+                avg_ticker_price: this.state.estimatedTotalPrice / this.state.numberOfShares,
+                sale_type: this.props.saleType
+            }
+            this.props.createOrder(newUserOrderForm, user_buying_power)
+            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+            this.resetButtons()
+        }
+
+        if (this.props.saleType === "Sell") {
+            if (!this.isSharesEqualToZeroAfterSell()) {
                 const user_buying_power = {
-                    buying_power: parseFloat(currentUser.buyingPower)}
+                    buying_power: currentUser.buyingPower}
                 const newUserOrderForm = {
                     user_id: currentUser.id,
                     ticker: this.props.tickerName,
-                    quantity: parseFloat(this.state.numberOfShares),
+                    quantity: this.state.numberOfShares,
                     avg_ticker_price: this.state.estimatedTotalPrice / this.state.numberOfShares,
                     sale_type: this.props.saleType
                 }
-                this.props.createOrder(newUserOrderForm, user_buying_power)
-            }
-
-            if (this.props.hasTicker === true) {
-                
+                this.props.updateOrder(newUserOrderForm, user_buying_power)
+                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+                this.resetButtons()
+            } else {
+                // add delete route to backend here
             }
         }
+    }
+
+    isSharesEqualToZeroAfterSell() {
+        const sharesAvailable = this.props.currentUserOrder[1]
+        if (this.state.numberOfShares - sharesAvailable === 0) return true
     }
 
     resetButtons() {
@@ -88,10 +109,18 @@ class Shares extends React.Component {
     handleReviewOrder(e) {
         e.preventDefault()
         const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML.slice(1))
-        
         if (parseInt(this.state.numberOfShares) === 0) return this.setState({errorsText: "Please enter a valid number of shares"})
-        if (this.props.currentUser.buyingPower < totalPrice) return this.displayError()
-        if (this.props.currentUser.buyingPower >= totalPrice) return this.displaySuccessfulOrderReview(totalPrice)
+
+        if (this.props.saleType === "Buy") {
+            if (this.props.currentUser.buyingPower < totalPrice) return this.displayError()
+            if (this.props.currentUser.buyingPower >= totalPrice) return this.displaySuccessfulOrderReview(totalPrice)
+        }
+
+        if (this.props.saleType === "Sell") {
+            const sharesAvailable = this.props.currentUserOrder[1]
+            if (sharesAvailable < this.state.numberOfShares) return this.displayError()
+            if (sharesAvailable >= this.state.numberOfShares) return this.displaySuccessfulOrderReview(totalPrice)
+        }
     }
 
     displaySuccessfulOrderReview(totalPrice) {
@@ -118,10 +147,20 @@ class Shares extends React.Component {
         this.reviewOrderButton.current.classList.remove('review-order-button')
         this.reviewOrderButton.current.classList.add('hide-button')
 
-        this.depositFunds.current.classList.remove('hide-button')
-        this.depositFunds.current.classList.add('reveal-deposit-funds')
+        if (this.props.saleType === "Buy") {
+            this.depositFunds.current.classList.remove('hide-button')
+            this.depositFunds.current.classList.add('reveal-deposit-funds')
 
-        this.setState({estimatedTotalPrice: 0, errorsText: "Not Enough Buying Power. Please Deposit Funds Below"})
+            this.setState({
+                estimatedTotalPrice: 0, 
+                errorsText: "Not Enough Buying Power. Please Deposit Funds Below"
+        })}
+
+        if (this.props.saleType === "Sell") {
+            this.setState({
+                estimatedTotalPrice: 0, 
+                errorsText: `Not Enough Shares Available. You can only sell ${this.props.currentUserOrder[1].toFixed(7)} shares`
+        })}
     }
 
     render() {

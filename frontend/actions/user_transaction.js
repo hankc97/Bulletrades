@@ -70,7 +70,7 @@ export const updateUserForm = formUser => dispatch => (
     )
 )
 
-export const receiveNewOrderForm = (newUserOrderForm, user_buying_power) => dispatch => (
+export const createNewOrderForm = (newUserOrderForm, user_buying_power) => dispatch => (
     createUserOrder(newUserOrderForm, user_buying_power).then(payload => dispatch(receiveNewUserOrder(payload)),
         err => (
             dispatch(receiveUserUpdateErrors(err.responseJSON))

@@ -148,6 +148,7 @@
         .errors-text {
             padding-top: 15px;
             padding-right: 20px;
+            padding-bottom: 15px;
         }
         
     }
@@ -228,6 +229,9 @@
         align-items: center;
         justify-content: center;
         font-size: 12px;
+    }
+    .hide {
+        display: none;
     }
 }
 

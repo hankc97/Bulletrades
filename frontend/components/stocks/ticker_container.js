@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Ticker from './ticker'
-import {updateUserForm, receiveNewOrderForm, updateUserOrderForm, deleteUserOrderForm, receiveAllCurrentUserOrders, receiveSingleCurrentUserOrders} from '../../actions/user_transaction'
+import {updateUserForm, createNewOrderForm, updateUserOrderForm, deleteUserOrderForm, receiveAllCurrentUserOrders, receiveSingleCurrentUserOrders} from '../../actions/user_transaction'
 import {requestSingleTickerQuote, requestSingleTickerKeyStat, requestSingleTickerCompany, requestSingleTickerHistoricalQuote} from '../../actions/ticker_api'
 import {requestSingleTickerNews} from '../../actions/news_api'
 import { getTotalQuantityWithTotalAvgPrice } from '../../reducers/selectors'
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
     requestSingleTickerHistoricalQuote: (ticker, date) => dispatch(requestSingleTickerHistoricalQuote(ticker, date)),
     requestSingleTickerNews: (tickerName) => dispatch(requestSingleTickerNews(tickerName)),
     updateUser: (userForm) => dispatch(updateUserForm(userForm)),
-    createOrder: (newUserOrderForm, user_buying_power) => dispatch(receiveNewOrderForm(newUserOrderForm, user_buying_power)),
+    createOrder: (newUserOrderForm, user_buying_power) => dispatch(createNewOrderForm(newUserOrderForm, user_buying_power)),
     updateOrder: (updatedUserOrderForm, user_buying_power) => dispatch(updateUserOrderForm(updatedUserOrderForm, user_buying_power)),
     deleteOrder: (ticker, tickerId) => dispatch(deleteUserOrderForm(ticker, tickerId)),
     receiveSingleCurrentUserOrders: (ticker) => dispatch(receiveSingleCurrentUserOrders(ticker)),
