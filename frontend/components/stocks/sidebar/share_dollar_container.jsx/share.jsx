@@ -69,7 +69,12 @@ class Shares extends React.Component {
                 this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
                 this.resetButtons()
             } else {
-                // add delete route to backend here
+                const mark_price = {
+                    mark_price:  this.props.markPrice
+                }
+                this.props.deleteOrder(this.props.tickerName, mark_price)
+                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+                this.resetButtons()
             }
         }
     }
@@ -77,6 +82,7 @@ class Shares extends React.Component {
     isSharesEqualToZeroAfterSell() {
         const sharesAvailable = this.props.currentUserOrder[1]
         if (this.state.numberOfShares - sharesAvailable === 0) return true
+        return false
     }
 
     resetButtons() {
@@ -108,7 +114,7 @@ class Shares extends React.Component {
 
     handleReviewOrder(e) {
         e.preventDefault()
-        const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML.slice(1))
+        const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML)
         if (parseInt(this.state.numberOfShares) === 0) return this.setState({errorsText: "Please enter a valid number of shares"})
 
         if (this.props.saleType === "Buy") {
@@ -217,8 +223,6 @@ class Shares extends React.Component {
                         ref = {this.dismissButton} 
                         className = "hide-button">Dismiss</button>
                 </>
-
-               
             </div>
         )
     }

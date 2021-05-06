@@ -75,4 +75,8 @@ class User < ApplicationRecord
             return new_buying_power
         end
     end
+
+    def get_updated_deleted_buying_power(mark_price, buying_power, total_order_length)
+        return buying_power += (mark_price * total_order_length)
+    end
 end

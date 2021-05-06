@@ -22,9 +22,10 @@ export const updateUserOrder = (user_orders, user_buying_power) => {
     })
 }
 
-export const deleteUserOrder = (tickerId) => {
+export const deleteUserOrder = (ticker, mark_price) => {
     return $.ajax({
-        url: `api/user_orders/${tickerId}`,
+        url: `api/user_orders/${ticker}`,
         method: "DELETE",
+        data: {mark_price}
     })
 }

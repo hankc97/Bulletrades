@@ -12,9 +12,7 @@ const userOrderReducer = (state = {}, action) => {
         case RECEIVE_UPDATED_USER_ORDER:
             return Object.assign({}, action.payload.userOrder)
         case DELETE_USER_ORDER:
-            const newState = Object.assign({}, state)
-            delete newState[action.ticker]
-            return newState
+            return Object.assign({})
         default: 
             return state
     }

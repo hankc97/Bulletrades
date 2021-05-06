@@ -99,6 +99,51 @@
         }
     }
 
+    .dollars-input-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 20px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgb(64,73,78);
+
+        input {
+            font-size: 13px;
+            width: 52.72%;
+            background-color: #30363A;
+            border: 1px solid rgb(64,73,78);
+            border-radius: 4px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-right: 10px;
+            text-align: right;
+        }
+
+        input:hover {
+            background-color: rgb(30,33,36);
+            border: 1px solid rgb(64,73,78);
+        }
+
+        input:focus {
+            background-color: rgb(30,33,36);
+            border: 1px solid  #00C805;
+            transition: all .3s ease;
+        }
+    }
+
+    .dollars-form-container {
+        .estimated-shares-from-dollar-amount {
+            font-weight: bold;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-right: 20px;
+        }
+    }
+
     .mark-price-container {
         display: flex;
         flex-direction: row;

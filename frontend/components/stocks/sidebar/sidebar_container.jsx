@@ -1,5 +1,6 @@
 import React from 'react'
 import Shares from './share_dollar_container.jsx/share'
+import Dollars from './share_dollar_container.jsx/dollar'
 
 class SideBarContainer extends React.Component {
     constructor(props) {
@@ -28,8 +29,9 @@ class SideBarContainer extends React.Component {
             if (this.props.currentUserOrder){
                 this.setState({hasTicker: true})
                 this.sellButton.current.classList.remove('hide')
-            } else {
-                this.setState({hasTicker: false})
+            } 
+            if (this.props.currentUserOrder === undefined) {
+                this.setState({hasTicker: false, saleType: "Buy"})
                 this.sellButton.current.classList.add('hide')
             }
         }
@@ -82,10 +84,22 @@ class SideBarContainer extends React.Component {
                                         hasTicker = {this.state.hasTicker}
                                         tickerName = {this.props.tickerName}
                                         updateOrder = {this.props.updateOrder}
+                                        deleteOrder = {this.props.deleteOrder}
                                         />
         }
         if (this.state.selectedShareOrDollar === "Dollars") {
-            ShareOrDollarContainer = ""
+            ShareOrDollarContainer = <Dollars 
+                                        markPrice = {this.props.markPrice} 
+                                        saleType = {this.state.saleType}
+                                        userOrders = {this.props.userOrders} 
+                                        currentUser = {this.props.currentUser}
+                                        currentUserOrder = {this.props.currentUserOrder}
+                                        createOrder = {this.props.createOrder}
+                                        hasTicker = {this.state.hasTicker}
+                                        tickerName = {this.props.tickerName}
+                                        updateOrder = {this.props.updateOrder}
+                                        deleteOrder = {this.props.deleteOrder}
+                                        />
         }
         let buyingPower = parseFloat(this.props.currentUser.buyingPower).toFixed(2)
         let sharesAvailable

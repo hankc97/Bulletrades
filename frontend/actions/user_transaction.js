@@ -36,9 +36,9 @@ const receiveUpdatedUserOrder = payload => ({
     payload
 })
 
-const receiveDeleteUserOrder = (ticker) => ({
+const receiveDeleteUserOrder = (payload) => ({
     type: DELETE_USER_ORDER,
-    ticker
+    payload
 })
 
 export const clearUserUpdateErrors = () => ({
@@ -86,8 +86,8 @@ export const updateUserOrderForm = (updatedUserOrderForm, user_buying_power) => 
     )
 )
 
-export const deleteUserOrderForm = (ticker, tickerId) => dispatch => (
-    deleteUserOrder(tickerId).then(() => dispatch(receiveDeleteUserOrder(ticker)),
+export const deleteUserOrderForm = (ticker, markPrice) => dispatch => (
+    deleteUserOrder(ticker, markPrice).then((payload) => dispatch(receiveDeleteUserOrder(payload)),
         err => (
             dispatch(receiveUserUpdateErrors(err.responseJSON))
         )

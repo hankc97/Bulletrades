@@ -27,6 +27,7 @@ class UserOrder < ApplicationRecord
         alt_counter = (increment_var == lowidx) ? highidx : lowidx
         loop_conditional_statement = (increment_var == highidx) ? increment_var...all_orders_for_current_ticker.length() : increment_var.downto(0)
         to_be_deleted_index_array = []
+
         for main_counter in loop_conditional_statement do 
             if all_orders_for_current_ticker[main_counter].quantity <= quantity
                 buying_power += ( avg_ticker_price * all_orders_for_current_ticker[main_counter].quantity )
@@ -72,7 +73,8 @@ class UserOrder < ApplicationRecord
         if array_of_objects.length() == 1
             return [low = 0, high = 0]
         end
-        if array_of_objects.length() < 4
+        # change this to 4 later
+        if array_of_objects.length() < 100
             return [low = 0, high = 1]
         end
         if (avg_ticker_price < array_of_objects[0].avg_ticker_price)
@@ -95,7 +97,6 @@ class UserOrder < ApplicationRecord
                 return [low , high]
             end
         end
-        debugger
         return [low, high]
     end
 

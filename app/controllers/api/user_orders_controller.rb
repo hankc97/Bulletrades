@@ -58,10 +58,16 @@ class Api::UserOrdersController < ApplicationController
     end
 
     def destroy
-        tickerId = Ticker.find_by(ticker: user_order_params[:ticker]).id
+        tickerId = Ticker.find_by(ticker: params[:id]).id
         @user_order = current_user.ticker_orders.where(ticker_id: tickerId)
-        if @user_order
-            @user_order.destroy_all
+        total_order_length = @user_order.length()
+        mark_price = BigDecimal(mark_price_params[:mark_price])
+        updated_deleted_buying_power = current_user.get_updated_deleted_buying_power(mark_price, current_user.buying_power, total_order_length)
+        current_user.buying_power = updated_deleted_buying_power
+
+        if @user_order.destroy_all && current_user.save
+            @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
+            render 'api/user_orders/show'
         else
             render json: holdings.full_messages, status: 404
         end
@@ -76,8 +82,8 @@ class Api::UserOrdersController < ApplicationController
         params.require(:user_buying_power).transform_keys(&:underscore).permit(:buying_power)
     end
 
-    def delete_ticker_order_params
-        params.require(:user_orders).transform_keys(&:underscore).permit(:ticker)
+    def mark_price_params
+        params.require(:mark_price).transform_keys(&:underscore).permit(:mark_price)
     end
 
     def convert_params_to_bigdecimal_from_string

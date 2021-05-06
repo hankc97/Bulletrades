@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
     updateUser: (userForm) => dispatch(updateUserForm(userForm)),
     createOrder: (newUserOrderForm, user_buying_power) => dispatch(createNewOrderForm(newUserOrderForm, user_buying_power)),
     updateOrder: (updatedUserOrderForm, user_buying_power) => dispatch(updateUserOrderForm(updatedUserOrderForm, user_buying_power)),
-    deleteOrder: (ticker, tickerId) => dispatch(deleteUserOrderForm(ticker, tickerId)),
+    deleteOrder: (ticker, markPrice) => dispatch(deleteUserOrderForm(ticker, markPrice)),
     receiveSingleCurrentUserOrders: (ticker) => dispatch(receiveSingleCurrentUserOrders(ticker)),
     fetchAllOrders: () => dispatch(receiveAllCurrentUserOrders())
 }) 
