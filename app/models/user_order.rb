@@ -26,12 +26,12 @@ class UserOrder < ApplicationRecord
         increment_var = (lowidx - 0).abs > (highidx - all_orders_for_current_ticker.length()).abs ? lowidx : highidx
         alt_counter = (increment_var == lowidx) ? highidx : lowidx
         loop_conditional_statement = (increment_var == highidx) ? increment_var...all_orders_for_current_ticker.length() : increment_var.downto(0)
-
+        to_be_deleted_index_array = []
         for main_counter in loop_conditional_statement do 
             if all_orders_for_current_ticker[main_counter].quantity <= quantity
                 buying_power += ( avg_ticker_price * all_orders_for_current_ticker[main_counter].quantity )
                 quantity -= all_orders_for_current_ticker[main_counter].quantity
-                all_orders_for_current_ticker[main_counter].delete
+                to_be_deleted_index_array << main_counter
 
             elsif all_orders_for_current_ticker[main_counter].quantity > quantity
                 all_orders_for_current_ticker[main_counter].quantity -= quantity
@@ -45,7 +45,7 @@ class UserOrder < ApplicationRecord
                 if all_orders_for_current_ticker[alt_counter].quantity <= quantity
                     buying_power += ( avg_ticker_price * all_orders_for_current_ticker[alt_counter].quantity )
                     quantity -= all_orders_for_current_ticker[alt_counter].quantity
-                    all_orders_for_current_ticker[alt_counter].delete
+                    to_be_deleted_index_array << alt_counter
                     if alt_counter == highidx
                         alt_counter += 1
                     else 
@@ -60,11 +60,19 @@ class UserOrder < ApplicationRecord
                 end
             end
         end
+
+        for idx in (to_be_deleted_index_array.length() - 1).downto(0) do
+            all_orders_for_current_ticker[idx].delete
+        end
+
         return buying_power
     end
 
     def self.use_binary_search_to_find_closest_index(array_of_objects, avg_ticker_price)
-        if array_of_objects.length() < 5 
+        if array_of_objects.length() == 1
+            return [low = 0, high = 0]
+        end
+        if array_of_objects.length() < 4
             return [low = 0, high = 1]
         end
         if (avg_ticker_price < array_of_objects[0].avg_ticker_price)
@@ -82,10 +90,12 @@ class UserOrder < ApplicationRecord
                 high = midpoint - 1
             elsif (avg_ticker_price > array_of_objects[midpoint].avg_ticker_price)
                 low = midpoint + 1
-            else
-                return [low, high]
+            else    
+                low = high - 1
+                return [low , high]
             end
         end
+        debugger
         return [low, high]
     end
 
