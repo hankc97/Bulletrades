@@ -12,6 +12,7 @@ class Api::UserOrdersController < ApplicationController
     def show
         tickerId = Ticker.find_by(ticker: params[:id]).id
         @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
+        @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
         if @current_user_single_order
             render 'api/user_orders/single_show'
         end
@@ -36,6 +37,7 @@ class Api::UserOrdersController < ApplicationController
 
         if @user_order.save && current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
+            @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
             render 'api/user_orders/show'
         else
             render json: ["Not Enough Buying Power"], status: 401
@@ -51,6 +53,7 @@ class Api::UserOrdersController < ApplicationController
 
         if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
+            @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
             render 'api/user_orders/show'
         else
             render json: ["Not Enough Buying Power"], status: 401
@@ -67,6 +70,7 @@ class Api::UserOrdersController < ApplicationController
 
         if @user_order.destroy_all && current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
+            @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
             render 'api/user_orders/show'
         else
             render json: holdings.full_messages, status: 404

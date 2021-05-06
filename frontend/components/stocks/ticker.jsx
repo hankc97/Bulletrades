@@ -24,6 +24,8 @@ class Ticker extends React.Component {
                         news = {this.props.news}
                         historicalQuote = {this.props.historicalQuote}
                         receiveSingleCurrentUserOrders = {this.props.receiveSingleCurrentUserOrders}
+                        portfolioPercentageValue = {this.props.portfolioPercentageValue}
+                        currentUserOrder = {this.props.currentUserOrder}
                     />
                     <SideBarTicker 
                         currentUser = {this.props.currentUser}
@@ -56,6 +58,8 @@ class TickerChartAbout extends React.Component {
         this.hoverChartPriceDOMRef = React.createRef()
         this.currentTodayChangePriceDOMRef = React.createRef()
         this.hoverChartChangePriceDOMRef = React.createRef()
+        this.tickerOwnedPositionContainer = React.createRef()
+
         this.formatOneDayTickerData = this.formatOneDayTickerData.bind(this)
         this.formatSingleHistoricalTickerData = this.formatSingleHistoricalTickerData.bind(this)
 
@@ -96,6 +100,16 @@ class TickerChartAbout extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if ( prevProps !== this.props) {
+            if (this.props.currentUserOrder){
+                this.tickerOwnedPositionContainer.current.classList.remove('hide')
+                this.setState({hasTicker: true})
+            }
+            if (this.props.currentUserOrder === undefined) {
+                this.tickerOwnedPositionContainer.current.classList.add('hide')
+                this.setState({hasTicker: false})
+            }
+        }
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
@@ -141,6 +155,18 @@ class TickerChartAbout extends React.Component {
                 chartData = this.formatSingleHistoricalTickerData(this.props.historicalQuote[this.props.tickerName].chart)
             }
         }
+        let numberOfSharesAvailable
+        let totalAvgPrice
+       
+        if (this.props.currentUserOrder) {
+            numberOfSharesAvailable = this.props.currentUserOrder[1]
+            totalAvgPrice = this.props.currentUserOrder[0].toFixed(2)
+        }
+
+        let dollarReturnPrice = (totalAvgPrice - this.props.quote.markPrice).toFixed(2)
+        let percentChangePrice = ((( totalAvgPrice / this.props.quote.markPrice ) - 1 ) * 100).toFixed(2)
+        let totalReturnValues = (totalAvgPrice > this.props.quote.markPrice) ? `+${dollarReturnPrice} (+${percentChangePrice}%)` : `${dollarReturnPrice} (${percentChangePrice}%)`
+
         // if (this.props.news) {
         //     this.props.news.map(singleNews => {
         //         return (
@@ -218,15 +244,32 @@ class TickerChartAbout extends React.Component {
                         </ul>
                     </div>
                 </div>
-                <div className = "ticker-owned-position-container">
-                    <div>
-                        
+                <div ref = {this.tickerOwnedPositionContainer} className = "ticker-owned-position-container">
+                    <div className = "ticker-owned-divs">
+                        <p>Your Market Value</p>
+                        <span className = "inner-font-bold">${this.props.quote.markPrice}</span>
+                        <div>
+                            <span>Today's Return</span>
+                            <span>{(this.props.quote.changePercentage) ? this.props.quote.changePercentage.toFixed(2) : ""}% <span>Today</span></span>
+                        </div>
+                        <div className = "last-div">
+                            <span>Total Return</span>
+                            <span >{totalReturnValues}</span>
+                        </div>
                     </div>
-                    <div>
-
+                    <div className = "ticker-owned-divs">
+                        <p>Your Average Cost</p>
+                        <span className = "inner-font-bold">${totalAvgPrice}</span>
+                        <div>
+                            <span>Shares</span>
+                            <span>{numberOfSharesAvailable}</span>
+                        </div>
+                        <div className = "last-div">
+                            <span>Portfolio Diversity</span>
+                            <span >{(this.props.portfolioPercentageValue) ? this.props.portfolioPercentageValue.toFixed(2) : ""}%</span>
+                        </div>
                     </div>
                 </div>
-                {/* <p>{this.props.tickerName} specializes in ABOUT DESCRIPTION</p> */}
                 <div className = "ticker-about-container">
                     <div className = "ticker-about-text">About</div>
                     <div className = "about-index">

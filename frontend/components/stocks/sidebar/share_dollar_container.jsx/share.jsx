@@ -114,9 +114,9 @@ class Shares extends React.Component {
 
     handleReviewOrder(e) {
         e.preventDefault()
-        const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML)
+        const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML.slice(1))
         if (parseInt(this.state.numberOfShares) === 0) return this.setState({errorsText: "Please enter a valid number of shares"})
-
+        
         if (this.props.saleType === "Buy") {
             if (this.props.currentUser.buyingPower < totalPrice) return this.displayError()
             if (this.props.currentUser.buyingPower >= totalPrice) return this.displaySuccessfulOrderReview(totalPrice)
@@ -138,7 +138,7 @@ class Shares extends React.Component {
 
         this.backButton.current.classList.remove('hide-button')
         this.backButton.current.classList.add('reveal-back-button')
-        
+
         this.setState({
             estimatedTotalPrice: totalPrice,
             transactionReviewSuccessText: "Successful Order Review. Please Execute Order Or Click Back To Continue Editing Order",

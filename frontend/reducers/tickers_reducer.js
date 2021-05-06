@@ -4,7 +4,10 @@ import {
     RECEIVE_SINGLE_TICKER_COMPANY, 
     CLEAR_QUOTES, 
     RECEIVE_MULTI_TICKER_QUOTE, 
-    RECEIVE_SINGLE_TICKER_HISTORICAL_QUOTE} from '../actions/ticker_api'
+    RECEIVE_SINGLE_TICKER_HISTORICAL_QUOTE,
+    } from '../actions/ticker_api'
+
+import {RECEIVE_SINGLE_CURRENT_USER_ORDER, RECEIVE_NEW_USER_ORDER, RECEIVE_UPDATED_USER_ORDER, DELETE_USER_ORDER} from '../actions/user_transaction'
 
 import {
     RECEIVE_SINGLE_TICKER_NEWS
@@ -54,6 +57,26 @@ const tickersReducer = (state = _nullQuote, action) => {
                 news: action.news.articles
             }
             return Object.assign({}, newState, news)
+        case RECEIVE_SINGLE_CURRENT_USER_ORDER:
+            const portfolioPercentage = {
+                portfolioPercentage: action.payload.portfolioPercentage
+            }
+            return Object.assign({}, newState, portfolioPercentage)
+        case RECEIVE_NEW_USER_ORDER:
+            const portfolioPercentages = {
+                portfolioPercentage: action.payload.portfolioPercentage
+            }
+            return Object.assign({}, newState, portfolioPercentages)
+        case RECEIVE_UPDATED_USER_ORDER:
+            const portfolioPercentagess = {
+                portfolioPercentage: action.payload.portfolioPercentage
+            }
+            return Object.assign({}, newState, portfolioPercentagess)
+        case DELETE_USER_ORDER:
+            const portfolioPercentagesss = {
+                portfolioPercentage: action.payload.portfolioPercentage
+            }
+            return Object.assign({}, newState, portfolioPercentagesss)
         case CLEAR_QUOTES:
             return _nullQuote
         default:

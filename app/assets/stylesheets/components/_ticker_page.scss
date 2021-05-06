@@ -205,3 +205,47 @@
     height: 100%;
     width: 25%;
 }
+
+.ticker-owned-position-container {
+    display:flex;
+    flex-direction: row;
+    margin-top: 30px;
+
+    .ticker-owned-divs {
+        display:flex;
+        flex-direction: column;
+        border: 1px solid rgb(64,73,78);
+        padding-top: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 20px;
+        margin-left: 10px;
+        width: 100%;
+
+        p {
+            font-size: 12px;
+        }
+        .inner-font-bold {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        div {
+            font-size: 12px;
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .last-div {
+            border-top: 1px solid rgb(64,73,78);
+        }
+
+    }
+}
+
+.hide {
+    display: none
+}

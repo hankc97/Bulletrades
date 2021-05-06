@@ -1,7 +1,7 @@
 import {updateUser} from '../utils/user_transaction_util'
 import {receiveCurrentUser} from './user_session'
 import {createUserOrder, updateUserOrder, deleteUserOrder} from '../utils/user_transaction_util'
-import {fetchSingleCurrentUserTicker, fetchAllCurrentUserTickers} from '../utils/user_order_util'
+import {fetchSingleCurrentUserTicker} from '../utils/user_order_util'
 
 export const RECEIVE_ALL_CURRENT_USER_ORDERS = "RECEIVE_ALL_CURRENT_USER_ORDERS" 
 export const RECEIVE_SINGLE_CURRENT_USER_ORDER = "RECEIVE_SINGLE_CURRENT_USER_ORDER"
@@ -16,9 +16,9 @@ const receiveUserUpdateErrors = errors => ({
     errors
 })
 
-const receiveSingleUserOrder = singleOrderArray => ({
+const receiveSingleUserOrder = payload => ({
     type: RECEIVE_SINGLE_CURRENT_USER_ORDER,
-    singleOrderArray
+    payload
 })
 
 const receiveAllUserOrders = userOrders => ({
@@ -47,7 +47,7 @@ export const clearUserUpdateErrors = () => ({
 
 
 export const receiveSingleCurrentUserOrders = ticker => dispatch => (
-    fetchSingleCurrentUserTicker(ticker).then(singleOrderArray => dispatch(receiveSingleUserOrder(singleOrderArray)),
+    fetchSingleCurrentUserTicker(ticker).then(payload => dispatch(receiveSingleUserOrder(payload)),
         err => (
             dispatch(receiveUserUpdateErrors(err.responseJSON))
         )

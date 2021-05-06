@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => {
         historicalQuote: state.entities.currentTickerPageQuote.singleHistoricalQuote,
         news: state.entities.currentTickerPageQuote.news,
         currentUser: state.entities.currentUser[state.session.id],
-        currentUserOrder: getTotalQuantityWithTotalAvgPrice(state.entities.currentUserOrders)
+        currentUserOrder: getTotalQuantityWithTotalAvgPrice(state.entities.currentUserOrders),
+        portfolioPercentageValue: state.entities.currentTickerPageQuote.portfolioPercentage * 100
     }
 }
 

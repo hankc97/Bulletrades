@@ -8,3 +8,5 @@ json.currentUser do
     json.extract! current_user, :id, :first_name, :last_name, :buying_power
 end
 
+json.portfolioPercentage @portfolio_percentage_val
+
