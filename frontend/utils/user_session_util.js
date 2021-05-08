@@ -21,9 +21,9 @@ export const logout = () => {
     })
 }
 
-export const fetchUser = userId => {
+export const fetchCurrentUserLifeTimeFormat = (format) => {
     return $.ajax({
         method: "GET",
-        url: `/api/users/${userId}`
+        url: `/api/users/${format}`,
     })
 }

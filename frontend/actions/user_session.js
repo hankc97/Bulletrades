@@ -1,13 +1,19 @@
-import {signup, login, logout, fetchUser} from '../utils/user_session_util'
+import {signup, login, logout, fetchCurrentUserLifeTimeFormat} from '../utils/user_session_util'
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER"
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER"
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS'
 export const CLEAR_ERRORS = "CLEAR_ERRORS" 
+export const RECEIVE_CURRENT_USER_AND_FORMATTED_LIFETIME_TRADES = "RECEIVE_CURRENT_USER_AND_FORMATTED_LIFETIME_TRADES"
 
 export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
     currentUser
+})
+
+export const receiveCurrentUserAndFormmatedLifetimeTrades = payload => ({
+    type: RECEIVE_CURRENT_USER_AND_FORMATTED_LIFETIME_TRADES,
+    payload
 })
 
 const logoutCurrentUser = () => ({
@@ -23,8 +29,8 @@ export const clearErrors = () => ({
     type: CLEAR_ERRORS
 })
 
-export const fetchCurrentUser = userId => dispatch => (
-    fetchUser(userId).then(user => dispatch(receiveCurrentUser(user)))
+export const fetchCurrentUserAndFormattedLifetimeTrades = (format) => dispatch => (
+    fetchCurrentUserLifeTimeFormat(format).then(payload => dispatch(receiveCurrentUserAndFormmatedLifetimeTrades(payload)))
 )
 
 export const signupUser = formUser => dispatch => (

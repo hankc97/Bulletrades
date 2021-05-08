@@ -10,10 +10,10 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  buying_power    :float            default(25000.0), not null
+#  buying_power    :decimal(25, 5)   default(25000.0), not null
+#  lifetime_trades :text             default([]), is an Array
 #
 class User < ApplicationRecord
-
     attr_reader :password
 
     validates :password_digest, :session_token, :email, presence: true
@@ -78,5 +78,11 @@ class User < ApplicationRecord
 
     def get_updated_deleted_buying_power(mark_price, buying_power, total_order_length)
         return buying_power += (mark_price * total_order_length)
+    end
+
+    def format_lifetime_trades(format_date, lifetime_trades)
+        if format_date == "1D"
+            return lifetime_trades.last(70)
+        end
     end
 end

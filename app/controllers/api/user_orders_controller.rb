@@ -1,8 +1,7 @@
 class Api::UserOrdersController < ApplicationController 
-
     def index
-        @user_orders = UserOrder.where(user_id: current_user.id).includes(:ticker)
-        if @user_orders
+        @current_user_orders = UserOrder.where(user_id: current_user.id).includes(:ticker)
+        if @current_user_orders
             render 'api/user_orders/index'
         else
             render json: @user_orders.errors.full_messages, status: 404
@@ -13,6 +12,7 @@ class Api::UserOrdersController < ApplicationController
         tickerId = Ticker.find_by(ticker: params[:id]).id
         @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
         @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
+
         if @current_user_single_order
             render 'api/user_orders/single_show'
         end
@@ -27,15 +27,17 @@ class Api::UserOrdersController < ApplicationController
             @avg_ticker_price,
             user_order_params[:sale_type]
         )
-        current_user.buying_power = new_buying_power
-
         @user_order = UserOrder.create(
             user_id: user_order_params[:user_id],
             ticker_id: tickerId,
             quantity: @quantity,
-            avg_ticker_price: @avg_ticker_price) 
+            avg_ticker_price: @avg_ticker_price
+        ) 
+        current_user.buying_power = new_buying_power
+        new_total_lifetime_price = UserOrder.get_new_total_share_price(current_user.id)
+        current_user.lifetime_trades << [new_total_lifetime_price, DateTime.now] 
 
-        if @user_order.save && current_user.save
+        if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
             @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
             render 'api/user_orders/show'
@@ -51,6 +53,9 @@ class Api::UserOrdersController < ApplicationController
         updated_buying_power = UserOrder.sell_user_order_by_closest_price(@buying_power, @quantity, @avg_ticker_price, @all_orders_for_current_ticker)
         current_user.buying_power = updated_buying_power
 
+        new_total_lifetime_price = UserOrder.get_new_total_share_price(current_user.id)
+        current_user.lifetime_trades << [new_total_lifetime_price, DateTime.now] 
+
         if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
             @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
@@ -63,12 +68,16 @@ class Api::UserOrdersController < ApplicationController
     def destroy
         tickerId = Ticker.find_by(ticker: params[:id]).id
         @user_order = current_user.ticker_orders.where(ticker_id: tickerId)
-        total_order_length = @user_order.length()
+        total_user_quantity = UserOrder.where(user_id: current_user.id).sum('quantity')
         mark_price = BigDecimal(mark_price_params[:mark_price])
-        updated_deleted_buying_power = current_user.get_updated_deleted_buying_power(mark_price, current_user.buying_power, total_order_length)
-        current_user.buying_power = updated_deleted_buying_power
+        updated_deleted_buying_power = current_user.get_updated_deleted_buying_power(mark_price, current_user.buying_power, total_user_quantity)
+        @user_order.destroy_all 
 
-        if @user_order.destroy_all && current_user.save
+        new_total_lifetime_price = UserOrder.get_new_total_share_price(current_user.id)
+        current_user.buying_power = updated_deleted_buying_power
+        current_user.lifetime_trades << [new_total_lifetime_price, DateTime.now] 
+
+        if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
             @portfolio_percentage_val = (BigDecimal(@current_user_single_order.count) / BigDecimal(UserOrder.count)).to_f
             render 'api/user_orders/show'

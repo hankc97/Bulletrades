@@ -19,7 +19,7 @@ const HomePageContainer = () => (
 const Portfolio = () => (
     <>
         <NavBarContainerProtected />
-        {/* <PortfolioContainer /> */}
+        <PortfolioContainer />
     </>
 )
 

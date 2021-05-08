@@ -1,3 +1,4 @@
+
 export const formatOneDayTickerData = (intradayPricesArray) => {
     if (intradayPricesArray) {
         return intradayPricesArray.map(price => (
@@ -22,3 +23,34 @@ export const getTotalQuantityWithTotalAvgPrice = singleOrderArray => {
     return [totalAvgPrice, totalQuantity]
 }
 
+export const formatToDisplayData = formattedTrades => {
+    if (formattedTrades) {
+        return formattedTrades.map(trade => {
+            return {time: trade[1], price: trade[0]}
+        })
+    }
+}
+
+export const getMaxValueFromFormattedData = formattedTrades => {
+    if (formattedTrades) {
+        let max = 0;
+        for (let i = 0; i < formattedTrades.length; i++) {
+            if ( max < parseFloat(formattedTrades[i][0]) ) {
+                max = parseFloat(formattedTrades[i][0])
+            }
+        }
+        return max
+    }
+}
+
+export const getRecentTotalUserHoldings = formattedTrades => {
+    if (formattedTrades) {
+        return parseFloat(formattedTrades[formattedTrades.length - 1][0])
+    }
+}
+
+export const getFormattedStartingAmount = formattedTrades => {
+    if (formattedTrades) {
+        return parseFloat(formattedTrades[0][0])
+    }
+}

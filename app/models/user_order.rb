@@ -5,10 +5,10 @@
 #  id               :bigint           not null, primary key
 #  user_id          :integer          not null
 #  ticker_id        :integer          not null
-#  quantity         :decimal(, )      default(0.0), not null
+#  quantity         :decimal(25, 7)   default(0.0), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  avg_ticker_price :decimal(, )      default(0.0), not null
+#  avg_ticker_price :decimal(25, 7)   default(0.0), not null
 #
 class UserOrder < ApplicationRecord
     validates :user_id, :ticker_id, :quantity, :avg_ticker_price, presence: true
@@ -20,6 +20,10 @@ class UserOrder < ApplicationRecord
     belongs_to :ticker, 
         foreign_key: :ticker_id,
         class_name: :Ticker
+
+    def self.get_new_total_share_price(id)
+        UserOrder.where(user_id: id).sum('quantity * avg_ticker_price')
+    end
     
     def self.sell_user_order_by_closest_price(buying_power, quantity, avg_ticker_price, all_orders_for_current_ticker)
         lowidx, highidx = self.use_binary_search_to_find_closest_index(all_orders_for_current_ticker, avg_ticker_price)
