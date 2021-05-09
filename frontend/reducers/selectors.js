@@ -31,15 +31,19 @@ export const formatToDisplayData = formattedTrades => {
     }
 }
 
-export const getMaxValueFromFormattedData = formattedTrades => {
+export const getMinAndMaxValueFromFormattedData = formattedTrades => {
     if (formattedTrades) {
-        let max = 0;
+        let max = 0
+        let min = formattedTrades[0][0]
         for (let i = 0; i < formattedTrades.length; i++) {
             if ( max < parseFloat(formattedTrades[i][0]) ) {
                 max = parseFloat(formattedTrades[i][0])
             }
+            if ( min > parseFloat(formattedTrades[i][0])) {
+                min = parseFloat(formattedTrades[i][0])
+            }
         }
-        return max
+        return [min, max]
     }
 }
 

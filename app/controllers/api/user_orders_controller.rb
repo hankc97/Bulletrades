@@ -34,8 +34,6 @@ class Api::UserOrdersController < ApplicationController
             avg_ticker_price: @avg_ticker_price
         ) 
         current_user.buying_power = new_buying_power
-        new_total_lifetime_price = UserOrder.get_new_total_share_price(current_user.id)
-        current_user.lifetime_trades << [new_total_lifetime_price, DateTime.now] 
 
         if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
@@ -52,9 +50,7 @@ class Api::UserOrdersController < ApplicationController
         @all_orders_for_current_ticker = current_user.ticker_orders.where(ticker_id: tickerId).order(:avg_ticker_price)
         updated_buying_power = UserOrder.sell_user_order_by_closest_price(@buying_power, @quantity, @avg_ticker_price, @all_orders_for_current_ticker)
         current_user.buying_power = updated_buying_power
-
-        new_total_lifetime_price = UserOrder.get_new_total_share_price(current_user.id)
-        current_user.lifetime_trades << [new_total_lifetime_price, DateTime.now] 
+        current_user.lifetime_trades << [updated_buying_power, DateTime.now] 
 
         if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)
@@ -70,12 +66,10 @@ class Api::UserOrdersController < ApplicationController
         @user_order = current_user.ticker_orders.where(ticker_id: tickerId)
         total_user_quantity = UserOrder.where(user_id: current_user.id).sum('quantity')
         mark_price = BigDecimal(mark_price_params[:mark_price])
+        @user_order.destroy_all
         updated_deleted_buying_power = current_user.get_updated_deleted_buying_power(mark_price, current_user.buying_power, total_user_quantity)
-        @user_order.destroy_all 
-
-        new_total_lifetime_price = UserOrder.get_new_total_share_price(current_user.id)
         current_user.buying_power = updated_deleted_buying_power
-        current_user.lifetime_trades << [new_total_lifetime_price, DateTime.now] 
+        current_user.lifetime_trades << [updated_deleted_buying_power, DateTime.now] 
 
         if current_user.save
             @current_user_single_order = current_user.ticker_orders.where(ticker_id: tickerId)

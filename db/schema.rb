@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_134907) do
+ActiveRecord::Schema.define(version: 2021_05_08_204318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_134907) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "buying_power", precision: 25, scale: 5, default: "25000.0", null: false
-    t.text "lifetime_trades", default: [], array: true
+    t.text "lifetime_trades", default: [["25000.00", "2021-05-08 13:51:03.716037"]], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end

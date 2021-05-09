@@ -19,7 +19,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        format_date = "1D" || format_params[:format]
+        format_date = (params[:id] != "undefined") ? params[:id] : "1D"
         @format_lifetime_trades = current_user.format_lifetime_trades(format_date, current_user.lifetime_trades)
         render "api/users/show"
     end
@@ -28,9 +28,4 @@ class Api::UsersController < ApplicationController
     def user_params
         params.require(:user).transform_keys(&:underscore).permit(:first_name, :last_name, :email, :password, :buying_power)
     end
-
-    def format_params
-        params.require(:format).transform_keys(&:underscore).permit(:format)
-    end
-
 end

@@ -21,8 +21,10 @@ class PortfolioMain extends React.Component {
         this.props.fetchCurrentUserAndFormattedLifetimeTrades()
     }
 
-    componentDidUpdate() {
-
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.chartDate !== this.state.chartDate) {
+            this.props.fetchCurrentUserAndFormattedLifetimeTrades(this.state.chartDate)
+        }
     }
 
     displayToolTip(toolTipData) {
@@ -53,9 +55,14 @@ class PortfolioMain extends React.Component {
         const percentageChanged = (((currentUserOrderHoldingAmount / formattedLifetimeTradesStartingAmount) - 1 ) * 100).toFixed(2)
         const totalReturnDollarAndPercentageFormat = (currentUserOrderHoldingAmount > formattedLifetimeTradesStartingAmount)  ? `+${dollarReturnPrice} (+${percentageChanged}%)` : `${dollarReturnPrice} (${percentageChanged}%)`
 
+        let min, max
+        if (this.props.formattedMinAndMaxValueFromDataSet) {
+            min = this.props.formattedMinAndMaxValueFromDataSet[0]
+            max = this.props.formattedMinAndMaxValueFromDataSet[1]
+        }
+
         let chartData; 
         if (this.props.formattedLifetimeTrades) chartData = this.props.formattedLifetimeTrades
-
         return(
             <div className = "portfolio-main">
                 <div className = "buying-power-top-info">
@@ -77,7 +84,7 @@ class PortfolioMain extends React.Component {
                     <YAxis  
                         type = "number" 
                         hide = {true} 
-                        domain={[0, this.props.formattedMaxValueFromDataSet]}
+                        domain={[min, max]} // get this.props.formattedMinValueFromDataSet
                         allowDataOverflow={true}
                     />
                     <Tooltip 
@@ -107,6 +114,14 @@ class PortfolioMain extends React.Component {
                         ))
                     }
                 </ul>
+                <div className = "buying-power-container">
+                    <span>Buying Power</span>
+                    <p>${(this.props.currentUser) ? this.props.currentUser.buyingPower : ""}</p>
+                </div>
+                <div className = "portfolio-news">
+                    <span>News</span>
+                    <ul></ul>
+                </div>
             </div>
         )
     }

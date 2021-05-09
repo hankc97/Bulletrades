@@ -84,5 +84,25 @@ class User < ApplicationRecord
         if format_date == "1D"
             return lifetime_trades.last(70)
         end
+
+        if format_date == "1W"
+            return lifetime_trades.last(140)
+        end
+
+        if format_date == "1M"
+            return lifetime_trades.last(240)
+        end
+
+        if format_date == "3M"
+            return lifetime_trades.last(400)
+        end
+
+        if format_date == "1Y"
+            return lifetime_trades.last(600)
+        end
+
+        if format_date == "5Y"
+            return lifetime_trades.last(1000)
+        end
     end
 end

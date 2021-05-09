@@ -2,6 +2,7 @@
     color: white;
     background: black;
     font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    height: 100vh;
 
     .portfolio-main {
         display: flex;
@@ -36,11 +37,12 @@
     }
 
     .portfolio-page-date-button {
-        font-size: 13px;
+        font-size: 11px;
         display: flex;
         flex-direction: row;
 
         button {
+            font-weight: bold;
             padding-right: 10px;
             padding-bottom: 10px;
             padding-top: 10px;
@@ -48,6 +50,38 @@
         button:hover {
             color: rgb(0, 180, 5);
             cursor: pointer;
+        }
+    }
+
+    .buying-power-container {
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-top: 1px solid rgb(64,73,78);
+        border-bottom: 1px solid rgb(64,73,78);
+        width: 650px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .buying-power-container:hover {
+        background-color: rgb(37, 34, 34);
+        cursor: pointer;
+    }
+    
+    .portfolio-news {
+        display:flex;
+        justify-content: column;
+        border-bottom: 1px solid rgb(64,73,78);
+        width: 650px;
+
+        span {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            font-weight: normal;
+            font-size: 21px;
         }
     }
 }
