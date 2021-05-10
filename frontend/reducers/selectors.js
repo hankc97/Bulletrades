@@ -58,3 +58,11 @@ export const getFormattedStartingAmount = formattedTrades => {
         return parseFloat(formattedTrades[0][0])
     }
 }
+
+export const setInitialEntityState = order => {
+    if (order && Object.keys(order).length === 0 && order.constructor === Object) {
+        return []
+    }
+
+    return Object.values(order)
+}

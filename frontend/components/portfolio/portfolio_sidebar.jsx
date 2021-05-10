@@ -1,4 +1,5 @@
 import React from 'react'
+import Chart from './sidebar-chart'
 
 class PortfolioSideBar extends React.Component {
     constructor(props) {
@@ -11,6 +12,8 @@ class PortfolioSideBar extends React.Component {
                <Stocks 
                    requestMultiTickerQuote = {this.props.requestMultiTickerQuote}
                    fetchAllUserTickerAndQuantity = {this.props.fetchAllUserTickerAndQuantity}
+                   allCurrentUserTickerAndQuantity = {this.props.allCurrentUserTickerAndQuantity}
+                   quotes = {this.props.quotes}
                />
                {/* <Lists /> */}
             </div>
@@ -22,7 +25,6 @@ class Stocks extends React.Component {
     constructor(props){
         super(props)
 
-        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
@@ -35,18 +37,23 @@ class Stocks extends React.Component {
 
     }
 
-    handleClick() {
-        debugger
-    }
-
-
+ 
     render() {
+        const allCurrentUserTickerAndQuantity = this.props.allCurrentUserTickerAndQuantity 
         return(
             <div className = "portfolio-sidebar-stocks-container">
-                <span className = "stocks-header" onClick = {this.handleClick} >Stocks</span>
-                {/* <ul>
-
-                </ul> */}
+                <span  className = "stocks-header" >Stocks</span>
+                <ul>
+                    {
+                        allCurrentUserTickerAndQuantity.map(order => (
+                            <Chart 
+                                key = {order}
+                                singleOrder = {order}
+                                singleQuote = {this.props.quotes[order[0]]}
+                            />
+                        ))
+                    }
+                </ul>
             </div>
         )
     }

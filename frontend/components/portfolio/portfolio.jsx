@@ -31,6 +31,8 @@ class Portfolio extends React.Component {
                 <PortfolioSideBar 
                     requestMultiTickerQuote = {this.props.requestMultiTickerQuote}
                     fetchAllUserTickerAndQuantity = {this.props.fetchAllUserTickerAndQuantity}
+                    quotes = {this.props.quotes}
+                    allCurrentUserTickerAndQuantity = {this.props.allCurrentUserTickerAndQuantity}
                 />
             </div>
         )

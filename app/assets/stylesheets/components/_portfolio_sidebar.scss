@@ -1,24 +1,64 @@
 .portfolio-sidebar-container {
     font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    height: 400px;
-    width: 250px;
+    margin-bottom: 0;
+    height: calc(100% - 300px);
+    margin-top: -24px;
+    margin-left: -24px;
+    padding: 24px;
+    overflow-y: auto;
+    top: calc(64px + 31px);
+    width: 300px;
+    left: calc(100% - 625px);
+    box-sizing: border-box;
     position: fixed;
-    right: 370px;
-    top: 90px;
 }
 
 .portfolio-sidebar-stocks-container {
     background-color: rgb(30,33,36);
-    height: fit-content;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 24px;
     border-radius: 5px;
+    height: 100%;
     border: 1px solid rgb(64,73,78);
+    overflow: hidden auto;
+    display:flex;
+    flex-direction: column;
 
     .stocks-header {
         font-size: 14px;
         font-weight: bold;
         border-bottom: 1px solid rgb(64,73,78);
+        padding: 10px;
+        padding-left: 20px;
+    }
+
+    .single-ticker-user-order {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        padding: 8px 20px;
+
+        .single-ticker-quantity-and-name {
+            display:flex;
+            flex-direction: column;
+            font-size: 12px;
+
+            span {
+                font-weight: bold;
+            }
+        }
+
+        .price-single-order {
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+    .single-ticker-user-order:hover {
+        cursor: pointer;
+        background-color: rgba(53,55,58,1);
     }
 }

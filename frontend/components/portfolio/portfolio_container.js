@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import Portfolio from './portfolio'
-import {formatToDisplayData, getRecentTotalUserHoldings, getFormattedStartingAmount, getMinAndMaxValueFromFormattedData} from '../../reducers/selectors'
+import {formatToDisplayData, getRecentTotalUserHoldings, getFormattedStartingAmount, getMinAndMaxValueFromFormattedData, setInitialEntityState} from '../../reducers/selectors'
 import {fetchAllUserTickerAndQuantity} from '../../actions/user_transaction'
 import {requestMultiTickerQuote} from '../../actions/ticker_api'
 import {fetchCurrentUserAndFormattedLifetimeTrades} from '../../actions/user_session'
@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
     formattedLifetimeTradesStartingAmount: getFormattedStartingAmount(state.entities.currentUser.formattedLifetimeTrades),
     formattedMinAndMaxValueFromDataSet: getMinAndMaxValueFromFormattedData(state.entities.currentUser.formattedLifetimeTrades),
     currentUser: state.entities.currentUser[state.session.id],
-    allCurrentUserTickerAndQuantity: state.entities.currentUserOrders,
-    quotes: state.entities.tickerQuotes
+    allCurrentUserTickerAndQuantity: setInitialEntityState(state.entities.currentUserOrders),
+    quotes: state.entities.currentTickerPageQuote
 })
 
 const mapDispatchToProps = dispatch => ({
