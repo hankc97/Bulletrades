@@ -5,19 +5,22 @@
 }
 
 .main-ticker-page-container{
+    color: white;
+    background: black;
+    font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    padding-top: 30px;
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     width: 920px;
     margin: 0 auto;
-    padding-top: 75px;
 }
 
 .ticker-chart-and-about-container {
+    flex: 0 0 66.66667%;
     z-index: 1;
     display: flex;
     flex-direction: column;
     font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    margin-right: 270px;
 }
 
 .ticker-chart-container {

@@ -1,16 +1,23 @@
+.port-page {
+    background: black;
+    height: 100vh;
+}
+
 .portfolio {
     color: white;
     background: black;
     font-family: "Capsule Sans Display",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    height: 100vh;
-   
+    padding-top: 30px;
+    width: 920px;
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-between;
 
     .portfolio-main {
+        flex: 0 0 66.66667%;
         display: flex;
         flex-direction: column;
-        width: 920px;
-        margin: 0 auto;
-        padding-top: 45px;
+        padding-right: 10px;
 
         .buying-power-top-info {
             display: flex;

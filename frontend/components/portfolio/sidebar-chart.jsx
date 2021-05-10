@@ -1,5 +1,6 @@
 import React from 'react'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
+import {Link} from 'react-router-dom'
 
 class Chart extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class Chart extends React.Component {
         }
 
         return(
-            <li className = 'single-ticker-user-order'>
+            <Link className = 'single-ticker-user-order' to = {`/stocks/${tickerName}`}>
                 <div className = "single-ticker-quantity-and-name">
                     <span>{tickerName}</span>
                     <p>{quantity} Shares</p>
@@ -69,7 +70,7 @@ class Chart extends React.Component {
                     <span className = "">${price}</span>
                     <span className = "percentage-change-today-order">{percentageChangeToday}%</span>
                 </div>
-            </li>
+            </Link>
         )
     }
 }

@@ -33,10 +33,6 @@ class Stocks extends React.Component {
         })
     }
 
-    componentDidUpdate() {
-
-    }
-
  
     render() {
         const allCurrentUserTickerAndQuantity = this.props.allCurrentUserTickerAndQuantity 

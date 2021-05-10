@@ -69,10 +69,12 @@ class PortfolioMain extends React.Component {
     }
 
     render() {
+        let color;
         const {formattedLifetimeTradesStartingAmount, currentUserOrderHoldingAmount} = this.props
         const dollarReturnPrice = (currentUserOrderHoldingAmount - formattedLifetimeTradesStartingAmount).toFixed(2)
         const percentageChanged = (((currentUserOrderHoldingAmount / formattedLifetimeTradesStartingAmount) - 1 ) * 100).toFixed(2)
         const totalReturnDollarAndPercentageFormat = (currentUserOrderHoldingAmount > formattedLifetimeTradesStartingAmount)  ? `+${dollarReturnPrice} (+${percentageChanged}%)` : `${dollarReturnPrice} (${percentageChanged}%)`
+        color = (percentageChanged > 0) ? "rgb(0, 200, 5)" : 'rgb(255,80,0)'
 
         let min, max
         if (this.props.formattedMinAndMaxValueFromDataSet) {
@@ -80,7 +82,7 @@ class PortfolioMain extends React.Component {
             max = this.props.formattedMinAndMaxValueFromDataSet[1]
         }
 
-        const buyingPower = (this.props.currentUser) ? this.props.currentUser.buyingPower : ""
+        const buyingPower = (this.props.currentUser) ? parseFloat(this.props.currentUser.buyingPower).toFixed(2) : ""
 
         let chartData; 
         if (this.props.formattedLifetimeTrades) chartData = this.props.formattedLifetimeTrades
@@ -106,7 +108,7 @@ class PortfolioMain extends React.Component {
                     <YAxis  
                         type = "number" 
                         hide = {true} 
-                        domain={[min, max]} // get this.props.formattedMinValueFromDataSet
+                        domain={[min, max]} 
                         allowDataOverflow={true}
                     />
                     <Tooltip 
@@ -115,16 +117,14 @@ class PortfolioMain extends React.Component {
                         cursor = {{stroke: null}}
                         position={{ y: 50 }}
                         offset = {35}
-                        // viewBox={{ x: 0, y: 0, width: 650, height: 200 }}
                     />
                     <Line   
-                        // className = "recharts-line"
                         type = "monotone"
                         dataKey = "price"
-                        stroke = {"rgb(0, 200, 5)"}
+                        stroke = {color}
                         dot = {false}
                         strokeWidth = {1}
-                        activeDot = {{r: 2, stroke: 'rgb(0, 200, 5)', fill: 'rgb(0, 200, 5)'}}
+                        activeDot = {{r: 2, stroke: color, fill: color}}
                         type = "linear"/>
                 </LineChart>
                 <ul className = "portfolio-page-date-button">

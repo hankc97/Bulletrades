@@ -19,21 +19,23 @@ class Portfolio extends React.Component {
 
     render() {
         return(
-            <div className = "portfolio">
-                <PortfolioMain 
-                    currentUser = {this.props.currentUser}
-                    fetchCurrentUserAndFormattedLifetimeTrades = {this.props.fetchCurrentUserAndFormattedLifetimeTrades}
-                    formattedLifetimeTrades = {this.props.formattedLifetimeTrades}
-                    currentUserOrderHoldingAmount = {this.props.currentUserOrderHoldingAmount}
-                    formattedLifetimeTradesStartingAmount = {this.props.formattedLifetimeTradesStartingAmount}
-                    formattedMinAndMaxValueFromDataSet = {this.props.formattedMinAndMaxValueFromDataSet}
+            <div className = 'port-page'>
+                <div className = "portfolio">
+                    <PortfolioMain 
+                        currentUser = {this.props.currentUser}
+                        fetchCurrentUserAndFormattedLifetimeTrades = {this.props.fetchCurrentUserAndFormattedLifetimeTrades}
+                        formattedLifetimeTrades = {this.props.formattedLifetimeTrades}
+                        currentUserOrderHoldingAmount = {this.props.currentUserOrderHoldingAmount}
+                        formattedLifetimeTradesStartingAmount = {this.props.formattedLifetimeTradesStartingAmount}
+                        formattedMinAndMaxValueFromDataSet = {this.props.formattedMinAndMaxValueFromDataSet}
+                        />
+                    <PortfolioSideBar 
+                        requestMultiTickerQuote = {this.props.requestMultiTickerQuote}
+                        fetchAllUserTickerAndQuantity = {this.props.fetchAllUserTickerAndQuantity}
+                        quotes = {this.props.quotes}
+                        allCurrentUserTickerAndQuantity = {this.props.allCurrentUserTickerAndQuantity}
                     />
-                <PortfolioSideBar 
-                    requestMultiTickerQuote = {this.props.requestMultiTickerQuote}
-                    fetchAllUserTickerAndQuantity = {this.props.fetchAllUserTickerAndQuantity}
-                    quotes = {this.props.quotes}
-                    allCurrentUserTickerAndQuantity = {this.props.allCurrentUserTickerAndQuantity}
-                />
+                </div>
             </div>
         )
     }

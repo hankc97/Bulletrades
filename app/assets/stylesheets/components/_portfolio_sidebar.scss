@@ -1,26 +1,22 @@
 .portfolio-sidebar-container {
+    flex: 0 0 27.77778%;
+    margin-left: 50px;
     font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    margin-bottom: 0;
-    height: calc(100% - 300px);
-    margin-top: -24px;
-    margin-left: -24px;
-    padding: 24px;
-    overflow-y: auto;
-    top: calc(64px + 31px);
-    width: 300px;
-    left: calc(100% - 625px);
-    box-sizing: border-box;
-    position: fixed;
 }
 
 .portfolio-sidebar-stocks-container {
-    background-color: rgb(30,33,36);
-    border-radius: 5px;
-    height: 100%;
-    border: 1px solid rgb(64,73,78);
-    overflow: hidden auto;
     display:flex;
     flex-direction: column;
+    background-color: rgb(30,33,36);
+    border-radius: 5px;
+    border: 1px solid rgb(64,73,78);
+    overflow: hidden auto;
+    height: calc(100% - 300px);
+    top: calc(64px + 31px);
+    width: 250px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    position: fixed;
 
     .stocks-header {
         font-size: 14px;
