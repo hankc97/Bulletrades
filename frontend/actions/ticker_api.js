@@ -2,9 +2,10 @@ import {
     fetchSingleTickerQuote, 
     fetchSingleTickerKeyStat, 
     fetchSingleTickerCompany, 
-    fetchTickerQuotes,
+    fetchAllQuotes,
     fetchHistoricalTickerQuote
 } from '../utils/api_util'
+
 
 export const RECEIVE_SINGLE_TICKER_QUOTE = "RECEIVE_SINGLE_TICKER_QUOTE"
 export const RECEIVE_SINGLE_TICKER_KEYSTAT = 'RECEIVE_SINGLE_TICKER_KEYSTAT'
@@ -43,7 +44,7 @@ export const requestSingleTickerQuote = (ticker) => (dispatch) => (
 )
 
 export const requestMultiTickerQuote = (arrTickers) => dispatch => (
-    fetchTickerQuotes(arrTickers).then((quotes) => dispatch(receiveMultiTickerQuote(quotes)))
+    fetchAllQuotes(arrTickers).then((quotes) => dispatch(receiveMultiTickerQuote(quotes)))
 )
 
 export const requestSingleTickerKeyStat = ticker => dispatch => (

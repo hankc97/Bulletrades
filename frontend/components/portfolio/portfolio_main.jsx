@@ -7,12 +7,16 @@ class PortfolioMain extends React.Component {
 
         this.state = {
             chartDate: "1D",
+            buyingPowerRevealed: false,
         }
 
         this.currentUserOrderHoldingAmountDOMRef = React.createRef()
         this.totalReturnDollarAndPercentageDOMRef = React.createRef()
         this.hoverChartPriceDOMRef = React.createRef()
         this.hoverChartChangePriceDOMRef = React.createRef()
+        this.buyingPowerContainerDOMRef = React.createRef()
+        this.buyingPowerAmountDOMRef = React.createRef()
+        this.buyingPowerExtensionDOMRef = React.createRef()
 
         this.displayToolTip = this.displayToolTip.bind(this)
     }
@@ -22,6 +26,21 @@ class PortfolioMain extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (prevState.buyingPowerRevealed !== this.state.buyingPowerRevealed) {
+            if (this.state.buyingPowerRevealed === false) {
+                this.buyingPowerAmountDOMRef.current.classList.remove("hide-buying-power-value")
+                this.buyingPowerExtensionDOMRef.current.classList.add('buying-power-hidden')
+                this.buyingPowerExtensionDOMRef.current.classList.remove('buying-power-reveal')
+                this.buyingPowerContainerDOMRef.current.classList.remove('background-color-grey')
+            }
+            if (this.state.buyingPowerRevealed === true) {
+                this.buyingPowerAmountDOMRef.current.classList.add("hide-buying-power-value")
+                this.buyingPowerExtensionDOMRef.current.classList.remove('buying-power-hidden')
+                this.buyingPowerExtensionDOMRef.current.classList.add('buying-power-reveal')
+                this.buyingPowerContainerDOMRef.current.classList.add('background-color-grey')
+            }
+        }
+
         if (prevState.chartDate !== this.state.chartDate) {
             this.props.fetchCurrentUserAndFormattedLifetimeTrades(this.state.chartDate)
         }
@@ -61,8 +80,11 @@ class PortfolioMain extends React.Component {
             max = this.props.formattedMinAndMaxValueFromDataSet[1]
         }
 
+        const buyingPower = (this.props.currentUser) ? this.props.currentUser.buyingPower : ""
+
         let chartData; 
         if (this.props.formattedLifetimeTrades) chartData = this.props.formattedLifetimeTrades
+        
         return(
             <div className = "portfolio-main">
                 <div className = "buying-power-top-info">
@@ -114,9 +136,22 @@ class PortfolioMain extends React.Component {
                         ))
                     }
                 </ul>
-                <div className = "buying-power-container">
-                    <span>Buying Power</span>
-                    <p>${(this.props.currentUser) ? this.props.currentUser.buyingPower : ""}</p>
+                <div ref = {this.buyingPowerContainerDOMRef} className = "buying-power-container">
+                    <div className = "buying-power-always" onClick = {() => {this.setState({buyingPowerRevealed: !this.state.buyingPowerRevealed})}}>
+                        <span>Buying Power</span>
+                        <p ref = {this.buyingPowerAmountDOMRef} className = "buying-power-value">${buyingPower}</p>
+                    </div>
+                    <div ref = {this.buyingPowerExtensionDOMRef} className = "buying-power-hidden">
+                        <div className = "buying-power-left">
+                            <div>
+                                <span>Buying Power</span>
+                                <span>${buyingPower}</span>
+                            </div>
+                            <span>Get More Buying Power with Margin</span>
+                            <button>Deposit Funds</button>
+                        </div>
+                        <p className = "buying-power-right">Buying Power represents the total value of stocks you can purchase.</p>
+                    </div>
                 </div>
                 <div className = "portfolio-news">
                     <span>News</span>

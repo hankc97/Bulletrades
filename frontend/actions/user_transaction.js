@@ -1,7 +1,7 @@
 import {updateUser} from '../utils/user_transaction_util'
 import {receiveCurrentUser} from './user_session'
 import {createUserOrder, updateUserOrder, deleteUserOrder} from '../utils/user_transaction_util'
-import {fetchSingleCurrentUserTicker} from '../utils/user_order_util'
+import {fetchSingleCurrentUserTicker, fetchAllCurrentUserTickers} from '../utils/user_order_util'
 
 export const RECEIVE_ALL_CURRENT_USER_ORDERS = "RECEIVE_ALL_CURRENT_USER_ORDERS" 
 export const RECEIVE_SINGLE_CURRENT_USER_ORDER = "RECEIVE_SINGLE_CURRENT_USER_ORDER"
@@ -11,6 +11,11 @@ export const RECEIVE_UPDATED_USER_ORDER = "RECEIVE_UPDATED_USER_ORDER"
 export const DELETE_USER_ORDER = "DELETE_USER_ORDER"
 export const CLEAR_USER_UPDATE_ERRORS = "CLEAR_USER_UPDATE_ERRORS" 
 
+const receiveAllUserOrders = payload => ({
+    type: RECEIVE_ALL_CURRENT_USER_ORDERS,
+    payload
+})
+
 const receiveUserUpdateErrors = errors => ({
     type: RECEIVE_USER_UPDATE_ERRORS,
     errors
@@ -19,11 +24,6 @@ const receiveUserUpdateErrors = errors => ({
 const receiveSingleUserOrder = payload => ({
     type: RECEIVE_SINGLE_CURRENT_USER_ORDER,
     payload
-})
-
-const receiveAllUserOrders = userOrders => ({
-    type: RECEIVE_ALL_CURRENT_USER_ORDERS,
-    userOrders
 })
 
 const receiveNewUserOrder = payload => ({
@@ -45,6 +45,14 @@ export const clearUserUpdateErrors = () => ({
     type: CLEAR_USER_UPDATE_ERRORS
 })
 
+export const fetchAllUserTickerAndQuantity = () => dispatch => (
+    fetchAllCurrentUserTickers().then(payload => dispatch(receiveAllUserOrders(payload)),
+        err => (
+            dispatch(receiveUserUpdateErrors(err.responseJSON))
+        )
+    )
+)
+
 
 export const receiveSingleCurrentUserOrders = ticker => dispatch => (
     fetchSingleCurrentUserTicker(ticker).then(payload => dispatch(receiveSingleUserOrder(payload)),
@@ -54,13 +62,13 @@ export const receiveSingleCurrentUserOrders = ticker => dispatch => (
     )
 )
 
-export const receiveAllCurrentUserOrders = () => dispatch => (
-    fetchCurrentUserOrders().then(userOrders => dispatch(receiveAllUserOrders(userOrders)),
-        err => (
-            dispatch(receiveUserUpdateErrors(err.responseJSON))
-        )
-    )
-)
+// export const receiveAllCurrentUserOrders = () => dispatch => (
+//     fetchCurrentUserOrders().then(userOrders => dispatch(receiveAllUserOrders(userOrders)),
+//         err => (
+//             dispatch(receiveUserUpdateErrors(err.responseJSON))
+//         )
+//     )
+// )
 
 export const updateUserForm = formUser => dispatch => (
     updateUser(formUser).then(currentUser => dispatch(receiveCurrentUser(currentUser)),

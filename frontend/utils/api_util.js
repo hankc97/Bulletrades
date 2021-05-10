@@ -45,3 +45,11 @@ export const fetchHistoricalTickerQuote = (ticker, date) => {
         url: `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${ticker}&types=chart&range=${date}&token=${apiKey}`
     })
 }
+
+export const fetchAllQuotes = (tickerArr) => {
+    return $.ajax({
+        method: "GET",
+        url: `https://sandbox.iexapis.com/stable/stock/market/batch?&types=price,intraday-prices&symbols=${tickerArr.join(',')}&token=${apiKey}`,
+    })
+}
+

@@ -4,9 +4,9 @@ import Root from './components/root'
 import configureStore from './store/store'
 import {createUserOrder} from './utils/user_transaction_util'
 import {login, fetchUser} from './utils/user_session_util'
-import {fetchSingleCurrentUserTicker} from './utils/user_order_util'
+import {fetchAllCurrentUserTickers} from './utils/user_order_util'
 // import {fetchNewsByTickerName} from "./utils/news_api_util"
-// import {fetchSingleTickerKeyStat, fetchSingleTickerCompany} from './utils/api_util'
+import {fetchSingleTickerKeyStat, fetchSingleTickerCompany, fetchAllQuotes} from './utils/api_util'
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
+    // window.fetchAllCurrentUserTickers = fetchAllCurrentUserTickers
+    // window.fetchAllQuotes = fetchAllQuotes
     // window.fetchUser = fetchUser
     // window.createUserOrder = createUserOrder
     // window.login = login

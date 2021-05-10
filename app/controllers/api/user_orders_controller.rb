@@ -1,6 +1,6 @@
 class Api::UserOrdersController < ApplicationController 
     def index
-        @current_user_orders = UserOrder.where(user_id: current_user.id).includes(:ticker)
+        @current_user_orders = UserOrder.get_all_current_user_orders(current_user.id)
         if @current_user_orders
             render 'api/user_orders/index'
         else

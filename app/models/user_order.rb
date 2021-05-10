@@ -22,7 +22,11 @@ class UserOrder < ApplicationRecord
         class_name: :Ticker
 
     def self.get_new_total_share_price(id)
-        UserOrder.where(user_id: id).sum('quantity * avg_ticker_price')
+        self.where(user_id: id).sum('quantity * avg_ticker_price')
+    end
+
+    def self.get_all_current_user_orders(user_id)
+        self.where(user_id: user_id).group(:ticker).sum(:quantity)
     end
     
     def self.sell_user_order_by_closest_price(buying_power, quantity, avg_ticker_price, all_orders_for_current_ticker)

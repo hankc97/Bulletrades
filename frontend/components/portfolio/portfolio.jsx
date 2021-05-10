@@ -28,7 +28,10 @@ class Portfolio extends React.Component {
                     formattedLifetimeTradesStartingAmount = {this.props.formattedLifetimeTradesStartingAmount}
                     formattedMinAndMaxValueFromDataSet = {this.props.formattedMinAndMaxValueFromDataSet}
                     />
-                <PortfolioSideBar />
+                <PortfolioSideBar 
+                    requestMultiTickerQuote = {this.props.requestMultiTickerQuote}
+                    fetchAllUserTickerAndQuantity = {this.props.fetchAllUserTickerAndQuantity}
+                />
             </div>
         )
     }

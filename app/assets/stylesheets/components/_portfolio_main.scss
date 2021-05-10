@@ -53,9 +53,21 @@
         }
     }
 
+    .background-color-grey {
+        background: rgb(30,33,36);
+        border-radius: 5px;
+        
+    }
+
+    .buying-power-container:hover {
+        cursor: pointer;
+        background-color: rgba(26,26,26,1);
+    }
+
     .buying-power-container {
         display: flex;
         justify-content:space-between;
+        flex-direction: column;
         align-items: center;
         padding-top: 20px;
         padding-bottom: 20px;
@@ -64,11 +76,84 @@
         width: 650px;
         font-size: 14px;
         font-weight: bold;
-    }
 
-    .buying-power-container:hover {
-        background-color: rgb(37, 34, 34);
-        cursor: pointer;
+        .buying-power-always {
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 96%;
+            padding-left: 14px;
+            padding-right: 14px;
+
+            .hide-buying-power-value {
+                display: none;
+            }
+        }
+
+        .buying-power-hidden {
+            display: none;
+        }
+
+        .buying-power-reveal {
+            display: flex;
+            flex-direction: row;
+            border-top: 1px solid rgb(64,73,78);
+            margin-top: 20px;
+
+            .buying-power-left {
+                display:flex;
+                flex-direction: column;
+                font-size: 14px;
+                margin-right: 20px;
+                width: 65%;
+
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-weight: bold;
+                    padding-bottom: 20px;
+
+                    span {
+                        padding: 20px 14px;
+                    }
+                }
+
+                span {
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #FFC657;
+                    font-weight: bold;
+                }
+
+                button {
+                    background: #00C805;
+                    color: rgb(30,33,36);
+                    width: 100%;
+                    height: 50px;
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 5px;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    margin-top: 15px;
+                }
+
+                button:hover {
+                    background-color: rgb(8, 160, 13);
+                    cursor: pointer;
+                }
+            }
+
+            .buying-power-right {
+                margin-right: 20px;
+                font-weight: normal;
+                padding-top: 20px;
+            }
+        }
     }
     
     .portfolio-news {

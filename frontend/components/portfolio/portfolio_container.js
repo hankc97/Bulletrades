@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import Portfolio from './portfolio'
 import {formatToDisplayData, getRecentTotalUserHoldings, getFormattedStartingAmount, getMinAndMaxValueFromFormattedData} from '../../reducers/selectors'
-import {updateUserForm} from '../../actions/user_transaction'
+import {fetchAllUserTickerAndQuantity} from '../../actions/user_transaction'
 import {requestMultiTickerQuote} from '../../actions/ticker_api'
 import {fetchCurrentUserAndFormattedLifetimeTrades} from '../../actions/user_session'
 
@@ -11,13 +11,13 @@ const mapStateToProps = (state) => ({
     formattedLifetimeTradesStartingAmount: getFormattedStartingAmount(state.entities.currentUser.formattedLifetimeTrades),
     formattedMinAndMaxValueFromDataSet: getMinAndMaxValueFromFormattedData(state.entities.currentUser.formattedLifetimeTrades),
     currentUser: state.entities.currentUser[state.session.id],
-    // userOrders: state.entities.userOrders,
+    allCurrentUserTickerAndQuantity: state.entities.currentUserOrders,
     quotes: state.entities.tickerQuotes
 })
 
 const mapDispatchToProps = dispatch => ({
-    // updateUser: (userForm) => dispatch(updateUserForm(userForm)),
-    requestMultiQuotes: (arrQuote) => dispatch(requestMultiTickerQuote(arrQuote)),
+    fetchAllUserTickerAndQuantity: () => dispatch(fetchAllUserTickerAndQuantity()),
+    requestMultiTickerQuote: (arrTickers) => dispatch(requestMultiTickerQuote(arrTickers)),
     fetchCurrentUserAndFormattedLifetimeTrades: (format) => dispatch(fetchCurrentUserAndFormattedLifetimeTrades(format)),
 })
 
