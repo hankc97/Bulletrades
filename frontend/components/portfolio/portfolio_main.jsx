@@ -148,7 +148,8 @@ class PortfolioMain extends React.Component {
                                 <span>${buyingPower}</span>
                             </div>
                             <span>Get More Buying Power with Margin</span>
-                            <button>Deposit Funds</button>
+                            <button className = "portfolio-deposit-funds-button" 
+                                    onClick = {() => this.props.openModal('deposit')}>Deposit Funds</button>
                         </div>
                         <p className = "buying-power-right">Buying Power represents the total value of stocks you can purchase.</p>
                     </div>

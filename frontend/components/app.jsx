@@ -8,6 +8,7 @@ import LoginFormContainer from './session_form/login_form_container'
 import PortfolioContainer from './portfolio/portfolio_container'
 import NavBarContainerProtected from './nav_bar_protected/nav_bar_protected_container'
 import TickerContainer from './stocks/ticker_container'
+import Modal from './modal/modal'
 
 const HomePageContainer = () => (
     <>
@@ -31,6 +32,7 @@ const TickerPage = ({match}) =>(
 )
 const App = () => (
     <div>
+        <Modal />
         <Switch>
             <AuthRoute  path = "/signup" component= {SignupFormContainer}/>
             <AuthRoute  path = "/login" component= {LoginFormContainer}/>

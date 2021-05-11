@@ -92,10 +92,10 @@ class TickerChartAbout extends React.Component {
         this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
             this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                 this.props.requestSingleTickerCompany(this.props.tickerName)))
-                    .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
                 // .then((res) => {
-                //         this.props.requestSingleTickerNews(res.company.companyName)
-                //     }
+                //     this.props.requestSingleTickerNews(res.company.companyName)
+                // })
+                .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
         this.state.loading = false
     }
 
@@ -114,10 +114,10 @@ class TickerChartAbout extends React.Component {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                     this.props.requestSingleTickerCompany(this.props.tickerName)))
+                        // .then((res) => {
+                        //     this.props.requestSingleTickerNews(res.company.companyName)
+                        //     })
                         .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
-                    // .then((res) => {
-                    //     this.props.requestSingleTickerNews(res.company.companyName)
-                    //     }
             this.setState({chartDate: "1D"})
         }
         else if (prevState.chartDate !== this.state.chartDate && this.state.chartDate !== "1D") {
@@ -314,8 +314,8 @@ class TickerChartAbout extends React.Component {
                 </div>
                 <div className = "ticker-news-container">
                     <div className = "ticker-news-text">News</div>
-                    <ul className = "">
-                       {/* {
+                    {/* <ul className = "">
+                       {
                            this.props.news ? (
                                 this.props.news.map(singleNews => {
                                     return (
@@ -338,8 +338,8 @@ class TickerChartAbout extends React.Component {
                                     )
                                 })
                             ) : ( "" )
-                        } */}
-                    </ul>
+                        }
+                    </ul> */}
                 </div>
             </div>
         )
