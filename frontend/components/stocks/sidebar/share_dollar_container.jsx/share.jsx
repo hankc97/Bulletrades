@@ -214,7 +214,9 @@ class Shares extends React.Component {
                 </>
 
                 <>
-                    <button ref = {this.depositFunds} className = "hide-button">Deposit Funds</button>
+                    <button onClick = {() => this.props.openModal('deposit')} 
+                            ref = {this.depositFunds} 
+                            className = "hide-button">Deposit Funds</button>
                     <button 
                         onClick = {() => {
                             this.clearError()

@@ -44,6 +44,10 @@ class PortfolioMain extends React.Component {
         if (prevState.chartDate !== this.state.chartDate) {
             this.props.fetchCurrentUserAndFormattedLifetimeTrades(this.state.chartDate)
         }
+
+        if (prevProps.currentUser.buyingPower !== this.props.currentUser.buyingPower) {
+            this.props.fetchCurrentUserAndFormattedLifetimeTrades(this.state.chartDate)
+        }
     }
 
     displayToolTip(toolTipData) {

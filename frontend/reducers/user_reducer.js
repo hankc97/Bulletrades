@@ -1,4 +1,4 @@
-import {RECEIVE_CURRENT_USER_AND_FORMATTED_LIFETIME_TRADES} from '../actions/user_session'
+import {RECEIVE_CURRENT_USER_AND_FORMATTED_LIFETIME_TRADES, RECEIVE_UPDATED_USER} from '../actions/user_session'
 import {RECEIVE_UPDATED_USER_ORDER, RECEIVE_NEW_USER_ORDER, DELETE_USER_ORDER} from '../actions/user_transaction'
 
 const userReducer = (oldState = {}, action) => {
@@ -6,6 +6,11 @@ const userReducer = (oldState = {}, action) => {
     switch(action.type){
         case RECEIVE_CURRENT_USER_AND_FORMATTED_LIFETIME_TRADES:
             return Object.assign({}, oldState, { 
+                [action.payload.currentUser.id]: action.payload.currentUser, 
+                formattedLifetimeTrades: action.payload.formattedLifetimeTrades
+            })
+        case RECEIVE_UPDATED_USER:
+            return Object.assign({}, oldState, {
                 [action.payload.currentUser.id]: action.payload.currentUser, 
                 formattedLifetimeTrades: action.payload.formattedLifetimeTrades
             })

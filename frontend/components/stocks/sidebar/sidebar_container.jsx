@@ -85,6 +85,7 @@ class SideBarContainer extends React.Component {
                                         tickerName = {this.props.tickerName}
                                         updateOrder = {this.props.updateOrder}
                                         deleteOrder = {this.props.deleteOrder}
+                                        openModal = {this.props.openModal}
                                         />
         }
         if (this.state.selectedShareOrDollar === "Dollars") {

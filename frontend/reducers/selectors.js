@@ -66,3 +66,11 @@ export const setInitialEntityState = order => {
 
     return Object.values(order)
 }
+
+export const setInitialEntityCurrentUser = user => {
+    if (user && Object.keys(user).length === 0 && user.constructor === Object) {
+        return {buyingPower: 0}
+    }
+
+    return user
+}

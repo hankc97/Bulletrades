@@ -4,8 +4,8 @@ class Dollars extends React.Component {
         super(props)
 
         this.state = {
-            numberOfShares: 0,
-            estimatedTotalPrice: 0,
+            amountOfDollars: 0,
+            quantity: 0,
             errorsText: "",
             transactionReviewSuccessText: "",
         }
@@ -29,25 +29,24 @@ class Dollars extends React.Component {
         if (prevState.saleType !== this.props.saleType) {
             this.resetButtons()
             this.clearError()
-            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", amountOfDollars: 0})
         }
     }
 
     executeOrderToBackEnd() {
         const currentUser = this.props.currentUser
-
         if (this.props.saleType === "Buy") {
             const user_buying_power = {
                 buying_power: currentUser.buyingPower}
             const newUserOrderForm = {
                 user_id: currentUser.id,
                 ticker: this.props.tickerName,
-                quantity: this.state.numberOfShares,
-                avg_ticker_price: this.state.estimatedTotalPrice / this.state.numberOfShares,
+                quantity: this.state.quantity,
+                avg_ticker_price: this.props.markPrice,
                 sale_type: this.props.saleType
             }
             this.props.createOrder(newUserOrderForm, user_buying_power)
-            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+            this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", amountOfDollars: 0})
             this.resetButtons()
         }
 
@@ -58,19 +57,19 @@ class Dollars extends React.Component {
                 const newUserOrderForm = {
                     user_id: currentUser.id,
                     ticker: this.props.tickerName,
-                    quantity: this.state.numberOfShares,
-                    avg_ticker_price: this.state.estimatedTotalPrice / this.state.numberOfShares,
+                    quantity: this.state.quantity,
+                    avg_ticker_price: this.props.markPrice,
                     sale_type: this.props.saleType
                 }
                 this.props.updateOrder(newUserOrderForm, user_buying_power)
-                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", amountOfDollars: 0})
                 this.resetButtons()
             } else {
                 const mark_price = {
                     mark_price:  this.props.markPrice
                 }
                 this.props.deleteOrder(this.props.tickerName, mark_price)
-                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", numberOfShares: 0})
+                this.setState({estimatedTotalPrice: 0, transactionReviewSuccessText: "", errorsText: "", amountOfDollars: 0})
                 this.resetButtons()
             }
         }
@@ -78,7 +77,7 @@ class Dollars extends React.Component {
 
     isSharesEqualToZeroAfterSell() {
         const sharesAvailable = this.props.currentUserOrder[1]
-        if (this.state.numberOfShares - sharesAvailable === 0) return true
+        if (this.state.amountOfDollars - sharesAvailable === 0) return true
         return false
     }
 
@@ -104,7 +103,7 @@ class Dollars extends React.Component {
         this.depositFunds.current.classList.remove('reveal-deposit-funds')
     }
 
-    displaySuccessfulOrderReview(totalPrice) {
+    displaySuccessfulOrderReview(quantity) {
         this.reviewOrderButton.current.classList.remove('review-order-button')
         this.reviewOrderButton.current.classList.add('hide-button')
 
@@ -115,7 +114,7 @@ class Dollars extends React.Component {
         this.backButton.current.classList.add('reveal-back-button')
         
         this.setState({
-            estimatedTotalPrice: totalPrice,
+            quantity: quantity,
             transactionReviewSuccessText: "Successful Order Review. Please Execute Order Or Click Back To Continue Editing Order",
             errorsText: "",
         })
@@ -146,23 +145,24 @@ class Dollars extends React.Component {
 
     handleDollarInputChange(e) {
         e.preventDefault()
-        this.setState({numberOfShares: e.target.value})
+        this.setState({amountOfDollars: e.target.value})
     }
 
     handleReviewOrder(e) {
         e.preventDefault()
-        const totalPrice = parseFloat(e.currentTarget.firstChild.lastChild.innerHTML.slice(1))
-        if (parseInt(this.state.numberOfShares) <= 1 && (typeof parseInt(this.state.numberOfShares) !== "number")) return this.setState({errorsText: "Please Enter A Valid Amount of Dollars over $1.00"})
-
+        const quantity = e.currentTarget.firstChild.lastChild.innerHTML 
+        const buyingPower = parseFloat(this.props.currentUser.buyingPower)
+        if (parseFloat(quantity) <= 1 && (typeof parseFloat(quantity) !== "number")) return this.setState({errorsText: "Please Enter A Valid Amount of Dollars over $1.00"})
+        const totalPrice = parseFloat(this.state.amountOfDollars)
         if (this.props.saleType === "Buy") {
-            if (this.props.currentUser.buyingPower < totalPrice) return this.displayError()
-            if (this.props.currentUser.buyingPower >= totalPrice) return this.displaySuccessfulOrderReview(totalPrice)
+            if (buyingPower < totalPrice) return this.displayError()
+            if (buyingPower >= totalPrice) return this.displaySuccessfulOrderReview(quantity)
         }
 
         if (this.props.saleType === "Sell") {
             const sharesAvailable = this.props.currentUserOrder[1]
-            if (sharesAvailable < this.state.numberOfShares) return this.displayError()
-            if (sharesAvailable >= this.state.numberOfShares) return this.displaySuccessfulOrderReview(totalPrice)
+            if (sharesAvailable < quantity) return this.displayError()
+            if (sharesAvailable >= quantity) return this.displaySuccessfulOrderReview(quantity)
         }
     }
 
@@ -172,10 +172,10 @@ class Dollars extends React.Component {
     }
 
     render() {
-        const {errorsText, transactionReviewSuccessText, numberOfShares}  = this.state
+        const {errorsText, transactionReviewSuccessText, amountOfDollars}  = this.state
         const {saleType} = this.props
         const markPrice = this.props.markPrice || 0 
-        let estimatedQuantityOfShares = numberOfShares * markPrice 
+        let estimatedQuantityOfShares = ( amountOfDollars / markPrice ) 
         if (this.getDecimalCount(estimatedQuantityOfShares) > 6) estimatedQuantityOfShares = estimatedQuantityOfShares.toFixed(6)
 
         return(
@@ -185,7 +185,7 @@ class Dollars extends React.Component {
                     <input 
                         type = "number"
                         placeholder = "$0.00"
-                        value = {this.state.numberOfShares}
+                        value = {this.state.amountOfDollars}
                         onChange = {this.handleDollarInputChange}
                     />
                 </div>

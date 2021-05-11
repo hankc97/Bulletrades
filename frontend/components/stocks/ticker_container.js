@@ -4,6 +4,7 @@ import {updateUserForm, createNewOrderForm, updateUserOrderForm, deleteUserOrder
 import {requestSingleTickerQuote, requestSingleTickerKeyStat, requestSingleTickerCompany, requestSingleTickerHistoricalQuote} from '../../actions/ticker_api'
 import {requestSingleTickerNews} from '../../actions/news_api'
 import { getTotalQuantityWithTotalAvgPrice } from '../../reducers/selectors'
+import {openModal} from '../../actions/modal'
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -28,7 +29,8 @@ const mapDispatchToProps = dispatch => ({
     updateOrder: (updatedUserOrderForm, user_buying_power) => dispatch(updateUserOrderForm(updatedUserOrderForm, user_buying_power)),
     deleteOrder: (ticker, markPrice) => dispatch(deleteUserOrderForm(ticker, markPrice)),
     receiveSingleCurrentUserOrders: (ticker) => dispatch(receiveSingleCurrentUserOrders(ticker)),
-    fetchAllOrders: () => dispatch(receiveAllCurrentUserOrders())
+    fetchAllOrders: () => dispatch(receiveAllCurrentUserOrders()),
+    openModal: (modal) => dispatch(openModal(modal)),
 }) 
 
 export default connect(

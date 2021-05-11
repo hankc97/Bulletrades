@@ -38,6 +38,7 @@ class Ticker extends React.Component {
                         currentUserOrder = {this.props.currentUserOrder}
                         updateOrder = {this.props.updateOrder}
                         deleteOrder = {this.props.deleteOrder}
+                        openModal = {this.props.openModal}
                     />
                 </div>
             </div>

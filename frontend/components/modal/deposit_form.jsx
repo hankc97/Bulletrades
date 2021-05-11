@@ -1,12 +1,20 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
 import {closeModal} from '../../actions/modal'
+import {updateUser} from '../../actions/user_session'
+import { Redirect } from 'react-router'
 
 class DepositForm extends React.Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            newBuyingPower: 0,
+            redirect: false,
+        }
 
         this.handleAmount = this.handleAmount.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -14,13 +22,21 @@ class DepositForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        this.props.updateUser(this.props.sessionId, {buying_power: this.state.newBuyingPower})
+            .then(() => this.setState({newBuyingPower: 0, redirect: true}))
+            .then(() => this.props.closeModal())
     }
 
     handleAmount(e) {
         e.preventDefault()
+        this.setState({newBuyingPower: e.target.value})
     }
 
     render() {
+        const {redirect} = this.state
+        if (redirect) {
+            return <Redirect to='/portfolio'/>;
+        }
         return(
             <>
                 <button onClick={() => this.props.closeModal()} className="close-btn">
@@ -36,7 +52,7 @@ class DepositForm extends React.Component {
                         <label>From
                             <div>
                                 <select name="bank" disabled className="deposit-input">
-                                    <option value="imgBank">Imaginary Bank</option>
+                                    <option value="imgBank">Checking Account</option>
                                 </select>
                             </div>
                         </label>
@@ -47,12 +63,12 @@ class DepositForm extends React.Component {
                                     type="text" 
                                     required autoComplete="off" 
                                     step="1" 
-                                    onChange={e => handleAmount(e.target.value)} 
-                                    value={this.props.currentUser.buyingPower} 
-                                    placeholder="$0.00" />
+                                    onChange={this.handleAmount} 
+                                    value= {this.state.newBuyingPower} 
+                                    placeholder= "$0.00"/>
                             </div>
                         </label>
-                        <button onClick={this.handleSubmit}><span>Submit</span></button>
+                        <button className = "deposit-form-button" onClick={this.handleSubmit}><span>Submit Funds</span></button>
                     </form>
                 </div>
             </>
@@ -61,11 +77,12 @@ class DepositForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.entities.currentUser
+    sessionId: state.session.id
 })
 
 const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch(closeModal()),
+    updateUser: (id, buying_power) => dispatch(updateUser(id, buying_power))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DepositForm)

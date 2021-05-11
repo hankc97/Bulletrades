@@ -29,6 +29,9 @@ class Stocks extends React.Component {
 
     componentDidMount() {
         this.props.fetchAllUserTickerAndQuantity().then((currentUserOrders) => {
+            if (currentUserOrders.payload && Object.keys(currentUserOrders.payload).length === 0 && currentUserOrders.payload.constructor === Object) {
+                return
+            }
             this.props.requestMultiTickerQuote(currentUserOrders.payload.map(order => order[0]))
         })
     }
