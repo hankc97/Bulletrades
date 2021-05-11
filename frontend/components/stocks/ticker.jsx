@@ -93,9 +93,9 @@ class TickerChartAbout extends React.Component {
         this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
             this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                 this.props.requestSingleTickerCompany(this.props.tickerName)))
-                // .then((res) => {
-                //     this.props.requestSingleTickerNews(res.company.companyName)
-                // })
+                .then((res) => {
+                    this.props.requestSingleTickerNews(res.company.companyName)
+                })
                 .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
         this.state.loading = false
     }
@@ -115,9 +115,9 @@ class TickerChartAbout extends React.Component {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                     this.props.requestSingleTickerCompany(this.props.tickerName)))
-                        // .then((res) => {
-                        //     this.props.requestSingleTickerNews(res.company.companyName)
-                        //     })
+                        .then((res) => {
+                            this.props.requestSingleTickerNews(res.company.companyName)
+                            })
                         .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
             this.setState({chartDate: "1D"})
         }
@@ -168,27 +168,27 @@ class TickerChartAbout extends React.Component {
         let percentChangePrice = ((( totalAvgPrice / this.props.quote.markPrice ) - 1 ) * 100).toFixed(2)
         let totalReturnValues = (totalAvgPrice > this.props.quote.markPrice) ? `+${dollarReturnPrice} (+${percentChangePrice}%)` : `${dollarReturnPrice} (${percentChangePrice}%)`
 
-        // if (this.props.news) {
-        //     this.props.news.map(singleNews => {
-        //         return (
-        //             <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
-        //                 <div className = "single-news-about">
-        //                     <div>
-        //                         <span>{singleNews.source.name}</span>
-        //                         <p>{singleNews.publishedAt}</p>
-        //                     </div>
-        //                     <span>{singleNews.title}</span>
-        //                     <p>{singleNews.description}</p>
-        //                 </div>
-        //                 <img 
-        //                     draggable="false" 
-        //                     role="presentation" 
-        //                     srcSet = {singleNews.urlToImage}
-        //                     className = "news-img"
-        //                 />
-        //             </a>
-        //         )
-        // })}
+        if (this.props.news) {
+            this.props.news.map(singleNews => {
+                return (
+                    <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
+                        <div className = "single-news-about">
+                            <div>
+                                <span>{singleNews.source.name}</span>
+                                <p>{singleNews.publishedAt}</p>
+                            </div>
+                            <span>{singleNews.title}</span>
+                            <p>{singleNews.description}</p>
+                        </div>
+                        <img 
+                            draggable="false" 
+                            role="presentation" 
+                            srcSet = {singleNews.urlToImage}
+                            className = "news-img"
+                        />
+                    </a>
+                )
+        })}
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
@@ -315,7 +315,7 @@ class TickerChartAbout extends React.Component {
                 </div>
                 <div className = "ticker-news-container">
                     <div className = "ticker-news-text">News</div>
-                    {/* <ul className = "">
+                    <ul className = "">
                        {
                            this.props.news ? (
                                 this.props.news.map(singleNews => {
@@ -340,7 +340,7 @@ class TickerChartAbout extends React.Component {
                                 })
                             ) : ( "" )
                         }
-                    </ul> */}
+                    </ul>
                 </div>
             </div>
         )
