@@ -40,8 +40,6 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "spotify": "^0.3.0",
-    "styled-components": "^5.2.1",
     "util": "^0.12.3",
     "webpack": "^5.36.0",
     "webpack-cli": "^4.5.0"
