@@ -1,4 +1,3 @@
-
 const apiKey = "c28a79a750d449f7bc9b79d5d81c85f4"
 
 export const fetchNewsByTickerName = (tickerName) => {

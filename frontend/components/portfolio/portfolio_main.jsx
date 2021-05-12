@@ -1,5 +1,6 @@
 import React from 'react'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
+import {Audio} from "@agney/react-loading";
 
 class PortfolioMain extends React.Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class PortfolioMain extends React.Component {
         this.state = {
             chartDate: "1D",
             buyingPowerRevealed: false,
+            loading: true,
         }
 
         this.currentUserOrderHoldingAmountDOMRef = React.createRef()
@@ -19,13 +21,20 @@ class PortfolioMain extends React.Component {
         this.buyingPowerExtensionDOMRef = React.createRef()
 
         this.displayToolTip = this.displayToolTip.bind(this)
+        this.asynchLoadingTimer = this.asynchLoadingTimer.bind(this)
     }
 
     componentDidMount() {
         this.props.fetchCurrentUserAndFormattedLifetimeTrades()
+            .then(() => this.asynchLoadingTimer().then(() => this.setState({loading: false})))
+    }
+
+    asynchLoadingTimer() {
+        return new Promise((resolve) => setTimeout(() => resolve(), 1500));
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (prevProps.currentUser === undefined) return
         if (prevState.buyingPowerRevealed !== this.state.buyingPowerRevealed) {
             if (this.state.buyingPowerRevealed === false) {
                 this.buyingPowerAmountDOMRef.current.classList.remove("hide-buying-power-value")
@@ -44,7 +53,6 @@ class PortfolioMain extends React.Component {
         if (prevState.chartDate !== this.state.chartDate) {
             this.props.fetchCurrentUserAndFormattedLifetimeTrades(this.state.chartDate)
         }
-
         if (prevProps.currentUser.buyingPower !== this.props.currentUser.buyingPower) {
             this.props.fetchCurrentUserAndFormattedLifetimeTrades(this.state.chartDate)
         }
@@ -73,6 +81,11 @@ class PortfolioMain extends React.Component {
     }
 
     render() {
+        const {loading} = this.state
+        if (loading) {
+            return (<div className = "loader-background"><Audio className = "loader"/></div>)
+        }
+
         let color;
         const {formattedLifetimeTradesStartingAmount, currentUserOrderHoldingAmount} = this.props
         const dollarReturnPrice = (currentUserOrderHoldingAmount - formattedLifetimeTradesStartingAmount).toFixed(2)

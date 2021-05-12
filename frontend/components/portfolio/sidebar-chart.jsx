@@ -19,7 +19,7 @@ class Chart extends React.Component {
     }
 
     formatPercentChangeToday(pricesArray) {
-        if (pricesArray['intraday-prices'] === []) return
+        if (pricesArray['intraday-prices'].length < 2) return
         let endPrice = pricesArray['intraday-prices'][pricesArray['intraday-prices'].length - 1].average
         let startPrice = pricesArray['intraday-prices'][0].average
 

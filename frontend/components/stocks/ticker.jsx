@@ -1,7 +1,7 @@
 import React from 'react'
 import SideBarTicker from './sidebar/sidebar_container'
-import StockList from '../stock_lists/stockLists'
 import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
+import {Audio} from "@agney/react-loading";
 
 class Ticker extends React.Component {
     constructor(props) {
@@ -65,6 +65,7 @@ class TickerChartAbout extends React.Component {
         this.formatSingleHistoricalTickerData = this.formatSingleHistoricalTickerData.bind(this)
 
         this.displayToolTip = this.displayToolTip.bind(this)
+        this.asynchLoadingTimer = this.asynchLoadingTimer.bind(this)
     }
 
     displayToolTip(toolTipData) {
@@ -93,31 +94,39 @@ class TickerChartAbout extends React.Component {
         this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
             this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                 this.props.requestSingleTickerCompany(this.props.tickerName)))
-                .then((res) => {
-                    this.props.requestSingleTickerNews(res.company.companyName)
-                })
+                // .then((res) => {
+                //     this.props.requestSingleTickerNews(res.company.companyName)
+                // })
                 .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
-        this.state.loading = false
+                .then(() => this.asynchLoadingTimer().then(() => this.setState({loading: false})))
+    }
+
+    asynchLoadingTimer() {
+        return new Promise((resolve) => setTimeout(() => resolve(), 1500));
     }
 
     componentDidUpdate(prevProps, prevState) {
         if ( prevProps !== this.props) {
             if (this.props.currentUserOrder){
+                this.asynchLoadingTimer().then(() => this.setState({hasTicker: true, loading: false}))
+                // this.setState({hasTicker: true, loading: false})
+                if (this.tickerOwnedPositionContainer.current === null) return
                 this.tickerOwnedPositionContainer.current.classList.remove('hide')
-                this.setState({hasTicker: true})
             }
             if (this.props.currentUserOrder === undefined) {
+                this.asynchLoadingTimer().then(() => this.setState({hasTicker: true, loading: false}))
+                // this.setState({hasTicker: false, loading: false})
+                if (this.tickerOwnedPositionContainer.current === null) return
                 this.tickerOwnedPositionContainer.current.classList.add('hide')
-                this.setState({hasTicker: false})
             }
         }
         if (prevProps.tickerName !== this.props.tickerName) {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                     this.props.requestSingleTickerCompany(this.props.tickerName)))
-                        .then((res) => {
-                            this.props.requestSingleTickerNews(res.company.companyName)
-                            })
+                        // .then((res) => {
+                        //     this.props.requestSingleTickerNews(res.company.companyName)
+                        //     })
                         .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
             this.setState({chartDate: "1D"})
         }
@@ -146,6 +155,12 @@ class TickerChartAbout extends React.Component {
     }
 
     render() {
+        const {loading} = this.state
+        if (loading) {
+            debugger
+            return (<div className = "loader-background"><Audio className = "loader"/></div>)
+        }
+
         let chartData;
         let news;
         if ( this.state.chartDate === "1D" ) {
@@ -168,27 +183,27 @@ class TickerChartAbout extends React.Component {
         let percentChangePrice = ((( totalAvgPrice / this.props.quote.markPrice ) - 1 ) * 100).toFixed(2)
         let totalReturnValues = (totalAvgPrice > this.props.quote.markPrice) ? `+${dollarReturnPrice} (+${percentChangePrice}%)` : `${dollarReturnPrice} (${percentChangePrice}%)`
 
-        if (this.props.news) {
-            this.props.news.map(singleNews => {
-                return (
-                    <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
-                        <div className = "single-news-about">
-                            <div>
-                                <span>{singleNews.source.name}</span>
-                                <p>{singleNews.publishedAt}</p>
-                            </div>
-                            <span>{singleNews.title}</span>
-                            <p>{singleNews.description}</p>
-                        </div>
-                        <img 
-                            draggable="false" 
-                            role="presentation" 
-                            srcSet = {singleNews.urlToImage}
-                            className = "news-img"
-                        />
-                    </a>
-                )
-        })}
+        // if (this.props.news) {
+        //     this.props.news.map(singleNews => {
+        //         return (
+        //             <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
+        //                 <div className = "single-news-about">
+        //                     <div>
+        //                         <span>{singleNews.source.name}</span>
+        //                         <p>{singleNews.publishedAt}</p>
+        //                     </div>
+        //                     <span>{singleNews.title}</span>
+        //                     <p>{singleNews.description}</p>
+        //                 </div>
+        //                 <img 
+        //                     draggable="false" 
+        //                     role="presentation" 
+        //                     srcSet = {singleNews.urlToImage}
+        //                     className = "news-img"
+        //                 />
+        //             </a>
+        //         )
+        // })}
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
@@ -239,7 +254,7 @@ class TickerChartAbout extends React.Component {
                                 ["1D", "1W", "1M", "3M", "1Y", "5Y"].map((date) => (
                                     <button 
                                         key = {date} 
-                                        onClick = {() => this.setState({chartDate: date})}>{date}</button>
+                                        onClick = {() => this.setState({chartDate: date, loading: true})}>{date}</button>
                                 ))
                             }
                         </ul>
@@ -315,7 +330,7 @@ class TickerChartAbout extends React.Component {
                 </div>
                 <div className = "ticker-news-container">
                     <div className = "ticker-news-text">News</div>
-                    <ul className = "">
+                    {/* <ul className = "">
                        {
                            this.props.news ? (
                                 this.props.news.map(singleNews => {
@@ -340,7 +355,7 @@ class TickerChartAbout extends React.Component {
                                 })
                             ) : ( "" )
                         }
-                    </ul>
+                    </ul> */}
                 </div>
             </div>
         )

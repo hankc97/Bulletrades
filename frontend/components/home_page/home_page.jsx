@@ -46,7 +46,7 @@ export const HomePageComponent = () => (
             </div>
         </div>
         <div className = "fee-schedule">
-            <span>See our <span class = "fee-underline">fee schedule</span> to learn more about cost</span>
+            <span>See our <span className = "fee-underline">fee schedule</span> to learn more about cost</span>
         </div>
         <div className = "home-page-fractional-shares">
             <div className = "fract-left">
