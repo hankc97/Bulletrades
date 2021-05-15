@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             login!(@user)
-            render "api/users/show"
+            render "api/users/create"
         else
             render json: @user.errors.full_messages, status: 422
         end
@@ -28,5 +28,9 @@ class Api::UsersController < ApplicationController
     private
     def buying_power_params
         params.require(:buying_power).transform_keys(&:underscore).permit(:buying_power)
+    end
+
+    def user_params
+        params.require(:user).transform_keys(&:underscore).permit(:first_name, :last_name, :email, :password)
     end
 end

@@ -1,5 +1,5 @@
 import React from 'react'
-import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
+import {LineChart, Line, XAxis, YAxis} from 'recharts';
 import {Link} from 'react-router-dom'
 
 class Chart extends React.Component {

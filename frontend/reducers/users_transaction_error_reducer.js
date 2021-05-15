@@ -4,7 +4,8 @@ export default (state = [], action) => {
     Object.freeze(state)
     switch(action.type) {
         case RECEIVE_USER_UPDATE_ERRORS:
-            return action.errors
+            if (action.errors) return action.errors
+            if (!action.errors) return null
         case CLEAR_USER_UPDATE_ERRORS:
             return [];
         default:

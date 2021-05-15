@@ -23,12 +23,13 @@ const tickersReducer = (state = _nullQuote, action) => {
     let newState = Object.assign({}, state)
     switch (action.type) {
         case RECEIVE_SINGLE_TICKER_QUOTE: 
-            return newState[action.quote.quote.symbol] = {
+            const singleTickerQuote = {
                 markPrice: action.quote.quote.latestPrice,
                 changePercentage: (action.quote.quote.changePercent*2),
                 companyName: action.quote.quote.companyName,
                 intradayPrices: action.quote["intraday-prices"]
             }
+            return Object.assign({}, newState, singleTickerQuote)
         case RECEIVE_SINGLE_TICKER_HISTORICAL_QUOTE: 
             const singleHistoricalQuote = {
                 singleHistoricalQuote: action.quote

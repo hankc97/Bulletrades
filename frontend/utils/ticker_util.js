@@ -5,3 +5,11 @@ export const fetchAllTickers = () => {
     })
 }
 
+export const fetchUpdatedTickerWatchlistRelation = (_watchlist_id, ticker_name) => {
+    return $.ajax({
+        method: "PATCH",
+        url: `api/tickers/${ticker_name}`,
+        data: {_watchlist_id}
+    })
+}
+

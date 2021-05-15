@@ -30,8 +30,8 @@ export const fetchCurrentUserLifeTimeFormat = (format) => {
 
 export const updateUserBuyingPower = (id, buying_power) => {
     return $.ajax({
-        method: "PATCH",
         url: `/api/users/${id}`,
+        method: "PATCH",
         data: {buying_power}
     })
 }

@@ -30,7 +30,7 @@ class PortfolioMain extends React.Component {
     }
 
     asynchLoadingTimer() {
-        return new Promise((resolve) => setTimeout(() => resolve(), 1500));
+        return new Promise((resolve) => setTimeout(() => resolve(), 1000));
     }
 
     componentDidUpdate(prevProps, prevState) {

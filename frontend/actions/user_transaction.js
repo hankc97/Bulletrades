@@ -62,14 +62,6 @@ export const receiveSingleCurrentUserOrders = ticker => dispatch => (
     )
 )
 
-// export const receiveAllCurrentUserOrders = () => dispatch => (
-//     fetchCurrentUserOrders().then(userOrders => dispatch(receiveAllUserOrders(userOrders)),
-//         err => (
-//             dispatch(receiveUserUpdateErrors(err.responseJSON))
-//         )
-//     )
-// )
-
 export const updateUserForm = formUser => dispatch => (
     updateUser(formUser).then(currentUser => dispatch(receiveCurrentUser(currentUser)),
         err => (

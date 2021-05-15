@@ -74,3 +74,11 @@ export const setInitialEntityCurrentUser = user => {
 
     return user
 }
+
+export const setInitialEntityWatchlist = watchlist => {
+    if (watchlist && Object.keys(watchlist).length === 0 && watchlist.constructor === Object) {
+        return []
+    }
+
+    return watchlist
+}

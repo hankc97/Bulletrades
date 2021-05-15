@@ -11,7 +11,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  buying_power    :decimal(25, 5)   default(25000.0), not null
-#  lifetime_trades :text             default([]), is an Array
+#  lifetime_trades :text             default([["\"25000.00\"", "\"2021-05-08 13:51:03.716037\""]]), is an Array
 #
 class User < ApplicationRecord
     attr_reader :password
@@ -31,6 +31,10 @@ class User < ApplicationRecord
     has_many :tickers,
         through: :ticker_orders,
         source: :ticker
+
+    has_many :watchlists,
+        foreign_key: :user_id,
+        class_name: :Watchlist
 
     def self.find_by_credentials(email, password)
         @user = User.find_by(email: email)

@@ -25,7 +25,6 @@
   "dependencies": {
     "@agney/react-loading": "^0.1.2",
     "@babel/core": "^7.13.8",
-    "@babel/preset-env": "^7.13.9",
     "@babel/preset-react": "^7.12.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -49,5 +48,10 @@
     "node": "10.13.0",
     "npm": "6.4.1"
   },
-  "homepage": "https://github.com/hankc97/robinhood#readme"
+  "homepage": "https://github.com/hankc97/robinhood#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/runtime": "^7.14.0"
+  }
 }

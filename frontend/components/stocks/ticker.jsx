@@ -91,33 +91,59 @@ class TickerChartAbout extends React.Component {
     }
 
     componentDidMount() {
-        this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
-            this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
-                this.props.requestSingleTickerCompany(this.props.tickerName)))
-                // .then((res) => {
-                //     this.props.requestSingleTickerNews(res.company.companyName)
-                // })
-                .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
-                .then(() => this.asynchLoadingTimer().then(() => this.setState({loading: false})))
+        const _this = this;
+        Promise.all([
+            this.props.requestSingleTickerQuote(this.props.tickerName),
+            this.props.requestSingleTickerKeyStat(this.props.tickerName),
+            this.props.requestSingleTickerCompany(this.props.tickerName),
+            this.props.receiveSingleCurrentUserOrders(this.props.tickerName)
+        ]).then( ([res1, res2, res3, res4]) => {
+            if (Object.keys(res4.payload).length === 2) {
+                _this.asynchLoadingTimer().then(() => _this.setState({loading: false, hasTicker: true}))
+            } else {
+                _this.asynchLoadingTimer().then(() => _this.setState({loading: false, hasTicker: false}))
+            }
+        })
+        // .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
+
+        // this.props.requestSingleTickerQuote(this.props.tickerName)
+        // .then(() => this.props.requestSingleTickerKeyStat(this.props.tickerName))
+        // .then(() => this.props.requestSingleTickerCompany(this.props.tickerName))
+
+        // // .then((res) => {
+        //     //     this.props.requestSingleTickerNews(res.company.companyName)
+        //     // })
+        //     .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
+        //     .then((order) => {
+        //         debugger
+        //         if (Object.keys(order.payload).length === 2) {
+        //             this.tickerOwnedPositionContainer.current.classList.remove('hide')
+        //         } else {
+        //             this.tickerOwnedPositionContainer.current.classList.add('hide')
+        //         }
+        //     })
+            // .then(() => this.setState({loading: false}))
     }
 
     asynchLoadingTimer() {
-        return new Promise((resolve) => setTimeout(() => resolve(), 1500));
+        return new Promise((resolve) => setTimeout(() => resolve(), 1000));
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if ( prevProps !== this.props) {
-            if (this.props.currentUserOrder){
-                this.asynchLoadingTimer().then(() => this.setState({hasTicker: true, loading: false}))
-                // this.setState({hasTicker: true, loading: false})
-                if (this.tickerOwnedPositionContainer.current === null) return
+        if (this.tickerOwnedPositionContainer.current !== null) {
+            if (this.state.hasTicker){
                 this.tickerOwnedPositionContainer.current.classList.remove('hide')
             }
-            if (this.props.currentUserOrder === undefined) {
-                this.asynchLoadingTimer().then(() => this.setState({hasTicker: true, loading: false}))
-                // this.setState({hasTicker: false, loading: false})
-                if (this.tickerOwnedPositionContainer.current === null) return
+            if (!this.state.hasTicker) {
                 this.tickerOwnedPositionContainer.current.classList.add('hide')
+            }
+        }
+        if ( prevProps.currentUserOrder !== this.props.currentUserOrder) {
+            if (this.props.currentUserOrder ){
+                this.setState({hasTicker: true})
+            }
+            if (!this.props.currentUserOrder) {
+                this.setState({hasTicker: false})
             }
         }
         if (prevProps.tickerName !== this.props.tickerName) {
@@ -156,8 +182,7 @@ class TickerChartAbout extends React.Component {
 
     render() {
         const {loading} = this.state
-        if (loading) {
-            debugger
+        if (loading && this.props.quote !== undefined) {
             return (<div className = "loader-background"><Audio className = "loader"/></div>)
         }
 

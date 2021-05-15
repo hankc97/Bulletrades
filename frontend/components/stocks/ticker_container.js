@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Ticker from './ticker'
-import {updateUserForm, createNewOrderForm, updateUserOrderForm, deleteUserOrderForm,receiveSingleCurrentUserOrders} from '../../actions/user_transaction'
+import {updateUserForm, createNewOrderForm, updateUserOrderForm, deleteUserOrderForm, receiveSingleCurrentUserOrders} from '../../actions/user_transaction'
 import {requestSingleTickerQuote, requestSingleTickerKeyStat, requestSingleTickerCompany, requestSingleTickerHistoricalQuote} from '../../actions/ticker_api'
 import {requestSingleTickerNews} from '../../actions/news_api'
 import { getTotalQuantityWithTotalAvgPrice } from '../../reducers/selectors'

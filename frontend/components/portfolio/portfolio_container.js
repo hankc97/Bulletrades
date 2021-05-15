@@ -6,8 +6,15 @@ import {
     getFormattedStartingAmount, 
     getMinAndMaxValueFromFormattedData, 
     setInitialEntityState,
-    setInitialEntityCurrentUser
+    setInitialEntityCurrentUser,
+    setInitialEntityWatchlist
 } from '../../reducers/selectors'
+
+import {
+    requestAllWatchlist,
+    requestAllWatchlistAPI
+} from '../../actions/watchlist'
+
 import {fetchAllUserTickerAndQuantity} from '../../actions/user_transaction'
 import {requestMultiTickerQuote} from '../../actions/ticker_api'
 import {fetchCurrentUserAndFormattedLifetimeTrades} from '../../actions/user_session'
@@ -21,6 +28,7 @@ const mapStateToProps = (state) => ({
     currentUser: setInitialEntityCurrentUser(state.entities.currentUser[state.session.id]),
     allCurrentUserTickerAndQuantity: setInitialEntityState(state.entities.currentUserOrders),
     quotes: state.entities.currentTickerPageQuote,
+    watchlist: setInitialEntityWatchlist(state.entities.watchlist.watchlistsBackend)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -28,6 +36,8 @@ const mapDispatchToProps = dispatch => ({
     requestMultiTickerQuote: (arrTickers) => dispatch(requestMultiTickerQuote(arrTickers)),
     fetchCurrentUserAndFormattedLifetimeTrades: (format) => dispatch(fetchCurrentUserAndFormattedLifetimeTrades(format)),
     openModal: (modal) => dispatch(openModal(modal)),
+    requestAllWatchlist: () => dispatch(requestAllWatchlist()),
+    requestAllWatchlistAPI: (tickersArr) => dispatch(requestAllWatchlistAPI(tickersArr))
 })
 
 export default connect(
