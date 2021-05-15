@@ -28,6 +28,7 @@ class Portfolio extends React.Component {
                         requestAllWatchlist = {this.props.requestAllWatchlist}
                         watchlist = {this.props.watchlist}
                         requestAllWatchlistAPI= {this.props.requestAllWatchlistAPI}
+                        watchlistAPI = {this.props.watchlistAPI}
                     />
                 </div>
             </div>

@@ -28,7 +28,8 @@ const mapStateToProps = (state) => ({
     currentUser: setInitialEntityCurrentUser(state.entities.currentUser[state.session.id]),
     allCurrentUserTickerAndQuantity: setInitialEntityState(state.entities.currentUserOrders),
     quotes: state.entities.currentTickerPageQuote,
-    watchlist: setInitialEntityWatchlist(state.entities.watchlist.watchlistsBackend)
+    watchlist: setInitialEntityWatchlist(state.entities.watchlist.watchlistsBackend),
+    watchlistAPI: state.entities.watchlist.watchlistsAPI
 })
 
 const mapDispatchToProps = dispatch => ({

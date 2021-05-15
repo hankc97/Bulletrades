@@ -159,8 +159,7 @@
             .single-watchlist {
                 display: flex;
                 flex-direction: column;
-                padding: 10px 20px;
-                font-size: 14px;
+                font-size: 13px;
                 border-bottom: 1px solid rgb(64,73,78);
 
                 .single-watchlist-name{
@@ -168,7 +167,53 @@
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
+                    padding: 10px 20px;
                 }
+
+                .single-watchlist-name:hover  {
+                    cursor: pointer;
+                    background-color: rgba(53,55,58,1);
+                }
+
+                .hidden {
+                    display:none
+                }
+
+                .single-watchlist-tickers-container {
+                    display:flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .single-ticker-user-order {
+                        display:flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-top: 2px;
+                        padding-bottom: 2px;
+                        padding-left: 20px;
+                        padding-right: 20px;
+
+                        .single-ticker-quantity-and-name {
+                            font-weight: bold;
+
+                            span {
+                                margin-right: 20px;
+                            }
+                        }
+
+                        .price-single-order {
+                            display:flex;
+                            flex-direction: column;
+                        }
+                    }
+
+                    .single-ticker-user-order:hover {
+                        cursor: pointer;
+                        background-color: rgba(53,55,58,1);
+                    }
+                }
+
             }
         }
     }

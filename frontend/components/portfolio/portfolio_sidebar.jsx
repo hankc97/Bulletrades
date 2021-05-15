@@ -1,7 +1,7 @@
 import React from 'react'
 import Chart from './sidebar-chart'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import {faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons'
 
 class PortfolioSideBar extends React.Component {
     constructor(props) {
@@ -22,6 +22,7 @@ class PortfolioSideBar extends React.Component {
                         requestAllWatchlist = {this.props.requestAllWatchlist}
                         watchlist = {this.props.watchlist}
                         requestAllWatchlistAPI = {this.props.requestAllWatchlistAPI}
+                        watchlistAPI = {this.props.watchlistAPI}
                     />
                 </div>
             </div>
@@ -57,6 +58,7 @@ class Stocks extends React.Component {
                                 key = {order}
                                 singleOrder = {order}
                                 singleQuote = {this.props.quotes[order[0]]}
+                                chartType = "ownedTickers"
                             />
                         ))
                     }
@@ -78,6 +80,7 @@ class Lists extends React.Component {
         this.createWatchlistDOMRef = React.createRef()
 
         this.toggleLists = this.toggleLists.bind(this)
+        this.toggleWatchlist = this.toggleWatchlist.bind(this)
         this.handleWatchlistInput = this.handleWatchlistInput.bind(this)
     }
 
@@ -91,7 +94,6 @@ class Lists extends React.Component {
                     }
                 })
             })
-
             this.props.requestAllWatchlistAPI(ticker_api_call_array)
         })
     }
@@ -110,13 +112,27 @@ class Lists extends React.Component {
         this.setState({isCreateListToggled: !this.state.isCreateListToggled})
     }
 
+    toggleWatchlist(e, id) {
+        e.preventDefault()
+        let DOMRef = this.watchlistCollectionDOMRef[id] 
+
+        if (DOMRef.classList.contains('hidden')) {
+            DOMRef.classList.add('single-watchlist-tickers-container')
+            DOMRef.classList.remove('hidden')
+        } else {
+            DOMRef.classList.remove('single-watchlist-tickers-container')
+            DOMRef.classList.add('hidden')
+        }
+    }
+
     handleWatchlistInput(e) {
         e.preventDefault()
         this.setState({listName: e.target.value})
     }
 
     render() {
-        const watchlist = this.props.watchlist ? this.props.watchlist : []
+        const watchlist = this.props.watchlist && this.props.watchlistAPI ? this.props.watchlist : []
+        this.watchlistCollectionDOMRef = {}
         return(
             <div className = "portfolio-sidebar-watchlists-container">
                 <div className = "watchlists-header">
@@ -139,21 +155,23 @@ class Lists extends React.Component {
                 <ul className = "watchlist-lists-container">
                     {
                         watchlist.map(watchlist => (
-                            <li className = "single-watchlist">
+                            <li className = "single-watchlist" key = {watchlist.name}>
                                 <div className = "single-watchlist-name">
                                     <span>{watchlist.name}</span>
-                                    <button><FontAwesomeIcon icon = {faChevronDown} /></button>
+                                    <button onClick = {(e) => this.toggleWatchlist(e, watchlist.name)}><FontAwesomeIcon icon = {faChevronUp} /></button>
                                 </div>
-                                {/* <ul className = "single-watchlist-tickers-container">
+                                <ul ref = {(instance) => {this.watchlistCollectionDOMRef[watchlist.name] = instance}} className = "hidden">
                                     {  
                                         watchlist.tickers.map(ticker => (
                                             <Chart 
                                                 key = {ticker}
-
+                                                tickerName = {ticker}
+                                                singleQuote = {this.props.watchlistAPI[ticker]}
+                                                chartType = "watchlist"
                                             />
                                         ))
                                     }
-                                </ul> */}
+                                </ul>
                             </li>
                         ))
                     }

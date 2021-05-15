@@ -93,7 +93,7 @@ class TickerChartAbout extends React.Component {
     componentDidMount() {
         const _this = this;
         Promise.all([
-            this.props.requestSingleTickerQuote(this.props.tickerName),
+            this.props.requestSingleTickerQuote([this.props.tickerName]),
             this.props.requestSingleTickerKeyStat(this.props.tickerName),
             this.props.requestSingleTickerCompany(this.props.tickerName),
             this.props.receiveSingleCurrentUserOrders(this.props.tickerName)
@@ -103,26 +103,7 @@ class TickerChartAbout extends React.Component {
             } else {
                 _this.asynchLoadingTimer().then(() => _this.setState({loading: false, hasTicker: false}))
             }
-        })
-        // .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
-
-        // this.props.requestSingleTickerQuote(this.props.tickerName)
-        // .then(() => this.props.requestSingleTickerKeyStat(this.props.tickerName))
-        // .then(() => this.props.requestSingleTickerCompany(this.props.tickerName))
-
-        // // .then((res) => {
-        //     //     this.props.requestSingleTickerNews(res.company.companyName)
-        //     // })
-        //     .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
-        //     .then((order) => {
-        //         debugger
-        //         if (Object.keys(order.payload).length === 2) {
-        //             this.tickerOwnedPositionContainer.current.classList.remove('hide')
-        //         } else {
-        //             this.tickerOwnedPositionContainer.current.classList.add('hide')
-        //         }
-        //     })
-            // .then(() => this.setState({loading: false}))
+        }).catch(err => console.log(err.responseText))
     }
 
     asynchLoadingTimer() {

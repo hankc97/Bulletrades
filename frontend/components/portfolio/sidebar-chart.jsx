@@ -29,7 +29,16 @@ class Chart extends React.Component {
     }
 
     render() {
-        let [tickerName, quantity] = this.props.singleOrder
+        let tickerName, quantity, sharesDiv
+
+        if (this.props.chartType === "ownedTickers") {
+            [tickerName, quantity] = this.props.singleOrder
+            sharesDiv = <p>{quantity} Shares</p>
+        } 
+        if (this.props.chartType === "watchlist") {
+            tickerName = this.props.tickerName
+        }
+
         let chartData, price, percentageChangeToday, color, sign
         if (this.props.singleQuote) {
             chartData = this.formatQuote(this.props.singleQuote)
@@ -44,7 +53,7 @@ class Chart extends React.Component {
             <Link className = 'single-ticker-user-order' to = {`/stocks/${tickerName}`}>
                 <div className = "single-ticker-quantity-and-name">
                     <span>{tickerName}</span>
-                    <p>{quantity} Shares</p>
+                    {sharesDiv}
                 </div>
                 <LineChart className = "linechart-container" width = {50} height = {25} data = {chartData} cursor="pointer">
                     <XAxis  
@@ -57,7 +66,7 @@ class Chart extends React.Component {
                         hide = {true} 
                         domain={['auto', 'auto']}
                     />
-                    <Line   
+                    <Line
                         className = "recharts-line"
                         type = "monotone"
                         dataKey = "price"
