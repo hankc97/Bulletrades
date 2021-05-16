@@ -115,6 +115,14 @@
                 margin-right: 20px;
                 width: 65%;
 
+                .buying-power-left-inner {
+                    color: white;
+                }
+
+                .inner-text-buying {
+                    color: #FFC657;
+                }
+
                 div {
                     display: flex;
                     flex-direction: row;
@@ -132,7 +140,6 @@
                     display:flex;
                     align-items: center;
                     justify-content: center;
-                    color: #FFC657;
                     font-weight: bold;
                 }
 

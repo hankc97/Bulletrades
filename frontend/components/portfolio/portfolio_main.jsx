@@ -153,18 +153,18 @@ class PortfolioMain extends React.Component {
                         ))
                     }
                 </ul>
-                <div ref = {this.buyingPowerContainerDOMRef} className = "buying-power-container">
-                    <div className = "buying-power-always" onClick = {() => {this.setState({buyingPowerRevealed: !this.state.buyingPowerRevealed})}}>
+                <div ref = {this.buyingPowerContainerDOMRef} className = "buying-power-container" onClick = {() => {this.setState({buyingPowerRevealed: !this.state.buyingPowerRevealed})}}>
+                    <div className = "buying-power-always" >
                         <span>Buying Power</span>
                         <p ref = {this.buyingPowerAmountDOMRef} className = "buying-power-value">${buyingPower}</p>
                     </div>
                     <div ref = {this.buyingPowerExtensionDOMRef} className = "buying-power-hidden">
                         <div className = "buying-power-left">
-                            <div>
+                            <div className = "buying-power-left-inner">
                                 <span>Buying Power</span>
                                 <span>${buyingPower}</span>
                             </div>
-                            <span>Get More Buying Power with Margin</span>
+                            <span className = "inner-text-buying">Get More Buying Power with Margin</span>
                             <button className = "portfolio-deposit-funds-button" 
                                     onClick = {() => this.props.openModal('deposit')}>Deposit Funds</button>
                         </div>

@@ -39,7 +39,7 @@ class DepositForm extends React.Component {
         return(
             <>
                 <button onClick={() => this.props.closeModal()} className="close-btn">
-                    <span><FontAwesomeIcon icon={faTimes} /></span>
+                    <span className = "fa-times-button"><FontAwesomeIcon icon={faTimes} /></span>
                 </button>
                 <div className="deposit-form">
                     <header className="modal-title deposit-title">

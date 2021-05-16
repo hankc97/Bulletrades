@@ -41,12 +41,19 @@ class Chart extends React.Component {
 
         let chartData, price, percentageChangeToday, color, sign
         if (this.props.singleQuote) {
-            chartData = this.formatQuote(this.props.singleQuote)
-            price = this.props.singleQuote['price']
-            const formatReturn = this.formatPercentChangeToday(this.props.singleQuote)
-            sign = formatReturn[0]
-            percentageChangeToday = formatReturn[1]
-            color = (sign === '+') ? 'rgb(0, 200, 5)' : 'rgb(255,80,0)'
+            if (this.props.singleQuote['intraday-prices'].length === 0) {
+                chartData = [{time: 0, price: 0}]
+                price = this.props.singleQuote['price']
+                percentageChangeToday = 0
+                color = 'rgb(255,80,0)'
+            } else {
+                chartData = this.formatQuote(this.props.singleQuote)
+                price = this.props.singleQuote['price']
+                const formatReturn = this.formatPercentChangeToday(this.props.singleQuote)
+                sign = formatReturn[0]
+                percentageChangeToday = formatReturn[1]
+                color = (sign === '+') ? 'rgb(0, 200, 5)' : 'rgb(255,80,0)'
+            }
         }
 
         return(
