@@ -1,8 +1,7 @@
 import React from 'react'
 import Chart from './sidebar-chart'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faChevronDown, faChevronUp, faEllipsisH} from '@fortawesome/free-solid-svg-icons'
-import { requestSingleTickerHistoricalQuote } from '../../actions/ticker_api';
+import {faCaretDown, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 
 class PortfolioSideBar extends React.Component {
     constructor(props) {
@@ -103,9 +102,16 @@ class Lists extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        // if (prevProps.watchlist) {
+        //     if (prevState.currentListName !== this.state.currentListName) {
+        //         this.setState({isCreateListToggled: !this.state.isCreateListToggled})
+        //     }
+        // }
+    }
+
     toggleLists(e) {
         e.preventDefault()
-
         if (this.state.isCreateListToggled) {
             this.createWatchlistDOMRef.current.classList.add('hidden-create-list-container')
             this.createWatchlistDOMRef.current.classList.remove('reveal-create-list-container')
@@ -138,6 +144,7 @@ class Lists extends React.Component {
     handleCreateList(e) {
         e.preventDefault()
         this.props.requestCreateWatchlist({name: this.state.listName})
+        this.toggleLists(e)
     }
 
     handleWatchlistDelete(e, id) {
@@ -174,12 +181,9 @@ class Lists extends React.Component {
                                 <div className = "single-watchlist-name">
                                     <span>{watchlist.name}</span>
                                     <div className = "in-div-in">
-                                        <button className = "edit-remove-button-watchlist"><FontAwesomeIcon icon = {faEllipsisH}/></button>
-                                        <button className = "chevron-button" onClick = {(e) => this.toggleWatchlist(e, watchlist.name)}><FontAwesomeIcon icon = {faChevronUp} /></button>
+                                        <button className = "edit-remove-button-watchlist" onClick = {(e) => this.handleWatchlistDelete(e, watchlist.id)} ><FontAwesomeIcon icon = {faTrashAlt}/></button>
+                                        <button className = "chevron-button" onClick = {(e) => this.toggleWatchlist(e, watchlist.name)}><FontAwesomeIcon icon = {faCaretDown} /></button>
                                     </div>
-                                </div>
-                                <div>
-                                    <button onClick = {(e) => this.handleWatchlistDelete(e, watchlist.id)}>Delete List</button>
                                 </div>
                                 <ul ref = {(instance) => {this.watchlistCollectionDOMRef[watchlist.name] = instance}} className = "hidden">
                                     {  

@@ -39,7 +39,11 @@ export default (state = _nullQuote, action)=> {
             newState.watchlistsBackend.push(newWatchlist)
             return Object.assign({}, newState)
         case REMOVE_SINGLE_WATCHLIST:
-            delete newState.watchlistsBackend[action.id]
+            newState.watchlistsBackend.forEach((list, index) => {
+                if (list.id === action.id) {
+                    newState.watchlistsBackend.splice(index, 1)
+                }
+            })
             return Object.assign({}, newState)
         case RECEIVE_SHOW_TICKER_WATCHLIST_RELATION:
             const checkedWatchlistTickers = {
