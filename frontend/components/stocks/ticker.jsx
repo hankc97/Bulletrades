@@ -140,7 +140,7 @@ class TickerChartAbout extends React.Component {
         }
         else if (prevState.chartDate !== this.state.chartDate && this.state.chartDate !== "1D") {
             this.props.requestSingleTickerHistoricalQuote(this.props.tickerName, this.state.chartDate)
-            // this.state.loading = false
+            this.asynchLoadingTimer().then(() => this.setState({loading: false}))
         }
     }
 
