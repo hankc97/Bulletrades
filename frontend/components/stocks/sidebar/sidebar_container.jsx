@@ -21,6 +21,7 @@ class SideBarContainer extends React.Component {
 
     componentDidMount() {
         this.saleType()
+        this.props.requestShowTickerWatchlistRelation(this.props.tickerName)
     }
 
     componentDidUpdate(prevProps) {
@@ -35,7 +36,9 @@ class SideBarContainer extends React.Component {
                 this.sellButton.current.classList.add('hide')
             }
         }
-        // loading end
+        if (prevProps.tickerName !== this.props.tickerName) {
+            this.props.requestShowTickerWatchlistRelation(this.props.tickerName)
+        }
     }
 
     saleType() {
@@ -134,6 +137,9 @@ class SideBarContainer extends React.Component {
                         <span ref = {this.shareAvailableSpan}>{sharesAvailable} Shares Available</span>
                     </div>
                 </div>
+                <button className = "add-to-watchlists-button"
+                        onClick = {() => this.props.openModal('addWatchlist')}>
+                        Add To Watchlists</button>
             </div>
         )
     }

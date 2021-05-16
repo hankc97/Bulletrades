@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
 import {closeModal} from '../../actions/modal'
 import {updateUser} from '../../actions/user_session'
@@ -39,7 +39,7 @@ class DepositForm extends React.Component {
         return(
             <>
                 <button onClick={() => this.props.closeModal()} className="close-btn">
-                    <span><FontAwesomeIcon icon={faCoffee} /></span>
+                    <span><FontAwesomeIcon icon={faTimes} /></span>
                 </button>
                 <div className="deposit-form">
                     <header className="modal-title deposit-title">

@@ -1,0 +1,143 @@
+.modal-form-div.addWatchlist {
+    width: 390px;
+    height: 370px;
+    background-color: rgb(30,33,36);
+    color: white;
+
+    .watchlist-modal-container {
+        padding: 20px;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 90%;
+
+        .add-to-lists-header {
+            font-size: 18px;
+            font-family: 'Nunito Sans', sans-serif;
+            display:flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 12px;
+
+            .x-watchlist-icon {
+                font-size: 25px;
+                font-weight: normal;
+            }
+            .x-watchlist-icon:hover {
+                cursor: pointer;
+                color: #00C805;
+            }
+        }
+
+        .checkbox-watchlists {
+            display:flex;
+            flex-direction: column;
+
+            .container {
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                margin-bottom: 12px;
+                margin-top: 12px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+
+                .watchlist-description-checkbox {
+                    display:flex;
+                    flex-direction: column;
+
+                    p {
+                        font-size: 17px;
+                        font-weight: bold;
+                    }
+
+                    span {
+                        color: #849197;
+                        font-size: 13px;
+                    }
+                }
+
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+                .checkmark {
+                    margin-top: 10px;
+                }
+
+                .checkmark {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 15px;
+                    width: 15px;
+                    background-color: rgb(30,33,36);
+                    border: 2px solid #00C805;
+                }
+
+                .container:hover input ~ .checkmark {
+                    background-color: rgb(30,33,36);
+                }
+
+                input:checked ~ .checkmark {
+                    background-color: #00C805;
+                }
+
+                input:checked ~ .checkmark:after {
+                    display: block;
+                }
+
+                .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+
+                input:checked ~ .checkmark:after {
+                    display: block;
+                }
+
+                .checkmark:after {
+                    left: 4px;
+                    top: 0px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid white;
+                    border-width: 0 3px 3px 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+            }
+
+            .watchlist-form-submit-button {
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                width: 100%;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                background-color: #00C805;
+                color: rgb(30,33,36);
+                border-radius: 5px;
+                margin-top: 15px;
+            }
+
+            .watchlist-form-submit-button:hover {
+                cursor: pointer;
+                background-color: #046607;
+            }
+        }
+    }
+}
+

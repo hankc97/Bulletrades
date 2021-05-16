@@ -5,6 +5,11 @@ import {
     RECEIVE_ALL_WATCHLIST_API
 } from '../actions/watchlist'
 
+import {
+    RECEIVE_SHOW_TICKER_WATCHLIST_RELATION,
+    RECEIVE_UPDATED_TICKER_WATCHLIST_RELATION
+} from '../actions/ticker'
+
 const _nullQuote = Object.freeze({
     
 })
@@ -24,6 +29,26 @@ export default (state = _nullQuote, action)=> {
                 watchlistsAPI: action.payload
             }
             return Object.assign({}, newState, watchlistsAPI)
+        case RECEIVE_SINGLE_WATCHLIST:
+            const newWatchlist = 
+                {
+                    id : action.watchlist.id,
+                    name: action.watchlist.name,
+                    tickers: []
+                }
+            newState.watchlistsBackend.push(newWatchlist)
+            return Object.assign({}, newState)
+        case REMOVE_SINGLE_WATCHLIST:
+            delete newState.watchlistsBackend[action.id]
+            return Object.assign({}, newState)
+        case RECEIVE_SHOW_TICKER_WATCHLIST_RELATION:
+            const checkedWatchlistTickers = {
+                allWatchlistsProp: action.payload.allWatchlists,
+                checkedWatchlistsProp: action.payload.checkWatchlistsForCurrentTicker
+            }
+            return Object.assign({}, newState, checkedWatchlistTickers)
+        case RECEIVE_UPDATED_TICKER_WATCHLIST_RELATION:
+            return newState
         default:
             return state
     }

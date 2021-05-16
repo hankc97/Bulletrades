@@ -39,11 +39,12 @@ const tickersReducer = (state = _nullQuote, action) => {
             return action.quotes
         case RECEIVE_SINGLE_TICKER_KEYSTAT:
             const data = {
-                marketcap: action.keyStat.marketcap,
-                employees: action.keyStat.employees,
-                peRatio: action.keyStat.peRatio,
-                monthlyVolume: action.keyStat.avg30Volume,
-                sharesOutstanding: action.keyStat.sharesOutstanding,
+                tickerName: action.payload.tickerName,
+                marketcap: action.payload.keyStat.marketcap,
+                employees: action.payload.keyStat.employees,
+                peRatio: action.payload.keyStat.peRatio,
+                monthlyVolume: action.payload.keyStat.avg30Volume,
+                sharesOutstanding: action.payload.keyStat.sharesOutstanding,
             }
             return Object.assign({}, newState, data)
         case RECEIVE_SINGLE_TICKER_COMPANY:

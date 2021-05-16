@@ -39,6 +39,7 @@ class Ticker extends React.Component {
                         updateOrder = {this.props.updateOrder}
                         deleteOrder = {this.props.deleteOrder}
                         openModal = {this.props.openModal}
+                        requestShowTickerWatchlistRelation = {this.props.requestShowTickerWatchlistRelation}
                     />
                 </div>
             </div>

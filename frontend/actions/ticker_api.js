@@ -24,9 +24,9 @@ const receiveMultiTickerQuote = (quotes) => ({
     quotes
 })
 
-const receiveSingleTickerKeyStat = keyStat => ({
+const receiveSingleTickerKeyStat = payload => ({
     type: RECEIVE_SINGLE_TICKER_KEYSTAT,
-    keyStat
+    payload
 })
 
 const receiveSingleTickerCompany = company => ({
@@ -48,7 +48,9 @@ export const requestMultiTickerQuote = (arrTickers) => dispatch => (
 )
 
 export const requestSingleTickerKeyStat = ticker => dispatch => (
-    fetchSingleTickerKeyStat(ticker).then((keyStat) => dispatch(receiveSingleTickerKeyStat(keyStat)))
+    fetchSingleTickerKeyStat(ticker).then((keyStat) => {
+        const payload = {tickerName: ticker, keyStat: keyStat}
+        dispatch(receiveSingleTickerKeyStat(payload))})
 )
 
 export const requestSingleTickerCompany = ticker => dispatch => (

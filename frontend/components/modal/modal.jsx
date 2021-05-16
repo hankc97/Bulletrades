@@ -2,6 +2,7 @@ import React from 'react'
 import { closeModal } from '../../actions/modal'
 import { connect } from 'react-redux'
 import DepositForm from './deposit_form'
+import AddWatchlistForm from './add_watchlist_form'
 // import AddToListsForm from '../auth/watchlist/watchlist_modal/add_to_lists_form';
 // import AboutMe from '../splash/about_me';
 // import EditForm from '../auth/dashboard/watchlist_index/watchlist_forms/edit_form';
@@ -17,15 +18,18 @@ function Modal({modal, closeModal}) {
         case "deposit":
             component = <DepositForm />
             break;
+        case "addWatchlist":
+            component = <AddWatchlistForm/>
+            break
         // case (modal.match(/edit-list/) || {}).input:
         //     component = <EditForm id={modal.match(/[0-9]+/)[0]}/>;
         //     break;
         // case (modal.match(/delete-list/) || {}).input:
         //     component = <DeleteForm id={modal.match(/[0-9]+/)[0]}/>
         //     break;
-        case (modal.match(/add-to-list/) || {}).input:
-            component = <AddToListsForm tickerSymbol={modal.match(/add-to-list-(.*)/)[1]} />
-            break;
+        // case (modal.match(/add-to-list/) || {}).input:
+        //     component = <AddToListsForm tickerSymbol={modal.match(/add-to-list-(.*)/)[1]} />
+        //     break;
         default:
             return null;
     }

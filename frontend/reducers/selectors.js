@@ -82,3 +82,19 @@ export const setInitialEntityWatchlist = watchlist => {
 
     return watchlist
 }
+
+export const setInitAllWatchlistsProp = allWatchlists => {
+    if (allWatchlists && Object.keys(allWatchlists).length === 0 && allWatchlists.constructor === Object) {
+        return []
+    }
+    if (!allWatchlists) return []
+    return allWatchlists.allWatchlistsProp
+}
+
+export const setInitCheckedWatchlistsProp = checkedWatchlists => {
+    if (checkedWatchlists && Object.keys(checkedWatchlists).length === 0 && checkedWatchlists.constructor === Object) {
+        return []
+    }
+    if (!checkedWatchlists) return []
+    return checkedWatchlists.checkedWatchlistsProp
+}

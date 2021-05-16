@@ -12,7 +12,9 @@ import {
 
 import {
     requestAllWatchlist,
-    requestAllWatchlistAPI
+    requestAllWatchlistAPI,
+    requestCreateWatchlist,
+    requestDestroyWatchlist
 } from '../../actions/watchlist'
 
 import {fetchAllUserTickerAndQuantity} from '../../actions/user_transaction'
@@ -38,7 +40,9 @@ const mapDispatchToProps = dispatch => ({
     fetchCurrentUserAndFormattedLifetimeTrades: (format) => dispatch(fetchCurrentUserAndFormattedLifetimeTrades(format)),
     openModal: (modal) => dispatch(openModal(modal)),
     requestAllWatchlist: () => dispatch(requestAllWatchlist()),
-    requestAllWatchlistAPI: (tickersArr) => dispatch(requestAllWatchlistAPI(tickersArr))
+    requestAllWatchlistAPI: (tickersArr) => dispatch(requestAllWatchlistAPI(tickersArr)),
+    requestCreateWatchlist: (watchlist) => dispatch(requestCreateWatchlist(watchlist)),
+    requestDestroyWatchlist: (id) => dispatch(requestDestroyWatchlist(id)),
 })
 
 export default connect(

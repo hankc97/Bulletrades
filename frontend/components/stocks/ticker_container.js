@@ -1,10 +1,21 @@
 import { connect } from 'react-redux'
 import Ticker from './ticker'
-import {updateUserForm, createNewOrderForm, updateUserOrderForm, deleteUserOrderForm, receiveSingleCurrentUserOrders} from '../../actions/user_transaction'
-import {requestSingleTickerQuote, requestSingleTickerKeyStat, requestSingleTickerCompany, requestSingleTickerHistoricalQuote} from '../../actions/ticker_api'
+import {
+    updateUserForm, 
+    createNewOrderForm, 
+    updateUserOrderForm, 
+    deleteUserOrderForm, 
+    receiveSingleCurrentUserOrders} from '../../actions/user_transaction'
+import {
+    requestSingleTickerQuote, 
+    requestSingleTickerKeyStat, 
+    requestSingleTickerCompany, 
+    requestSingleTickerHistoricalQuote} from '../../actions/ticker_api'
 import {requestSingleTickerNews} from '../../actions/news_api'
 import { getTotalQuantityWithTotalAvgPrice } from '../../reducers/selectors'
 import {openModal} from '../../actions/modal'
+import {requestShowTickerWatchlistRelation} from '../../actions/ticker'
+
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -31,6 +42,7 @@ const mapDispatchToProps = dispatch => ({
     receiveSingleCurrentUserOrders: (ticker) => dispatch(receiveSingleCurrentUserOrders(ticker)),
     fetchAllOrders: () => dispatch(receiveAllCurrentUserOrders()),
     openModal: (modal) => dispatch(openModal(modal)),
+    requestShowTickerWatchlistRelation: (ticker_name) => dispatch(requestShowTickerWatchlistRelation(ticker_name))
 }) 
 
 export default connect(

@@ -26,6 +26,8 @@ class Portfolio extends React.Component {
                         quotes = {this.props.quotes}
                         allCurrentUserTickerAndQuantity = {this.props.allCurrentUserTickerAndQuantity}
                         requestAllWatchlist = {this.props.requestAllWatchlist}
+                        requestCreateWatchlist = {this.props.requestCreateWatchlist}
+                        requestDestroyWatchlist = {this.props.requestDestroyWatchlist}
                         watchlist = {this.props.watchlist}
                         requestAllWatchlistAPI= {this.props.requestAllWatchlistAPI}
                         watchlistAPI = {this.props.watchlistAPI}

@@ -168,6 +168,22 @@
                     justify-content: space-between;
                     align-items: center;
                     padding: 10px 20px;
+
+                    .in-div-in {
+                        display:flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 20%;
+                    }
+
+                    .edit-remove-button-watchlist:hover {
+                        color: #00C805;
+                    }
+
+                    .chevron-button:hover {
+                        color: #00C805;
+                    }
+                   
                 }
 
                 .single-watchlist-name:hover  {

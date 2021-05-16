@@ -13,3 +13,9 @@ export const fetchUpdatedTickerWatchlistRelation = (_watchlist_id, ticker_name) 
     })
 }
 
+export const fetchShowTickerWatchlistRelation = (ticker_name) => {
+    return $.ajax({
+        method: "GET",
+        url: `api/tickers/${ticker_name}`,
+    })
+}

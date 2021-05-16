@@ -10,7 +10,7 @@ class Api::WatchlistsController < ApplicationController
     end
 
     def create
-        @watchlist = Watchlist.new(name: params[:name][:name], user_id: current_user.id)
+        @watchlist = Watchlist.new(name: params[:watchlist][:name], user_id: current_user.id)
         if @watchlist.save
             render 'api/watchlists/create'
         else

@@ -1,7 +1,8 @@
 import React from 'react'
 import Chart from './sidebar-chart'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons'
+import {faChevronDown, faChevronUp, faEllipsisH} from '@fortawesome/free-solid-svg-icons'
+import { requestSingleTickerHistoricalQuote } from '../../actions/ticker_api';
 
 class PortfolioSideBar extends React.Component {
     constructor(props) {
@@ -23,6 +24,8 @@ class PortfolioSideBar extends React.Component {
                         watchlist = {this.props.watchlist}
                         requestAllWatchlistAPI = {this.props.requestAllWatchlistAPI}
                         watchlistAPI = {this.props.watchlistAPI}
+                        requestCreateWatchlist = {this.props.requestCreateWatchlist}
+                        requestDestroyWatchlist = {this.props.requestDestroyWatchlist}
                     />
                 </div>
             </div>
@@ -82,6 +85,8 @@ class Lists extends React.Component {
         this.toggleLists = this.toggleLists.bind(this)
         this.toggleWatchlist = this.toggleWatchlist.bind(this)
         this.handleWatchlistInput = this.handleWatchlistInput.bind(this)
+        this.handleCreateList = this.handleCreateList.bind(this)
+        this.handleWatchlistDelete= this.handleWatchlistDelete.bind(this)
     }
 
     componentDidMount() {
@@ -130,6 +135,16 @@ class Lists extends React.Component {
         this.setState({listName: e.target.value})
     }
 
+    handleCreateList(e) {
+        e.preventDefault()
+        this.props.requestCreateWatchlist({name: this.state.listName})
+    }
+
+    handleWatchlistDelete(e, id) {
+        e.preventDefault()
+        this.props.requestDestroyWatchlist(id)
+    }
+
     render() {
         const watchlist = this.props.watchlist && this.props.watchlistAPI ? this.props.watchlist : []
         this.watchlistCollectionDOMRef = {}
@@ -149,7 +164,7 @@ class Lists extends React.Component {
                     />
                     <div className = "watchlist-create-buttons">
                         <button className = "cancel-button-watchlist" onClick = {this.toggleLists}>Cancel</button>
-                        <button className = "create-button-watchlist">Create List</button>
+                        <button onClick = {this.handleCreateList} className = "create-button-watchlist">Create List</button>
                     </div>
                 </div>
                 <ul className = "watchlist-lists-container">
@@ -158,7 +173,13 @@ class Lists extends React.Component {
                             <li className = "single-watchlist" key = {watchlist.name}>
                                 <div className = "single-watchlist-name">
                                     <span>{watchlist.name}</span>
-                                    <button onClick = {(e) => this.toggleWatchlist(e, watchlist.name)}><FontAwesomeIcon icon = {faChevronUp} /></button>
+                                    <div className = "in-div-in">
+                                        <button className = "edit-remove-button-watchlist"><FontAwesomeIcon icon = {faEllipsisH}/></button>
+                                        <button className = "chevron-button" onClick = {(e) => this.toggleWatchlist(e, watchlist.name)}><FontAwesomeIcon icon = {faChevronUp} /></button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button onClick = {(e) => this.handleWatchlistDelete(e, watchlist.id)}>Delete List</button>
                                 </div>
                                 <ul ref = {(instance) => {this.watchlistCollectionDOMRef[watchlist.name] = instance}} className = "hidden">
                                     {  

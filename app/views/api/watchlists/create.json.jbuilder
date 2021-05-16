@@ -1,1 +1,2 @@
-json.set! @watchlist.id, watchlist.name 
+json.id @watchlist.id
+json.name @watchlist.name 
