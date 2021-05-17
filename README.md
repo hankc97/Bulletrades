@@ -10,7 +10,7 @@ Table of Contents
 
 ### Features
 ------
-* Authentication Using Bcrypt Hash
+* Authentication Using Bcrypt Hash to personalize each of our users
 * Users can manage each trade with real-time data to prevent errors
 * Users can purchase and sell tickers with partial shares and dollar amount (backend algorithm)
 * Users can create, read, update, and delete watchlists with an ergonomic UI design
