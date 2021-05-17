@@ -2,12 +2,6 @@ BulleTrades
 ======
 [Live Website](http://robins-app.herokuapp.com/#/)
 
-Table of Contents
-------
-* [Features](###Features)
-* [Background](###Background)
-* [Technologies](###Technologies)
-
 ### Features
 ------
 * Authentication Using Bcrypt Hash to personalize each of our users
