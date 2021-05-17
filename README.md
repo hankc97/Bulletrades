@@ -43,6 +43,6 @@ Bulletrades incorporates a dynamic search bar that gives users a color-coordinat
 All results are non duplicate to prevent additional queries
 
 
-![](http://i.imgur.com/60bts.gif)
+![](https://i.imgur.com/Z55Ix0g.gif)
 
 
