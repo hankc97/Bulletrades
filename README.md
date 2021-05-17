@@ -45,4 +45,35 @@ All results are non duplicate to prevent additional queries
 
 ![](https://i.imgur.com/Z55Ix0g.gif)
 
+## Purchasing and Selling both Partial Shares and Dollar Amounts 
+Bulletrades not only keeps track of each user purchases to prevent invalidated transactions, but we also implemented a binary search algorithm that finds the closest value to the user input price.
+Then it proceeds to delete objects starting from the index with two pointers with an O(n) time complexity. 
+```
+def self.use_binary_search_to_find_closest_index(array_of_objects, avg_ticker_price)
+        if array_of_objects.length() < 3
+            return [low = 0, high = 1]
+        end
+        if (avg_ticker_price < array_of_objects[0].avg_ticker_price)
+            return [low = 0, high = 1]
+        end
+        if (avg_ticker_price > array_of_objects[array_of_objects.length() - 1].avg_ticker_price)
+            return [low = array_of_objects.length() - 2, high = array_of_objects.length() - 1]
+        end
+
+        low = 0
+        high = array_of_objects.length() - 1
+        while (low <= high) 
+            midpoint = (high + low) / 2
+            if (avg_ticker_price < array_of_objects[midpoint].avg_ticker_price)
+                high = midpoint - 1
+            elsif (avg_ticker_price > array_of_objects[midpoint].avg_ticker_price)
+                low = midpoint + 1
+            else    
+                low = high - 1
+                return [low , high]
+            end
+        end
+        return [low, high]
+    end
+```
 
