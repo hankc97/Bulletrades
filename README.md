@@ -14,7 +14,7 @@ Table of Contents
 * Users can manage each trade with real-time data to prevent errors
 * Users can purchase and sell tickers with partial shares and dollar amount (backend algorithm)
 * Users can create, read, update, and delete watchlists with an ergonomic UI design
-* Modern searchbar and query feature that color coordinates two sets of results to allow users to find their desired stock
+* Modern searchbar and query feature that color coordinates two sets of results to allow users to find their desired result (prevents "tip of the toungue", lethologica)
 
 ### Background
 ------
