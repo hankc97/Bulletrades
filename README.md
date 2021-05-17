@@ -41,6 +41,6 @@ Backend
 ## Dynamic SearchBar
 Bulletrades incorporates a dynamic search bar that gives users a color-coordinated search result to pinpoint their desired result.
 All results are non duplicate to prevent additional queries
-![](https://imgur.com/a/7OOAi43.gif)
+![](http://i.imgur.com/60bts.gif)
 
 
