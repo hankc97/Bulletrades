@@ -1,11 +1,20 @@
-BulleTrading
+BulleTrades
 ======
 [Live Website](http://robins-app.herokuapp.com/#/)
 
 Table of Contents
 ------
+* [Features](###Features)
 * [Background](###Background)
 * [Technologies](###Technologies)
+
+### Features
+------
+* Authentication Using Bcrypt Hash
+* Users can manage each trade with real-time data to prevent errors
+* Users can purchase and sell tickers with partial shares and dollar amount (backend algorithm)
+* Users can create, read, update, and delete watchlists with an ergonomic UI design
+* Modern searchbar and query feature that color coordinates two sets of results to allow users to find their desired stock
 
 ### Background
 ------
@@ -17,7 +26,8 @@ that will impact your overall buying power. Users also have the ability to view 
 about a ticker before placing a trade giving them the power to analyze a stocks worth. 
 Visually, the site incorporates a live chart that users can hover over and check their progress 
 for each stock and their respective portfolio.
-
+--This project was built in 2 weeks
 
 ### Technologies
 ------
+
