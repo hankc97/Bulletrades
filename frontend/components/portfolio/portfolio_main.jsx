@@ -60,6 +60,9 @@ class PortfolioMain extends React.Component {
 
     displayToolTip(toolTipData) {
         if (this.totalReturnDollarAndPercentageDOMRef.current) {
+            if (!toolTipData.payload) {
+                return null;
+            }
             if (toolTipData.payload.length > 0) {
                 let hoveredChartPrice = parseFloat(toolTipData.payload[0].payload['price'])
                 let percentChartChangeToday =  ( ( hoveredChartPrice / this.props.formattedLifetimeTradesStartingAmount ) - 1 ) * 100
