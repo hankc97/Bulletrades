@@ -33,4 +33,14 @@ Server / Router / Controller
 
 Backend
 * Ruby on Rails Assoications
-* PostgreQL relational database
+* PostgreSQL relational database
+
+### Website Features
+------
+
+## Dynamic SearchBar
+Bulletrades incorporates a dynamic search bar that gives users a color-coordinated search result to pinpoint their desired result.
+All results are non duplicate to prevent additional queries
+![](https://imgur.com/a/7OOAi43.gif)
+
+
