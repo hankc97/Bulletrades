@@ -11,7 +11,7 @@ Table of Contents
 ### Features
 ------
 * Authentication Using Bcrypt Hash to personalize each of our users
-* Users can manage each trade with real-time data to prevent errors
+* Users can manage each trade with real-time data to track and prevent false transactions
 * Users can purchase and sell tickers with partial shares and dollar amount (backend algorithm)
 * Users can create, read, update, and delete watchlists with an ergonomic UI design
 * Modern searchbar and query feature that color coordinates two sets of results to allow users to find their desired result (prevents "tip of the tongue", lethologica)
@@ -30,4 +30,13 @@ for each stock and their respective portfolio.
 
 ### Technologies
 ------
+Frontend
+* Javascript
+* React / Redux
 
+Server / Router / Controller
+* Ruby on Rails
+
+Backend
+* Ruby on Rails Assoications
+* PostgreQL relational database
