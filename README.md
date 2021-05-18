@@ -76,4 +76,4 @@ def self.use_binary_search_to_find_closest_index(array_of_objects, avg_ticker_pr
         return [low, high]
     end
 ```
-
+![](https://i.imgur.com/A5p5HZF.gif)
