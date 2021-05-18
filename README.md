@@ -79,6 +79,7 @@ def self.use_binary_search_to_find_closest_index(array_of_objects, avg_ticker_pr
 ![](https://i.imgur.com/A5p5HZF.gif)
 
 ## Create, Read, Update, Delete Watchlists with Modern UI and Fast Backend Query 
+Watchlist and Ticker are a many to many relationship, I used a joins to table to reference and update each other accordingly. 
 ![](https://i.imgur.com/EwxkIXF.gif)
 
 
