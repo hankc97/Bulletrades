@@ -1,6 +1,6 @@
 class Api::WatchlistsController < ApplicationController
     def index 
-        @all_watchlists = Watchlist.all
+        @all_watchlists = Watchlist.all.where(user_id: current_user.id)
         
         if @all_watchlists
             render 'api/watchlists/index'

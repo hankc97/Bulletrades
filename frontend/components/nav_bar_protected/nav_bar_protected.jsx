@@ -127,10 +127,10 @@ class NavBarRight extends React.Component {
         const logoutUser = this.props.logoutUser
         return (
             <div className = "nav-bar-protected-right">
-                <NavLink to = "" className = "protect-right">Free Stocks</NavLink>
-                <NavLink to = "" className = "protect-right">Portfolio</NavLink>
-                <NavLink to = "" className = "protect-right">Cash</NavLink>
-                <NavLink to = "" className = "protect-right">Messages</NavLink>
+                <NavLink to = "/portfolio" className = "protect-right">Portfolio</NavLink>
+                <a href = "https://github.com/hankc97/Bulletrades" target = "_blank" className = "protect-right">Github</a>
+                <a href = "https://www.linkedin.com/in/hank-chen-software-developer/" target = "_blank" className = "protect-right" >Linkedin</a>
+                <a to = "" className = "protect-right">Resume</a>
                 <button className = "portfolio-logout-button protect-right" 
                         onClick = {logoutUser}
                         >Logout

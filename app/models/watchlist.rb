@@ -10,7 +10,7 @@
 #
 class Watchlist < ApplicationRecord
     validates :name, :user_id, presence: true
-    validates :name, uniqueness: true
+    validates_uniqueness_of :name, :scope => :user_id
 
     belongs_to :user,
         foreign_key: :user_id,

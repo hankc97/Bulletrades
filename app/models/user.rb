@@ -23,6 +23,8 @@ class User < ApplicationRecord
     validates :buying_power, :numericality => { :greater_than_or_equal_to => 0 }
 
     before_validation :ensure_session_token
+    after_create :ensure_watchlist
+    after_create :ensure_lifetime_trades
 
     has_many :ticker_orders,
         foreign_key: :user_id,
@@ -71,6 +73,14 @@ class User < ApplicationRecord
           self.session_token = new_session_token
         end
         self.session_token
+    end
+
+    def ensure_watchlist
+        Ticker.find_by(ticker: 'AAPL').watchlists << Watchlist.create({name: 'Demo Watchlists', user_id: self.id})
+    end
+
+    def ensure_lifetime_trades
+        self.lifetime_trades << [25000.00, DateTime.now]
     end
 
     def get_updated_buying_power(buying_power, quantity, avg_ticker_price, sale_type)

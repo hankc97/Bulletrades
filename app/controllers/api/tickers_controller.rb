@@ -5,7 +5,7 @@ class Api::TickersController < ApplicationController
     end
 
     def show
-        @all_watchlists = Watchlist.all
+        @all_watchlists = Watchlist.all.where(user_id: current_user.id)
         @checked_watchlists = Ticker.find_by(ticker: params[:id]).watchlists
         render 'api/tickers/show'
     end
