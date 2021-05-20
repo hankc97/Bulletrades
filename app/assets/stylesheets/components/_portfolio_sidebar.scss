@@ -4,6 +4,15 @@
     font-family: "Capsule Sans Text",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 
+.portfolio-sidebar-stocks-lists::-webkit-scrollbar {
+    display: none;
+}
+
+.portfolio-sidebar-stocks-lists{
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
 .portfolio-sidebar-stocks-lists {
     display:flex;
     flex-direction: column;

@@ -136,10 +136,12 @@ class SideBarContainer extends React.Component {
                         <span ref = {this.buyingPowerSpan}>${buyingPower} Buying Power Available</span>
                         <span ref = {this.shareAvailableSpan}>{sharesAvailable} Shares Available</span>
                     </div>
+                    <div className = "add-to-watchlists-container">
+                        <button className = "add-to-watchlists-button"
+                            onClick = {() => this.props.openModal('addWatchlist')}>
+                            Add To Watchlists</button>
+                    </div>
                 </div>
-                <button className = "add-to-watchlists-button"
-                        onClick = {() => this.props.openModal('addWatchlist')}>
-                        Add To Watchlists</button>
             </div>
         )
     }

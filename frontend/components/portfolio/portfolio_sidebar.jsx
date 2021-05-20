@@ -46,7 +46,6 @@ class Stocks extends React.Component {
             this.props.requestMultiTickerQuote(currentUserOrders.payload.map(order => order[0]))
         })
     }
-
  
     render() {
         const allCurrentUserTickerAndQuantity = this.props.allCurrentUserTickerAndQuantity 

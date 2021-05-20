@@ -1,5 +1,8 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithubSquare } from '@fortawesome/free-brands-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 export const HomePageComponent = () => (
     <>
@@ -82,8 +85,8 @@ export const HomePageComponent = () => (
         </div>
         <div className = "home-page-footer">
             <div className = "footer-icons">
-                <a href = "https://www.linkedin.com/in/hank-chen-software-developer/" target = "_blank"><i className="fa fa-linkedin"></i></a>
-                <a href = "https://github.com/hankc97" target = "_blank"><i className="fa fa-github"></i></a>
+                <a href = "https://www.linkedin.com/in/hank-chen-software-developer/" target = "_blank"><FontAwesomeIcon icon = {faGithubSquare} className = "footer-icon"/></a>
+                <a href = "https://github.com/hankc97" target = "_blank"><FontAwesomeIcon icon = {faLinkedin} className = "footer-icon"/></a>
             </div>
             <span>Hank Chen</span>
             <span>hankchen1997@gmail.com</span>

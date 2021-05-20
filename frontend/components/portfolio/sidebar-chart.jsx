@@ -33,7 +33,7 @@ class Chart extends React.Component {
 
         if (this.props.chartType === "ownedTickers") {
             [tickerName, quantity] = this.props.singleOrder
-            sharesDiv = <p>{quantity} Shares</p>
+            sharesDiv = <p>{quantity ? parseFloat(quantity).toFixed(2) : ''} Shares</p>
         } 
         if (this.props.chartType === "watchlist") {
             tickerName = this.props.tickerName

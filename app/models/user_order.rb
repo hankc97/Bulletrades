@@ -78,7 +78,7 @@ class UserOrder < ApplicationRecord
     end
 
     def self.use_binary_search_to_find_closest_index(array_of_objects, avg_ticker_price)
-        if array_of_objects.length() == 1
+         if array_of_objects.length() == 1
             return [low = 0, high = 0]
         end
         # change this to 4 later

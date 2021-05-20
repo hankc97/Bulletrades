@@ -19,6 +19,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .main-nav-icons {
+        font-size: 18px;
+        margin-left: 4px;
+    }
 }
 
 .nav-bar-right {

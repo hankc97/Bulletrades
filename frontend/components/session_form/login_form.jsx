@@ -1,4 +1,7 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 class LoginFormUser extends React.Component {
     constructor(props) {
@@ -84,7 +87,7 @@ class LoginFormUser extends React.Component {
                             <button 
                                 onClick = {this.handlePasswordVisibilityToggle}
                                 className = "icon-eye-button">
-                                {(this.state.passwordActive) ? <i className='fas fa-eye'></i> : <i className='fas fa-eye-slash'></i>}
+                                {(this.state.passwordActive) ? <FontAwesomeIcon icon = {faEye} /> : <FontAwesomeIcon icon = {faEyeSlash} />}
                             </button>
                             <p className = "password-login login-p">Password</p>
                             <input

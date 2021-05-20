@@ -172,13 +172,17 @@
 .footer-icons {
     display: flex;
     justify-content: space-between;
-    margin-top: 50px;
+    margin-top: 40px;
     width: 70px;
     font-size: 30px;
 }
 
 .footer-icons > i {
     cursor: pointer;
+}
+
+.footer-icons > a:hover {
+    color: #c3f53c;
 }
 
 .home-page-footer > span {
@@ -205,4 +209,9 @@
 
     pointer-events: all;
     top: calc(100vh - 5rem);
+  }
+
+
+  .back-to-top-link:hover {
+      color:rgb(0, 180, 5);
   }
