@@ -130,7 +130,8 @@ class NavBarRight extends React.Component {
                 <NavLink to = "/portfolio" className = "protect-right">Portfolio</NavLink>
                 <a href = "https://github.com/hankc97/Bulletrades" target = "_blank" className = "protect-right">Github</a>
                 <a href = "https://www.linkedin.com/in/hank-chen-software-developer/" target = "_blank" className = "protect-right" >Linkedin</a>
-                <a to = "" className = "protect-right">Resume</a>
+                <a href = "https://docs.google.com/gview?url=https://github.com/hankc97/portfolio/raw/main/Hank%20Resume.pdf&embedded=true" target = "_blank" className = "protect-right">Resume</a>
+                <a href = "https://hankc97.github.io/portfolio/" target = "_blank" className = 'protect-right'>Personal Website</a>
                 <button className = "portfolio-logout-button protect-right" 
                         onClick = {logoutUser}
                         >Logout

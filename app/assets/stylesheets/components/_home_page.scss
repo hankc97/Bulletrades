@@ -147,7 +147,7 @@
 }
 
 .fract-disclosure {
-    width: 260px;
+    width: 400px;
     margin-top: 60px;
     font-size: 18px;
     color: rgb(111,120,126);
@@ -155,7 +155,7 @@
 
 .fract-disclosure:hover {
     color: rgb(0, 180, 5);
-    cursor: pointer;
+    cursor: text;
 }
 
 .fract-disclosure > i {
@@ -191,6 +191,18 @@
 
 .home-page-footer > span {
     margin-top: 10px;
+}
+
+.home-page-footer > span:hover{
+    color: #c3f53c;
+}
+
+.home-page-footer > a {
+    margin-top: 10px;
+}
+
+.home-page-footer > a:hover{
+    color: #c3f53c;
 }
 
 .resume-link {

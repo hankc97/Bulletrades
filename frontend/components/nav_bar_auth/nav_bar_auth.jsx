@@ -19,7 +19,8 @@ class NavBarLeft extends React.Component {
                 <div className = "Logo"><h2 class = "bulletrades">BulleTrades</h2><img src = {window.btLogo}/></div>
                 <a href = "https://github.com/hankc97/Bulletrades" target = "_blank" className = "nav-bar-left-children">Github<FontAwesomeIcon className = "main-nav-icons" icon={faGithub} /></a>
                 <a href = "https://www.linkedin.com/in/hank-chen-software-developer/" target = "_blank" className = "nav-bar-left-children">Linkedin<FontAwesomeIcon className = "main-nav-icons" icon = {faLinkedin} /></a>
-                <a className = "nav-bar-left-children">Resume</a>
+                <a href = "https://docs.google.com/gview?url=https://github.com/hankc97/portfolio/raw/main/Hank%20Resume.pdf&embedded=true" target = "_blank" className = "nav-bar-left-children">Resume</a>
+                <a href = "https://hankc97.github.io/portfolio/" target = "_blank" className = "nav-bar-left-children">Other Projects</a>
                 <a href = "https://stocktwits.com/BulleTrades" target = "_blank" className = "nav-bar-left-children">Follow Us<FontAwesomeIcon icon = {faBell} className = "main-nav-icons"/></a>
             </div>
         )

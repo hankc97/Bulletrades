@@ -71,7 +71,7 @@ export const HomePageComponent = () => (
                 </div>
                 <div className = "fract-disclosure">
                     <i className="fa fa-info-circle"></i>
-                    <span>Fractional Shares Disclosure</span>
+                    <span>Check Out Purchasing and Selling with Partial Shares and Dollar Amounts When You Log In!</span>
                 </div>
             </div>
             <div>
@@ -89,10 +89,10 @@ export const HomePageComponent = () => (
                 <a href = "https://github.com/hankc97" target = "_blank"><FontAwesomeIcon icon = {faLinkedin} className = "footer-icon"/></a>
             </div>
             <span>Hank Chen</span>
-            <span>hankchen1997@gmail.com</span>
+            <span>hankchen1997@yahoo.com</span>
             <span>7187536588</span>
-            <span>portfolio-site-link</span>
-            <span className = "resume-link">resume-link</span>
+            <a href = "https://hankc97.github.io/portfolio/" target = "_blank" >Personal Website</a>
+            <a href = "https://docs.google.com/gview?url=https://github.com/hankc97/portfolio/raw/main/Hank%20Resume.pdf&embedded=true" target = "_blank">Resume</a>
             <div className = "back-to-top-wrapper">
                 <a 
                     href = "#top"
