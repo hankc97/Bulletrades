@@ -33,7 +33,7 @@ Server / Router / Controller
 
 Backend
 * Ruby on Rails Associations
-* PostgreSQL relational database
+* PostgreSQL 
 
 ### Website Features
 ------
