@@ -269,7 +269,7 @@ class TickerChartAbout extends React.Component {
                 </div>
                 <div ref = {this.tickerOwnedPositionContainer} className = "ticker-owned-position-container">
                     <div className = "ticker-owned-divs">
-                        <p>Your Market Value</p>
+                        <p>Market Value</p>
                         <span className = "inner-font-bold">${this.props.quote.markPrice}</span>
                         <div>
                             <span>Today's Return</span>

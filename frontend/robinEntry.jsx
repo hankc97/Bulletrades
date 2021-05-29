@@ -7,7 +7,7 @@ import {getAllWatchlist} from './utils/watchlist_util'
 import {createUserOrder} from './utils/user_transaction_util'
 import {login, fetchUser,updateUserBuyingPower} from './utils/user_session_util'
 import {fetchAllCurrentUserTickers} from './utils/user_order_util'
-import {fetchNewsByTickerName} from "./utils/news_api_util"
+import {fetchNewsByTickerName, fetchTopNews} from "./utils/news_api_util"
 import {fetchSingleTickerKeyStat, fetchSingleTickerCompany, fetchAllQuotes} from './utils/api_util'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.getState = store.getState
     window.dispatch = store.dispatch
-    window.getAllWatchlist = getAllWatchlist
-    window.fetchShowTickerWatchlistRelation = fetchShowTickerWatchlistRelation
-    window.fetchUpdatedTickerWatchlistRelation = fetchUpdatedTickerWatchlistRelation
+    // window.getAllWatchlist = getAllWatchlist
+    // window.fetchShowTickerWatchlistRelation = fetchShowTickerWatchlistRelation
+    // window.fetchUpdatedTickerWatchlistRelation = fetchUpdatedTickerWatchlistRelation
+    window.fetchTopNews = fetchTopNews
 })

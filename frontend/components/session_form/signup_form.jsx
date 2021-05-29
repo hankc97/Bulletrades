@@ -51,7 +51,7 @@ class SignupFormContainer extends React.Component {
                     </div>
                     <div className = "signup-page-mid-nav">
                         <h2 className = "signup-page-h2">Make Your Money Move</h2>
-                        <h3 className = "signup-page-h3">Robinhood lets you invest in companies you love, commision-free</h3>
+                        <h3 className = "signup-page-h3">BulleTrades lets you invest in companies you love, commision-free</h3>
                     </div>
                     <h4 className = "signup-page-h4">Please enter your full legal name. Your legal name should match any form of government ID.</h4>
                     <form onSubmit = {this.handleSubmit} className = "form-div-signup">
