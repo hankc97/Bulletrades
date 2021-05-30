@@ -14,7 +14,7 @@ export const fetchTopNews = () => {
         return new Promise((resolve, reject) => resolve($.parseJSON(newsData)))
     } else {
         return $.ajax({
-            url: `https://gnews.io/api/v4/top-headlines?token=${apiKey}`,
+            url: `https://gnews.io/api/v4/top-headlines?topic=business&technology&country=us&token=${apiKey}`,
             method: "GET",
             success: handleData
         })

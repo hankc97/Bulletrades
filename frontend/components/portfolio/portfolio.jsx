@@ -19,6 +19,8 @@ class Portfolio extends React.Component {
                         formattedMinAndMaxValueFromDataSet = {this.props.formattedMinAndMaxValueFromDataSet}
                         openModal = {this.props.openModal}
                         closeModal = {this.props.closeModal}
+                        requestTopNews = {this.props.requestTopNews}
+                        portfolioNews = {this.props.portfolioNews}
                         />
                     <PortfolioSideBar 
                         requestMultiTickerQuote = {this.props.requestMultiTickerQuote}

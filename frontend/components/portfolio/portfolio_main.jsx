@@ -26,11 +26,12 @@ class PortfolioMain extends React.Component {
 
     componentDidMount() {
         this.props.fetchCurrentUserAndFormattedLifetimeTrades()
+            .then(() => this.props.requestTopNews())
             .then(() => this.asynchLoadingTimer().then(() => this.setState({loading: false})))
     }
 
     asynchLoadingTimer() {
-        return new Promise((resolve) => setTimeout(() => resolve(), 1000));
+        return new Promise((resolve) => setTimeout(() => resolve(), 500));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -83,6 +84,10 @@ class PortfolioMain extends React.Component {
         return null;
     }
 
+    convertToHoursFromZuluCurrentTime(zuluTime) {
+        return parseInt((Date.parse(new Date()) - Date.parse(zuluTime)) / 3600000)
+    }
+
     render() {
         const {loading} = this.state
         if (loading) {
@@ -107,6 +112,33 @@ class PortfolioMain extends React.Component {
         let chartData; 
         if (this.props.formattedLifetimeTrades) chartData = this.props.formattedLifetimeTrades
         
+        let portfolioNews
+        if (this.props.portfolioNews) {
+            portfolioNews = this.props.portfolioNews.map(singleNews => {
+                return (
+                    <a href = {singleNews.source.url} key = {singleNews.title} target="_blank">
+                        <div className = "ssingle-portfolio-news-container">
+                            <div className = "portfolio-news-about">
+                                <div className = "portfolio-name-and-publishedat">
+                                    <span>{singleNews.source.name}</span>
+                                    <p>{this.convertToHoursFromZuluCurrentTime(singleNews.publishedAt)}h</p>
+                                </div>
+                                <span className = "single-portfolio-title">{singleNews.title}</span>
+                                <p className = "single-portfolio-description">{singleNews.description}</p>
+                            </div>
+                            <img 
+                                draggable="false" 
+                                role="presentation" 
+                                srcSet = {singleNews.image}
+                                className = "portfolio-news-img"
+                            />
+                        </div>
+                    </a>
+                )
+            })
+        }
+
+
         return(
             <div className = "portfolio-main">
                 <div className = "buying-power-top-info">
@@ -175,8 +207,10 @@ class PortfolioMain extends React.Component {
                     </div>
                 </div>
                 <div className = "portfolio-news">
-                    <span>News</span>
-                    <ul></ul>
+                    <span className = "portfolio-news-text">News</span>
+                    <ul className = "portfolio-news-container">
+                        {portfolioNews}
+                    </ul>
                 </div>
             </div>
         )

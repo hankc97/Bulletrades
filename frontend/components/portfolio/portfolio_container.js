@@ -17,6 +17,10 @@ import {
     requestDestroyWatchlist
 } from '../../actions/watchlist'
 
+import {
+    requestTopNews
+} from '../../actions/news_api'
+
 import {fetchAllUserTickerAndQuantity} from '../../actions/user_transaction'
 import {requestMultiTickerQuote} from '../../actions/ticker_api'
 import {fetchCurrentUserAndFormattedLifetimeTrades} from '../../actions/user_session'
@@ -31,7 +35,8 @@ const mapStateToProps = (state) => ({
     allCurrentUserTickerAndQuantity: setInitialEntityState(state.entities.currentUserOrders),
     quotes: state.entities.currentTickerPageQuote,
     watchlist: setInitialEntityWatchlist(state.entities.watchlist.watchlistsBackend),
-    watchlistAPI: state.entities.watchlist.watchlistsAPI
+    watchlistAPI: state.entities.watchlist.watchlistsAPI,
+    portfolioNews: Object.values(state.entities.news)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -43,6 +48,7 @@ const mapDispatchToProps = dispatch => ({
     requestAllWatchlistAPI: (tickersArr) => dispatch(requestAllWatchlistAPI(tickersArr)),
     requestCreateWatchlist: (watchlist) => dispatch(requestCreateWatchlist(watchlist)),
     requestDestroyWatchlist: (id) => dispatch(requestDestroyWatchlist(id)),
+    requestTopNews: () => dispatch(requestTopNews())
 })
 
 export default connect(

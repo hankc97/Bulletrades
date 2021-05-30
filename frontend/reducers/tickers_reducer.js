@@ -9,11 +9,6 @@ import {
 
 import {RECEIVE_SINGLE_CURRENT_USER_ORDER, RECEIVE_NEW_USER_ORDER, RECEIVE_UPDATED_USER_ORDER, DELETE_USER_ORDER} from '../actions/user_transaction'
 
-import {
-    RECEIVE_SINGLE_TICKER_NEWS
-} from '../actions/news_api'
-
-
 const _nullQuote = Object.freeze({
     
 })
@@ -54,11 +49,6 @@ const tickersReducer = (state = _nullQuote, action) => {
                 phone: action.company.phone,
             }
             return Object.assign({}, newState, companyData)
-        case RECEIVE_SINGLE_TICKER_NEWS:
-            const news = {
-                news: action.news.articles
-            }
-            return Object.assign({}, newState, news)
         case RECEIVE_SINGLE_CURRENT_USER_ORDER:
             const portfolioPercentage = {
                 portfolioPercentage: action.payload.portfolioPercentage

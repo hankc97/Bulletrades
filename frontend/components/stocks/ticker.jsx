@@ -240,7 +240,6 @@ class TickerChartAbout extends React.Component {
                             cursor = {{stroke: null}}
                             position={{ y: 50 }}
                             offset = {35}
-                            // viewBox={{ x: 0, y: 0, width: 650, height: 200 }}
                         />
                         <Line   
                             className = "recharts-line"
