@@ -31,7 +31,6 @@ class NavBarSearch extends React.Component {
 
     componentDidMount() {
         fetchAllTickers().then(data => this.state.allTickers = data)
-        // loader finished loading here -->
     }
 
     componentWillUnmount() {
@@ -130,7 +129,7 @@ class NavBarRight extends React.Component {
                 <NavLink to = "/portfolio" className = "protect-right">Portfolio</NavLink>
                 <a href = "https://github.com/hankc97/Bulletrades" target = "_blank" className = "protect-right">Github</a>
                 <a href = "https://www.linkedin.com/in/hank-chen-software-developer/" target = "_blank" className = "protect-right" >Linkedin</a>
-                <a href = "https://docs.google.com/gview?url=https://github.com/hankc97/portfolio/raw/main/Hank%20Resume.pdf&embedded=true" target = "_blank" className = "protect-right">Resume</a>
+                <a href = "https://docs.google.com/document/d/1nfSzrwMyI5m_-IIx8WJtwkf1oUiiEguD-CqQZaYD4Bc/edit?usp=sharing" target = "_blank" className = "protect-right">Resume</a>
                 <a href = "https://hankc97.github.io/portfolio/" target = "_blank" className = 'protect-right'>Personal Website</a>
                 <button className = "portfolio-logout-button protect-right" 
                         onClick = {logoutUser}
@@ -143,13 +142,3 @@ class NavBarRight extends React.Component {
 
 
 export default (NavBarProtected)
-
-
-// handleClick(e) {
-//     e.preventDefault()
-//     const currentTargetValue = e.currentTarget.innerText 
-//     this.props.history.push({
-//         pathname: "/stocks",
-//         search: `${currentTargetValue}`
-//     })
-// }

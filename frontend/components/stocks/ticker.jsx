@@ -72,11 +72,15 @@ class TickerChartAbout extends React.Component {
 
     displayToolTip(toolTipData) {
         if (this.currentMarkPriceDOMRef.current) {
+            if (!toolTipData.payload) {
+                return null;
+            }
             if (toolTipData.payload.length > 0) {
+                const openingPrice = this.props.historicalQuote[this.props.tickerName].chart[0].open
                 let hoveredChartPrice = toolTipData.payload[0].payload['price']
-                let percentChartChangeToday =  ( ( hoveredChartPrice / this.props.quote["intradayPrices"][0].open ) - 1 ) * 100
-                let priceChangeToday = hoveredChartPrice - this.props.quote["intradayPrices"][0].open
-                let sign = (hoveredChartPrice > this.props.quote["intradayPrices"][0].open) ? "+" : ""
+                let percentChartChangeToday =  ( ( hoveredChartPrice / openingPrice ) - 1 ) * 100
+                let priceChangeToday = hoveredChartPrice - openingPrice
+                let sign = (hoveredChartPrice > openingPrice) ? "+" : ""
 
                 this.currentMarkPriceDOMRef.current.classList.add('hideDOMRef')
                 this.currentTodayChangePriceDOMRef.current.classList.add('hideDOMRef')

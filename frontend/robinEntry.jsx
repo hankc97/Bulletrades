@@ -20,7 +20,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     ReactDOM.render(<Root store = {store}/>, document.getElementById("root"))
-
-    window.getState = store.getState
-    window.dispatch = store.dispatch
 })

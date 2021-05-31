@@ -1,15 +1,4 @@
-// import {apiKey, accessToken} from './secret'
 const apiKey = "Tsk_6b961e8b1aa940d2a1bd1b56c08f54d8"
-
-// export const fetchSingleTickerQuote = ticker => (
-//     $.ajax({
-//         method: "GET",
-//         url: `https://api.tdameritrade.com/v1/marketdata/${ticker}/quotes?apikey=${apiKey}`,
-//         headers: {
-//             "Authorization": `Bearer ${accessToken}`
-//         }
-//     })
-// )
 
 export const fetchSingleTickerQuote = (ticker) => {
     return $.ajax({

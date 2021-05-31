@@ -92,7 +92,7 @@ export const HomePageComponent = () => (
             <span>hankchen1997@yahoo.com</span>
             <span>7187536588</span>
             <a href = "https://hankc97.github.io/portfolio/" target = "_blank" >Personal Website</a>
-            <a href = "https://docs.google.com/gview?url=https://github.com/hankc97/portfolio/raw/main/Hank%20Resume.pdf&embedded=true" target = "_blank">Resume</a>
+            <a href = "https://docs.google.com/document/d/1nfSzrwMyI5m_-IIx8WJtwkf1oUiiEguD-CqQZaYD4Bc/edit?usp=sharing" target = "_blank">Resume</a>
             <div className = "back-to-top-wrapper">
                 <a 
                     href = "#top"
