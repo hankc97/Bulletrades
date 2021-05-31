@@ -29,7 +29,8 @@ Frontend
 * React / Redux
 
 Server / Router / Controller
-* Ruby on Rails
+* Jquery ajax
+* Ruby on Rails Router
 
 Backend
 * Ruby on Rails Associations
