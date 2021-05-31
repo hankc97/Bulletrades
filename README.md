@@ -83,7 +83,7 @@ Watchlists and Tickers are a many to many relationship, I used a joins to table 
 
 ![](https://i.imgur.com/EwxkIXF.gif)
 
-## LRU Client Caching to prevent repetitive and unnecessary user requests to API 
+## Client Caching to prevent repetitive and unnecessary user requests to API 
 ```
 export const fetchNewsByTickerName = (tickerName) => {
     let newsData = sessionStorage.getItem(`${tickerName}`)
