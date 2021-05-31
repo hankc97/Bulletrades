@@ -6,7 +6,7 @@ import {
 export const RECEIVE_SINGLE_TICKER_NEWS = "RECEIVE_SINGLE_TICKER_NEWS"
 export const RECEIVE_TOP_NEWS = "RECEIVE_TOP_NEWS"
 
-const receiveSingleTickerNews = (news) => ({
+const receiveSingleTickerNews = news => ({
     type: RECEIVE_SINGLE_TICKER_NEWS,
     news
 })

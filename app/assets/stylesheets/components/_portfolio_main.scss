@@ -187,7 +187,6 @@
         }
 
         .portfolio-news-container {
-            
 
             .ssingle-portfolio-news-container {
                 border-bottom: 1px solid rgb(64,73,78);
@@ -196,10 +195,12 @@
                 padding-top: 20px;
                 padding-bottom: 20px;
                 align-items: center;
+                justify-content: space-between;
 
                 .portfolio-news-about {
                     display: flex;
                     flex-direction: column;
+                    width: 500px;
 
                     .portfolio-name-and-publishedat {
                         display: flex;

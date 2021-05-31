@@ -138,7 +138,6 @@ class PortfolioMain extends React.Component {
             })
         }
 
-
         return(
             <div className = "portfolio-main">
                 <div className = "buying-power-top-info">

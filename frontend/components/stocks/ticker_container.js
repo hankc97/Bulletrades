@@ -16,7 +16,6 @@ import { getTotalQuantityWithTotalAvgPrice } from '../../reducers/selectors'
 import {openModal} from '../../actions/modal'
 import {requestShowTickerWatchlistRelation} from '../../actions/ticker'
 
-
 const mapStateToProps = (state, ownProps) => {
     return {
         tickerName: ownProps.tickerName,
@@ -25,7 +24,8 @@ const mapStateToProps = (state, ownProps) => {
         news: state.entities.currentTickerPageQuote.news,
         currentUser: state.entities.currentUser[state.session.id],
         currentUserOrder: getTotalQuantityWithTotalAvgPrice(state.entities.currentUserOrders),
-        portfolioPercentageValue: state.entities.currentTickerPageQuote.portfolioPercentage * 100
+        portfolioPercentageValue: state.entities.currentTickerPageQuote.portfolioPercentage * 100,
+        tickerNews: Object.values(state.entities.news)
     }
 }
 

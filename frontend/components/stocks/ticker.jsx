@@ -26,6 +26,7 @@ class Ticker extends React.Component {
                         receiveSingleCurrentUserOrders = {this.props.receiveSingleCurrentUserOrders}
                         portfolioPercentageValue = {this.props.portfolioPercentageValue}
                         currentUserOrder = {this.props.currentUserOrder}
+                        tickerNews = {this.props.tickerNews}
                     />
                     <SideBarTicker 
                         currentUser = {this.props.currentUser}
@@ -97,8 +98,9 @@ class TickerChartAbout extends React.Component {
             this.props.requestSingleTickerQuote([this.props.tickerName]),
             this.props.requestSingleTickerKeyStat(this.props.tickerName),
             this.props.requestSingleTickerCompany(this.props.tickerName),
-            this.props.receiveSingleCurrentUserOrders(this.props.tickerName)
-        ]).then( ([res1, res2, res3, res4]) => {
+            this.props.receiveSingleCurrentUserOrders(this.props.tickerName),
+            this.props.requestSingleTickerNews(this.props.tickerName)
+        ]).then( ([res1, res2, res3, res4, res5]) => {
             if (Object.keys(res4.payload).length === 2) {
                 _this.asynchLoadingTimer().then(() => _this.setState({loading: false, hasTicker: true}))
             } else {
@@ -108,7 +110,7 @@ class TickerChartAbout extends React.Component {
     }
 
     asynchLoadingTimer() {
-        return new Promise((resolve) => setTimeout(() => resolve(), 1000));
+        return new Promise((resolve) => setTimeout(() => resolve(), 500));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -132,9 +134,7 @@ class TickerChartAbout extends React.Component {
             this.props.requestSingleTickerQuote(this.props.tickerName).then(() => 
                 this.props.requestSingleTickerKeyStat(this.props.tickerName).then(() =>
                     this.props.requestSingleTickerCompany(this.props.tickerName)))
-                        // .then((res) => {
-                        //     this.props.requestSingleTickerNews(res.company.companyName)
-                        //     })
+                        .then(() => this.props.requestSingleTickerNews(this.props.tickerName))
                         .then(() => this.props.receiveSingleCurrentUserOrders(this.props.tickerName))
             this.setState({chartDate: "1D"})
         }
@@ -160,6 +160,10 @@ class TickerChartAbout extends React.Component {
             formatHistoricalPriceArray.push({time: pricesArray[i].date, price: pricesArray[i].open})
         }
         return formatHistoricalPriceArray
+    }
+
+    convertToHoursFromZuluCurrentTime(zuluTime) {
+        return parseInt((Date.parse(new Date()) - Date.parse(zuluTime)) / 3600000)
     }
 
     render() {
@@ -190,27 +194,30 @@ class TickerChartAbout extends React.Component {
         let percentChangePrice = ((( totalAvgPrice / this.props.quote.markPrice ) - 1 ) * 100).toFixed(2)
         let totalReturnValues = (totalAvgPrice > this.props.quote.markPrice) ? `+${dollarReturnPrice} (+${percentChangePrice}%)` : `${dollarReturnPrice} (${percentChangePrice}%)`
 
-        // if (this.props.news) {
-        //     this.props.news.map(singleNews => {
-        //         return (
-        //             <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
-        //                 <div className = "single-news-about">
-        //                     <div>
-        //                         <span>{singleNews.source.name}</span>
-        //                         <p>{singleNews.publishedAt}</p>
-        //                     </div>
-        //                     <span>{singleNews.title}</span>
-        //                     <p>{singleNews.description}</p>
-        //                 </div>
-        //                 <img 
-        //                     draggable="false" 
-        //                     role="presentation" 
-        //                     srcSet = {singleNews.urlToImage}
-        //                     className = "news-img"
-        //                 />
-        //             </a>
-        //         )
-        // })}
+        let tickerNews 
+        if (this.props.tickerNews) {
+            tickerNews = this.props.tickerNews.map(singleNews => {
+                return (
+                    <a href = {singleNews.source.url} key = {singleNews.title} target="_blank">
+                        <div className = "ssingle-portfolio-news-container">
+                            <div className = "portfolio-news-about">
+                                <div className = "portfolio-name-and-publishedat">
+                                    <span>{singleNews.source.name}</span>
+                                    <p>{this.convertToHoursFromZuluCurrentTime(singleNews.publishedAt)}h</p>
+                                </div>
+                                <span className = "single-portfolio-title">{singleNews.title}</span>
+                                <p className = "single-portfolio-description">{singleNews.description}</p>
+                            </div>
+                            <img 
+                                draggable="false" 
+                                role="presentation" 
+                                srcSet = {singleNews.image}
+                                className = "portfolio-news-img"
+                            />
+                        </div>
+                    </a>
+                )
+        })}
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
@@ -334,34 +341,11 @@ class TickerChartAbout extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className = "ticker-news-container">
-                    <div className = "ticker-news-text">News</div>
-                    {/* <ul className = "">
-                       {
-                           this.props.news ? (
-                                this.props.news.map(singleNews => {
-                                    return (
-                                        <a href = {singleNews.url} key = {singleNews.title} className = "single-news-container" target="_blank">
-                                            <div className = "single-news-about">
-                                                <div>
-                                                    <span>{singleNews.source.name}</span>
-                                                    <p>{singleNews.publishedAt}</p>
-                                                </div>
-                                                <span>{singleNews.title}</span>
-                                                <p>{singleNews.description}</p>
-                                            </div>
-                                            <img 
-                                                draggable="false" 
-                                                role="presentation" 
-                                                srcSet = {singleNews.urlToImage}
-                                                className = "news-img"
-                                            />
-                                        </a>
-                                    )
-                                })
-                            ) : ( "" )
-                        }
-                    </ul> */}
+                <div className = "ticker-news">
+                    <span className = "ticker-news-text">News</span>
+                    <ul className = "ticker-news-container">
+                        {tickerNews}
+                    </ul>
                 </div>
             </div>
         )
