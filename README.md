@@ -29,7 +29,8 @@ Frontend
 * React / Redux
 
 Server / Router / Controller
-* Ruby on Rails
+* Jquery ajax
+* Ruby on Rails Router
 
 Backend
 * Ruby on Rails Associations
@@ -83,4 +84,21 @@ Watchlists and Tickers are a many to many relationship, I used a joins to table 
 
 ![](https://i.imgur.com/EwxkIXF.gif)
 
+## Client Caching to prevent repetitive and unnecessary user requests to API 
+```
+export const fetchNewsByTickerName = (tickerName) => {
+    let newsData = sessionStorage.getItem(`${tickerName}`)
+    if (newsData !== null) {
+        return new Promise((resolve, reject) => resolve($.parseJSON(newsData)))
+    } else {
+        return $.ajax({
+            url: `https://gnews.io/api/v4/search?q=${tickerName}&max=5&lang=en&country=us&sortby=publishedAt&to&token=${apiKey}`,
+            method: "GET",
+            success: function(data) {
+                sessionStorage.setItem(`${tickerName}`, JSON.stringify(data.articles))
+            }
+        })
+    }
+}
+```
 
