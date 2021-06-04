@@ -16,7 +16,6 @@ export const fetchNewsByTickerName = (tickerName) => {
 }
 
 export const fetchTopNews = () => {
-    debugger
     let newsData = sessionStorage.getItem('portfolio-news')
     if (newsData !== null) {
         return new Promise((resolve, reject) => resolve($.parseJSON(newsData)))
