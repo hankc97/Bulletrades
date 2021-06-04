@@ -76,7 +76,7 @@ class TickerChartAbout extends React.Component {
                 return null;
             }
             if (toolTipData.payload.length > 0) {
-                const openingPrice = this.props.historicalQuote[this.props.tickerName].chart[0].open
+                const openingPrice = this.props.quote['intradayPrices'][0].open
                 let hoveredChartPrice = toolTipData.payload[0].payload['price']
                 let percentChartChangeToday =  ( ( hoveredChartPrice / openingPrice ) - 1 ) * 100
                 let priceChangeToday = hoveredChartPrice - openingPrice
@@ -222,6 +222,9 @@ class TickerChartAbout extends React.Component {
                     </a>
                 )
         })}
+
+        let totalMarketValue
+        if (numberOfSharesAvailable) totalMarketValue = (this.props.quote.markPrice * numberOfSharesAvailable).toFixed(2)
         return(
             <div className = "ticker-chart-and-about-container">
                 <div className = "ticker-chart-container">
@@ -279,8 +282,8 @@ class TickerChartAbout extends React.Component {
                 </div>
                 <div ref = {this.tickerOwnedPositionContainer} className = "ticker-owned-position-container">
                     <div className = "ticker-owned-divs">
-                        <p>Market Value</p>
-                        <span className = "inner-font-bold">${this.props.quote.markPrice}</span>
+                        <p>Total Market Value</p>
+                        <span className = "inner-font-bold">${totalMarketValue}</span>
                         <div>
                             <span>Today's Return</span>
                             <span>{(this.props.quote.changePercentage) ? this.props.quote.changePercentage.toFixed(2) : ""}% <span>Today</span></span>
