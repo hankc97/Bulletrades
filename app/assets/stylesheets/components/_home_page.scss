@@ -39,13 +39,29 @@
     color: white;
     padding: 15px 36px;
     height: 48px;
-    min-width: 144px;
+    width: 144px;
+    border-radius: 24px;
+    background: black;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.home-page-signup-button:hover {
+    background-color: rgb(81, 82, 83);
+}
+
+.home-page-demo-button {
+    font-weight: bold;
+    color: white;
+    padding: 15px 43px;
+    height: 48px;
+    width: 144px;
     border-radius: 24px;
     background: black;
     text-align: center;
 }
 
-.home-page-signup-button:hover {
+.home-page-demo-button:hover {
     background-color: rgb(81, 82, 83);
 }
 

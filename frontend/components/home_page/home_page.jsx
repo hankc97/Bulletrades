@@ -2,9 +2,9 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithubSquare } from '@fortawesome/free-brands-svg-icons'
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
-export const HomePageComponent = () => (
+const HomePageComponent = () => (
     <>
         <div className = "home-page-main-div-1">
             <div className = "home-page-top-about">
@@ -17,6 +17,7 @@ export const HomePageComponent = () => (
                     free. Certain limitations apply.
                 </p>
                 <NavLink className = "home-page-signup-button" to = '/signup' >Sign Up</NavLink>
+                <NavLink className = "home-page-demo-button" to = '/login' >Demo</NavLink>
             </div>
             <div className = 'home-page-background' >
                 <video controlsList="nodownload nofullscreen noremoteplayback"
@@ -105,3 +106,6 @@ export const HomePageComponent = () => (
         </div>
     </>
 )
+
+
+export default HomePageComponent
